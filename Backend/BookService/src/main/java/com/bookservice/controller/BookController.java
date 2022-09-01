@@ -1,6 +1,5 @@
 package com.bookservice.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,17 +11,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bookservice.entity.Book;
+import com.bookservice.requestentity.Cbook;
+import com.bookservice.responseentity.Sbook;
 import com.bookservice.service.BookService;
 
 @RestController
-@RequestMapping("/bookservice")
+@RequestMapping("/books")
 public class BookController {
 
 	@Autowired
 	BookService bookservice;
 
 	@PostMapping("/create")
-	Integer saveBook(@RequestBody Book book) {
+	Integer saveBook(@RequestBody Cbook book) {
 
 		bookservice.saveBook(book);
 
@@ -32,15 +33,16 @@ public class BookController {
 	@PostMapping("/create/author/{authorId}")
 	Integer saveBook1(@RequestBody Book book, @PathVariable("authorId") Integer id) {
 
-		bookservice.saveBook(book);
+		// bookservice.saveBook(book);
 
 		return book.getId();
 	}
 
 	@GetMapping("/search/category/{category}/price/{price}/publisher/{publisher}")
-	List<Book> getBooks(@PathVariable("category") String category, @PathVariable("price") Double price,
+	List<Sbook> getBooks(@PathVariable("category") String category, @PathVariable("price") Double price,
 			@PathVariable("publisher") String publisher) {
-		List<Book> list = new ArrayList<>();
+
+		List<Sbook> list = bookservice.getBooks(publisher, price, publisher);
 
 		return list;
 
