@@ -6,7 +6,7 @@ import javax.persistence.Id;
 
 @Entity
 public class Reader {
-
+	
 	@Id
 	@GeneratedValue
 	private Integer id;

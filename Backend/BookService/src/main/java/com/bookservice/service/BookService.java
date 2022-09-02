@@ -1,14 +1,15 @@
 package com.bookservice.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bookservice.BookRepository;
+import com.bookservice.ReaderRepository;
 import com.bookservice.entity.Author;
 import com.bookservice.entity.Book;
+import com.bookservice.entity.Reader;
 import com.bookservice.requestentity.Cbook;
 import com.bookservice.responseentity.Sbook;
 
@@ -16,12 +17,15 @@ import com.bookservice.responseentity.Sbook;
 public class BookService {
 
 	@Autowired
-	BookRepository bookRepository;
+	private BookRepository bookRepository;
+
+	@Autowired
+	private ReaderRepository readerRepository;
 
 	public Integer saveBook(Cbook book) {
 
 		Book book1 = new Book();
-
+		book1.setId(book.getId());
 		book1.setImage(book.getImage());
 		book1.setCategory(book.getCategory());
 		book1.setContent(book.getContent());
@@ -32,22 +36,25 @@ public class BookService {
 
 		Author author = new Author();
 
-		// author.setId(book.getAuthorId());
+		author.setId(book.getAuthorId());
 		author.setName(book.getAuthorName());
-
-		book1.setAuthor(author);
 
 		bookRepository.save(book1);
 
 		return book1.getId();
 	}
 
-	public List<Sbook> getBooks(String category, Double price, String publisher) {
+	// public List<Sbook> getBooks(String category, Double price, String publisher)
+	// {
 
-		List<Sbook> books = bookRepository.getBooks(category, price, publisher);
+	// List<Sbook> books = bookRepository.getBooks(category, price, publisher);
 
-		return books;
+	// return books;
 
+	public Integer saveUser(Reader reader) {
+		Reader id = readerRepository.save(reader);
+
+		return id.getId();
 	}
 
 }

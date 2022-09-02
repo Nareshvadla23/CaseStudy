@@ -6,17 +6,19 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 
 @Entity
 public class Author {
-
+	
 	@Id
 	@GeneratedValue
 	private Integer id;
 	private String name;
 
 	@OneToMany(targetEntity = Book.class, cascade = CascadeType.ALL)
+	@JoinColumn(name ="author_fk",referencedColumnName = "id")
 	private List<Book> book;
 
 	public List<Book> getBook() {
@@ -42,5 +44,6 @@ public class Author {
 	public void setName(String name) {
 		this.name = name;
 	}
+
 
 }
