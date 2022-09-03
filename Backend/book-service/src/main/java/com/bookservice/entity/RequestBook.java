@@ -1,21 +1,33 @@
 package com.bookservice.entity;
 
+import java.time.LocalDate;
+
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
-@Entity
-public class Book {
+@Entity(name ="book")
+public class RequestBook {
 	
 	@Id
+	@GeneratedValue
 	private Integer id;
 	private String image;
 	private String title;
 	private String category;
 	private Double price; 
 	private String publisher;
-	private String publishedDate;
+	private LocalDate publishedDate;
 	private String content;
 	private Boolean status;
+	private String author;
+	
+	public String getAuthor() {
+		return author;
+	}
+	public void setAuthor(String author) {
+		this.author = author;
+	}
 	public Integer getId() {
 		return id;
 	}
@@ -52,10 +64,10 @@ public class Book {
 	public void setPublisher(String publisher) {
 		this.publisher = publisher;
 	}
-	public String getPublishedDate() {
+	public LocalDate getPublishedDate() {
 		return publishedDate;
 	}
-	public void setPublishedDate(String publishedDate) {
+	public void setPublishedDate(LocalDate publishedDate) {
 		this.publishedDate = publishedDate;
 	}
 	public String getContent() {
