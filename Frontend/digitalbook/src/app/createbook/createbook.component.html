@@ -1,0 +1,23 @@
+<h1> CREATE BOOK</h1>
+<div>
+    <label for="image">Image</label><br>
+    <input [(ngModel)]='book.image'><br>
+    <label for="author">Author</label><br>
+    <input [(ngModel)]='book.author'><br>
+    <label for="image">Title</label><br>
+    <input [(ngModel)]='book.title'><br>
+    <label for="author">Category</label><br>
+    <input [(ngModel)]='book.category'><br>
+    <label for="image">Publisher</label><br>
+    <input [(ngModel)]='book.publisher'><br>
+    <label for="author">PublishedDate</label><br>
+    <input [(ngModel)]='book.publisherdate'><br>
+    <label for="image">Status</label><br>
+    <input [(ngModel)]='book.status'><br>
+    <label for="author">Content</label><br>
+    <input [(ngModel)]='book.content'><br>
+
+</div>
+<div>
+    <button (click)='saveBook()' class='btn btn-success'>Save</button>
+</div>

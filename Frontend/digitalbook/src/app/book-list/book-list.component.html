@@ -1,0 +1,28 @@
+<h2> LIST OF BOOKS </h2>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Author</th>
+            <th>Title</th>
+            <th>Category</th>
+            <th>Publisher</th>
+            <th>Publisherdate</th>
+            <th>Price</th>
+            <th>Image</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor = "let rbook of rbooks">
+            <td>{{rbook.author}}</td>
+            <td>{{rbook.title}}</td>
+            <td>{{rbook.category}}</td>
+            <td>{{rbook.publisher}}</td>
+            <td>{{rbook.publisherdate}}</td>
+            <td>{{rbook.price}}</td>
+            <td>{{rbook.image}}</td>
+            <button type="button" class="btn btn-secondary">buy</button>
+        </tr>  
+
+    </tbody>
+
+</table>
