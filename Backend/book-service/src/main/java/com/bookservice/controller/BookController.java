@@ -36,22 +36,22 @@ public class BookController {
 		Integer id = bookService.SaveMbook(book);
 		return id;
 	}
-
+ 
 	@PostMapping("/saveAuthor")
 	public Integer saveAuthor(@RequestBody Author author) {
 		Integer id = bookService.saveAuthor(author);
 
-		return id;
+		return id; 
 	}
 
 	@GetMapping("/allbooks")
-	public List<ResponseBook> getBooks() {
+	public List<ResponseBook> getBooks() throws Exception {
 		return ReaderService.getAllBooks();
 	}
 
 	
 	@GetMapping("/ByPrice/{price}")
-	public List<ResponseBook> getBooksByPrice(@PathVariable Double price)
+	public List<ResponseBook> getBooksByPrice(@PathVariable Double price) throws Exception
 	{
 		return ReaderService.getBookByPrice(price);
 	}

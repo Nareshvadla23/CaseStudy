@@ -27,15 +27,14 @@ public class ReaderService {
 	@Autowired
 	private AuthorRepository authorRepository;
 
-	public List<ResponseBook> getAllBooks() {
+	public List<ResponseBook> getAllBooks() throws Exception {
 		List<Mbook> books = bookRepository.findAll();
 
 		List<ResponseBook> list = new ArrayList<>();
 
-		for (Mbook mb : books) { 
+		for (Mbook mb : books) {
 			ResponseBook b1 = new ResponseBook();
-			// b1.setAuthor(mb.getAuthor().getName());
-			b1.setCategory(mb.getCategory()); 
+			b1.setCategory(mb.getCategory());
 			b1.setPrice(mb.getPrice());
 			b1.setPublisherDate(mb.getPublishedDate());
 			b1.setPublisher(mb.getPublisher());
@@ -43,7 +42,9 @@ public class ReaderService {
 			Optional<Author> au = authorRepository.findById(mb.getAuthor().getId());
 
 			if (au.isPresent()) {
-				b1.setAuthor(au.get().getName()); 
+				b1.setAuthor(au.get().getName());
+			} else {
+				throw new Exception("Author Not found");
 			}
 			b1.setImage(mb.getImage());
 			list.add(b1);
@@ -52,13 +53,13 @@ public class ReaderService {
 
 	}
 
-	public List<ResponseBook> getBookByPrice(Double price) {
+	public List<ResponseBook> getBookByPrice(Double price) throws Exception {
 		List<Mbook> mb = mbookRepository.findByPrice(price);
 
 		List<ResponseBook> list = new ArrayList<>();
 
 		for (Mbook mbo : mb) {
-			ResponseBook b1 = new ResponseBook(); 
+			ResponseBook b1 = new ResponseBook();
 			// b1.setAuthor(mb.getAuthor().getName());
 			b1.setCategory(mbo.getCategory());
 			b1.setPrice(mbo.getPrice());
@@ -68,8 +69,11 @@ public class ReaderService {
 			Optional<Author> au = authorRepository.findById(mbo.getAuthor().getId());
 
 			if (au.isPresent()) {
-				b1.setAuthor(au.get().getName()); 
+				b1.setAuthor(au.get().getName());
 			}
+		 else {
+			throw new Exception("Author Not found");
+		}
 			b1.setImage(mbo.getImage());
 			list.add(b1);
 

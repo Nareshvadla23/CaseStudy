@@ -1,4 +1,4 @@
-package com.bookservice.controller;
+package com.bookservice.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
@@ -14,68 +14,31 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import com.bookservice.AuthorRepository;
+import com.bookservice.BookRepository;
+import com.bookservice.MbookRepository;
 import com.bookservice.entity.Author;
 import com.bookservice.entity.Mbook;
-import com.bookservice.entity.RequestBook;
 import com.bookservice.entity.ResponseBook;
-import com.bookservice.service.BookService;
-import com.bookservice.service.ReaderService;
 
 @ExtendWith(MockitoExtension.class)
-class BookControllerTest {
+class ReaderServiceTest {
 
 	@Mock
-	BookService service;
+	BookRepository bookRepository;
 
 	@Mock
-	ReaderService Rservice;
+	MbookRepository mbookRepository;
+
+	@Mock
+	AuthorRepository authorRepository;
 
 	@InjectMocks
-	BookController control;
+	ReaderService redService;
 
 	@Test
-	void testCreateBook() {
+	void testGetAllBooks() throws Exception {
 
-		RequestBook book = new RequestBook();
-		book.setAuthor("Naresh");
-		book.setCategory("sports");
-		book.setContent("Asia cup");
-		book.setId(1);
-		book.setImage("image1"); 
-		book.setPrice(2000d);
-		LocalDate date = LocalDate.of(2000, 12, 21);
-		book.setPublishedDate(date);
-		book.setPublisher("BCCI"); 
-		book.setStatus(true);
-		book.setTitle("cricket");
-
-		when(service.SaveMbook(book)).thenReturn(book.getId());
-
-		Integer id = control.createBook(book);
-
-		assertEquals(1, id);
-
-	}
-
-	@Test
-	void testSaveAuthor() {
-
-		Author auth = new Author();
-		auth.setId(1);
-		auth.setMail("naresh@gmail.com");
-		auth.setName("naresh");
-		auth.setPassword("naresh@23");
-
-		when(service.saveAuthor(auth)).thenReturn(auth.getId());
-
-		Integer id = control.saveAuthor(auth);
-
-		assertEquals(1, id);
-
-	}
-
-	@Test
-	void testGetBooks() throws Exception {
 		Mbook book = new Mbook();
 
 		Author auth = new Author();
@@ -83,6 +46,8 @@ class BookControllerTest {
 		auth.setMail("naresh@gmail.com");
 		auth.setName("naresh");
 		auth.setPassword("naresh@23");
+
+		Optional<Author> option = Optional.of(auth);
 
 		book.setAuthor(auth);
 
@@ -109,28 +74,22 @@ class BookControllerTest {
 			b1.setPublisherDate(mb.getPublishedDate());
 			b1.setPublisher(mb.getPublisher());
 			b1.setTitle(mb.getTitle());
-
-			Optional<Author> check = Optional.of(auth);
-
-			if (check.isPresent()) {
-				b1.setAuthor(check.get().getName()); 
-			}
-
+			b1.setAuthor(auth.getName());
 			b1.setImage(mb.getImage());
 			list.add(b1);
 		}
 
-		when(Rservice.getAllBooks()).thenReturn(list);
+		when(bookRepository.findAll()).thenReturn(books);
+		when(authorRepository.findById(auth.getId())).thenReturn(option);
 
-		List<ResponseBook> list1 = control.getBooks();
+		List<ResponseBook> Rbooks = redService.getAllBooks();
 
-		assertEquals(list, list1);
+		assertEquals(list.size(), Rbooks.size());
 
 	}
 
 	@Test
-	void testGetBooksByPrice() throws Exception {
-
+	void testGetBookByPrice() throws Exception {
 		Mbook book = new Mbook();
 
 		Author auth = new Author();
@@ -138,6 +97,8 @@ class BookControllerTest {
 		auth.setMail("naresh@gmail.com");
 		auth.setName("naresh");
 		auth.setPassword("naresh@23");
+
+		Optional<Author> option = Optional.of(auth);
 
 		book.setAuthor(auth);
 
@@ -164,22 +125,17 @@ class BookControllerTest {
 			b1.setPublisherDate(mb.getPublishedDate());
 			b1.setPublisher(mb.getPublisher());
 			b1.setTitle(mb.getTitle());
-
-			Optional<Author> check = Optional.of(auth);
-
-			if (check.isPresent()) {
-				b1.setAuthor(check.get().getName());
-			}
-
-			b1.setImage(mb.getImage()); 
+			b1.setAuthor(auth.getName());
+			b1.setImage(mb.getImage());
 			list.add(b1);
 		}
 
-		when(Rservice.getBookByPrice(2000d)).thenReturn(list);
+		when(mbookRepository.findByPrice(2000d)).thenReturn(books);
+		when(authorRepository.findById(auth.getId())).thenReturn(option);
 
-		List<ResponseBook> list1 = control.getBooksByPrice(2000d);
+		List<ResponseBook> Rbooks = redService.getBookByPrice(2000d);
 
-		assertEquals(list, list1);
+		assertEquals(list.size(), Rbooks.size());
 
 	}
 

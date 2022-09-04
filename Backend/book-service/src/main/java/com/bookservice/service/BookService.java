@@ -30,7 +30,7 @@ public class BookService {
 	}
 
 	public Integer SaveMbook(RequestBook book) {
-		Mbook bk = new Mbook();
+		Mbook bk = new Mbook(); 
 		bk.setCategory(book.getCategory());
 		bk.setContent(book.getContent());
 		bk.setImage(book.getImage());
