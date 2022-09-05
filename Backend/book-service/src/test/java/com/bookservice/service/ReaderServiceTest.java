@@ -5,6 +5,7 @@ import static org.mockito.Mockito.when;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -56,7 +57,7 @@ class ReaderServiceTest {
 		book.setId(1);
 		book.setImage("image1");
 		book.setPrice(2000d);
-		LocalDate date = LocalDate.of(2000, 12, 21);
+		Date date = new Date(2000, 12, 12);
 		book.setPublishedDate(date);
 		book.setPublisher("BCCI");
 		book.setStatus(true);
@@ -107,7 +108,7 @@ class ReaderServiceTest {
 		book.setId(1);
 		book.setImage("image1");
 		book.setPrice(2000d);
-		LocalDate date = LocalDate.of(2000, 12, 21);
+		Date date = new Date(2000, 12, 12);
 		book.setPublishedDate(date);
 		book.setPublisher("BCCI");
 		book.setStatus(true);
@@ -134,6 +135,108 @@ class ReaderServiceTest {
 		when(authorRepository.findById(auth.getId())).thenReturn(option);
 
 		List<ResponseBook> Rbooks = redService.getBookByPrice(2000d);
+
+		assertEquals(list.size(), Rbooks.size());
+
+	}
+
+	@Test
+	void testGetBookByTitle() throws Exception {
+		Mbook book = new Mbook();
+
+		Author auth = new Author();
+		auth.setId(1);
+		auth.setMail("naresh@gmail.com");
+		auth.setName("naresh");
+		auth.setPassword("naresh@23");
+
+		Optional<Author> option = Optional.of(auth);
+
+		book.setAuthor(auth);
+
+		book.setCategory("sports");
+		book.setContent("Asia cup");
+		book.setId(1);
+		book.setImage("image1");
+		book.setPrice(2000d);
+		Date date = new Date(2000, 12, 12);
+		book.setPublishedDate(date);
+		book.setPublisher("BCCI");
+		book.setStatus(true);
+		book.setTitle("cricket");
+
+		List<Mbook> books = new ArrayList<>();
+		books.add(book);
+
+		List<ResponseBook> list = new ArrayList<>();
+
+		for (Mbook mb : books) {
+			ResponseBook b1 = new ResponseBook();
+			b1.setCategory(mb.getCategory());
+			b1.setPrice(mb.getPrice());
+			b1.setPublisherDate(mb.getPublishedDate());
+			b1.setPublisher(mb.getPublisher());
+			b1.setTitle(mb.getTitle());
+			b1.setAuthor(auth.getName());
+			b1.setImage(mb.getImage());
+			list.add(b1);
+		}
+
+		when(mbookRepository.findByTitle(book.getTitle())).thenReturn(books);
+		when(authorRepository.findById(auth.getId())).thenReturn(option);
+
+		List<ResponseBook> Rbooks = redService.getBookByTitle(book.getTitle());
+
+		assertEquals(list.size(), Rbooks.size());
+
+	}
+
+	@Test
+	void testGetBookByCategory() throws Exception {
+		Mbook book = new Mbook();
+
+		Author auth = new Author();
+		auth.setId(1);
+		auth.setMail("naresh@gmail.com");
+		auth.setName("naresh");
+		auth.setPassword("naresh@23");
+
+		Optional<Author> option = Optional.of(auth);
+
+		book.setAuthor(auth);
+
+		book.setCategory("sports");
+		book.setContent("Asia cup");
+		book.setId(1);
+		book.setImage("image1");
+		book.setPrice(2000d);
+		Date date = new Date(2000, 12, 12);
+		book.setPublishedDate(date);
+		book.setPublisher("BCCI");
+		book.setStatus(true);
+		book.setTitle("cricket");
+
+		List<Mbook> books = new ArrayList<>();
+		books.add(book);
+
+		List<ResponseBook> list = new ArrayList<>();
+
+		for (Mbook mb : books) {
+			ResponseBook b1 = new ResponseBook();
+			b1.setCategory(mb.getCategory());
+			b1.setPrice(mb.getPrice());
+			b1.setPublisherDate(mb.getPublishedDate());
+			b1.setPublisher(mb.getPublisher());
+			b1.setTitle(mb.getTitle());
+			b1.setAuthor(auth.getName());
+			b1.setImage(mb.getImage());
+			list.add(b1);
+		}
+
+		when(mbookRepository.findByCategory(book.getCategory())).thenReturn(books);
+		when(authorRepository.findById(auth.getId())).thenReturn(option);
+
+		List<ResponseBook> Rbooks = redService.getBookByCategory(book.getCategory());
 
 		assertEquals(list.size(), Rbooks.size());
 

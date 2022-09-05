@@ -13,7 +13,7 @@ export class RbookComponent implements OnInit {
     title: "",
     category: "",
     publisher: "",
-    publisherdate: Date,
+    publisherdate: new Date,
     price: "",
     image: ""
 

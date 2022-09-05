@@ -13,7 +13,9 @@ public class Author {
 	private Integer id;
 	@NotBlank(message = "Name should not be blank")
 	private String name;
+	@NotBlank(message = "Mail should not be blank")
 	private String mail;
+	@NotBlank(message = "Password should not be blank")
 	private String password;
 	
 

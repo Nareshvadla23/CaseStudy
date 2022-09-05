@@ -1,6 +1,7 @@
 package com.bookservice.entity;
 
 import java.time.LocalDate;
+import java.util.Date;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -8,23 +9,32 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 public class Mbook {
-	
+
 	@Id
 	@GeneratedValue
 	private Integer id;
 	private String image;
+	@NotBlank(message = "title should not be blank")
 	private String title;
+	@NotBlank(message = "Category should not be blank")
 	private String category;
-	private Double price; 
+	@Min(message = "Price should be greaterthan or equal to 1", value = 1)
+	private Double price;
+	@NotBlank(message = "Publisher should not be blank")
 	private String publisher;
-	private LocalDate publishedDate;
+
+	private Date publishedDate;
+
+	@NotBlank(message = "Content should not be blank")
 	private String content;
 	private Boolean status;
-	
-	@ManyToOne(targetEntity = Author.class,cascade = CascadeType.ALL)
+
+	@ManyToOne(targetEntity = Author.class, cascade = CascadeType.ALL)
 	@JoinColumn(name = "author_id", referencedColumnName = "id")
 	private Author author;
 
@@ -76,11 +86,11 @@ public class Mbook {
 		this.publisher = publisher;
 	}
 
-	public LocalDate getPublishedDate() {
+	public Date getPublishedDate() {
 		return publishedDate;
 	}
 
-	public void setPublishedDate(LocalDate publishedDate) {
+	public void setPublishedDate(Date publishedDate) {
 		this.publishedDate = publishedDate;
 	}
 
@@ -107,7 +117,5 @@ public class Mbook {
 	public void setAuthor(Author author) {
 		this.author = author;
 	}
-	
-	
 
 }

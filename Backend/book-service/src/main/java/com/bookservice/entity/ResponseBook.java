@@ -1,7 +1,10 @@
 package com.bookservice.entity;
 
-import java.time.LocalDate;
+import java.util.Date;
 
+import lombok.Data;
+
+@Data
 public class ResponseBook {
 	
 	private String author;
@@ -9,7 +12,7 @@ public class ResponseBook {
 	private String category;
 	private Double price;
 	private String publisher;
-	private LocalDate publisherDate;
+	private Date publisherDate;
 	private String image;
 	public String getAuthor() {
 		return author;
@@ -41,10 +44,10 @@ public class ResponseBook {
 	public void setPublisher(String publisher) {
 		this.publisher = publisher;
 	}
-	public LocalDate getPublisherDate() {
+	public Date getPublisherDate() {
 		return publisherDate;
 	}
-	public void setPublisherDate(LocalDate publisherDate) {
+	public void setPublisherDate(Date publisherDate) {
 		this.publisherDate = publisherDate;
 	}
 	public String getImage() {

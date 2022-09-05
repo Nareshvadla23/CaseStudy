@@ -70,10 +70,67 @@ public class ReaderService {
 
 			if (au.isPresent()) {
 				b1.setAuthor(au.get().getName());
+			} else {
+				throw new Exception("Author Not found");
 			}
-		 else {
-			throw new Exception("Author Not found");
+			b1.setImage(mbo.getImage());
+			list.add(b1);
+
 		}
+
+		return list;
+
+	}
+
+	public List<ResponseBook> getBookByTitle(String name) throws Exception {
+		List<Mbook> mb = mbookRepository.findByTitle(name);
+
+		List<ResponseBook> list = new ArrayList<>();
+
+		for (Mbook mbo : mb) {
+			ResponseBook b1 = new ResponseBook();
+			// b1.setAuthor(mb.getAuthor().getName());
+			b1.setCategory(mbo.getCategory());
+			b1.setPrice(mbo.getPrice());
+			b1.setPublisherDate(mbo.getPublishedDate());
+			b1.setPublisher(mbo.getPublisher());
+			b1.setTitle(mbo.getTitle());
+			Optional<Author> au = authorRepository.findById(mbo.getAuthor().getId());
+
+			if (au.isPresent()) {
+				b1.setAuthor(au.get().getName());
+			} else {
+				throw new Exception("Author Not found");
+			}
+			b1.setImage(mbo.getImage());
+			list.add(b1);
+
+		}
+
+		return list;
+
+	}
+
+	public List<ResponseBook> getBookByCategory(String name) throws Exception {
+		List<Mbook> mb = mbookRepository.findByCategory(name);
+
+		List<ResponseBook> list = new ArrayList<>();
+
+		for (Mbook mbo : mb) {
+			ResponseBook b1 = new ResponseBook();
+			// b1.setAuthor(mb.getAuthor().getName());
+			b1.setCategory(mbo.getCategory());
+			b1.setPrice(mbo.getPrice());
+			b1.setPublisherDate(mbo.getPublishedDate());
+			b1.setPublisher(mbo.getPublisher());
+			b1.setTitle(mbo.getTitle());
+			Optional<Author> au = authorRepository.findById(mbo.getAuthor().getId());
+
+			if (au.isPresent()) {
+				b1.setAuthor(au.get().getName());
+			} else {
+				throw new Exception("Author Not found");
+			}
 			b1.setImage(mbo.getImage());
 			list.add(b1);
 

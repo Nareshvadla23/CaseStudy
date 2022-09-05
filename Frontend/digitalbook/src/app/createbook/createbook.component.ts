@@ -25,6 +25,7 @@ export class CreatebookComponent implements OnInit {
 
   saveBook() {
 
+    this.book.publisherdate = new Date(this.book.publisherdate);
     const observable = this.bookservice.save(this.book);
     observable.subscribe((responseBody: any) => {
       console.log(responseBody);

@@ -6,11 +6,11 @@ const URL ="http://localhost:8084/"
 })
 export class BookserviceService {
   save(book: any) {
-    return this.http.post(URL + "createbook", book);
+    return this.http.post(URL + "addbook", book);
   }
 
   getbooks() {
-    return this.http.get(URL+"allbooks")
+    return this.http.get(URL+"books/all")
   }
   constructor(public http: HttpClient) { }
 }

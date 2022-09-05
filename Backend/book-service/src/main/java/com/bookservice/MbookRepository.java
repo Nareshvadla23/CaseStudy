@@ -9,7 +9,7 @@ import com.bookservice.entity.Mbook;
 public interface MbookRepository extends JpaRepository<Mbook, Integer> {
 	
 	
-	//public List<Mbook> findByName(String name);
+	public List<Mbook> findByTitle(String name);
 	
 	public List<Mbook> findByCategory(String name);
 	

@@ -4,33 +4,40 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bookservice.AuthorRepository;
-import com.bookservice.BookRepository;
 import com.bookservice.MbookRepository;
 import com.bookservice.entity.Author;
-import com.bookservice.entity.RequestBook;
 import com.bookservice.entity.Mbook;
+import com.bookservice.entity.RequestBook;
 
 @Service
 public class BookService {
 
-	@Autowired
-	private BookRepository bookRepository;
 	@Autowired
 	private AuthorRepository authorRepository;
 
 	@Autowired
 	private MbookRepository mbookRepository;
 
-	
-
 	public Integer saveAuthor(Author auth) {
 		Author author = authorRepository.save(auth);
 		return author.getId();
 
+	} 
+
+	public Integer loginAuthor(String mail, String password) {
+
+		Author author = authorRepository.findByMail(mail);
+
+		if (author.getPassword().equals(password)) {
+			return author.getId();
+		} else {
+			return 0;
+		}
+
 	}
 
 	public Integer SaveMbook(RequestBook book) {
-		Mbook bk = new Mbook(); 
+		Mbook bk = new Mbook();
 		bk.setCategory(book.getCategory());
 		bk.setContent(book.getContent());
 		bk.setImage(book.getImage());

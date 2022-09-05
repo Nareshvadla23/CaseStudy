@@ -29,31 +29,44 @@ public class BookController {
 	@Autowired
 	private ReaderService ReaderService;
 
-	
-	@PostMapping("/createbook")
+	@PostMapping("/addbook")
 	public Integer createBook(@RequestBody RequestBook book) {
 
 		Integer id = bookService.SaveMbook(book);
 		return id;
 	}
- 
-	@PostMapping("/saveAuthor")
-	public Integer saveAuthor(@RequestBody Author author) {
+
+	@PostMapping("/addAuthor")
+	public Integer saveAuthor(@Valid @RequestBody Author author) {
 		Integer id = bookService.saveAuthor(author);
 
-		return id; 
+		return id;
 	}
 
-	@GetMapping("/allbooks")
+	@PostMapping("/login")
+	public Integer loginAuthor(String mail, String password) {
+		return bookService.loginAuthor(mail, password);
+
+	}
+
+	@GetMapping("/books/all") 
 	public List<ResponseBook> getBooks() throws Exception {
 		return ReaderService.getAllBooks();
 	}
 
-	
-	@GetMapping("/ByPrice/{price}")
-	public List<ResponseBook> getBooksByPrice(@PathVariable Double price) throws Exception
-	{
+	@GetMapping("/books/ByPrice/{price}")
+	public List<ResponseBook> getBooksByPrice(@PathVariable Double price) throws Exception {
 		return ReaderService.getBookByPrice(price);
+	}
+
+	@GetMapping("/books/ByTitle/{Title}")
+	public List<ResponseBook> getBooksByTitle(@PathVariable String Title) throws Exception {
+		return ReaderService.getBookByTitle(Title);
+	}
+
+	@GetMapping("/books/ByCategory/{category}")
+	public List<ResponseBook> getBooksByCategory(@PathVariable String category) throws Exception {
+		return ReaderService.getBookByCategory(category);
 	}
 
 }

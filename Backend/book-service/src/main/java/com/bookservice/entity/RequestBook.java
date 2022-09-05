@@ -1,6 +1,7 @@
 package com.bookservice.entity;
 
 import java.time.LocalDate;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,7 +18,7 @@ public class RequestBook {
 	private String category;
 	private Double price; 
 	private String publisher;
-	private LocalDate publishedDate;
+	private Date publishedDate;
 	private String content;
 	private Boolean status;
 	private String author;
@@ -64,10 +65,10 @@ public class RequestBook {
 	public void setPublisher(String publisher) {
 		this.publisher = publisher;
 	}
-	public LocalDate getPublishedDate() {
+	public Date getPublishedDate() {
 		return publishedDate;
 	}
-	public void setPublishedDate(LocalDate publishedDate) {
+	public void setPublishedDate(Date publishedDate) {
 		this.publishedDate = publishedDate;
 	}
 	public String getContent() {
