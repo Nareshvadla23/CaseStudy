@@ -10,6 +10,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { BookListComponent } from './book-list/book-list.component';
 import { RbookComponent } from './rbook/rbook.component';
 import { RouterModule, Routes } from '@angular/router';
+import { HomeComponent } from './home/home.component';
+import { LoginComponent } from './login/login.component';
+import { SignupComponent } from './signup/signup.component';
 
 const routes : Routes =[{path : 'createbook',component: CreatebookComponent},
 {path : 'booklist',component:BookListComponent}]
@@ -21,6 +24,9 @@ const routes : Routes =[{path : 'createbook',component: CreatebookComponent},
     CreatebookComponent,
     BookListComponent,
     RbookComponent,
+    HomeComponent,
+    LoginComponent,
+    SignupComponent,
   
    
   ],

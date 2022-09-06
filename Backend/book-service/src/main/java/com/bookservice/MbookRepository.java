@@ -4,16 +4,16 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.bookservice.entity.Mbook;
+import com.bookservice.entity.Book;
 
-public interface MbookRepository extends JpaRepository<Mbook, Integer> {
+public interface MbookRepository extends JpaRepository<Book, Integer> {
 	
 	
-	public List<Mbook> findByTitle(String name);
+	public List<Book> findByTitle(String name);
 	
-	public List<Mbook> findByCategory(String name);
+	public List<Book> findByCategory(String name);
 	
-	public List<Mbook> findByPrice(Double price);
+	public List<Book> findByPrice(Double price);
 	
 
 }

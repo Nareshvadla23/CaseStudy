@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import com.bookservice.AuthorRepository;
 import com.bookservice.MbookRepository;
 import com.bookservice.entity.Author;
-import com.bookservice.entity.Mbook;
+import com.bookservice.entity.Book;
 import com.bookservice.entity.RequestBook;
 
 @Service
@@ -22,22 +22,20 @@ public class BookService {
 		Author author = authorRepository.save(auth);
 		return author.getId();
 
-	} 
+	}
 
 	public Integer loginAuthor(String mail, String password) {
 
 		Author author = authorRepository.findByMail(mail);
-
 		if (author.getPassword().equals(password)) {
 			return author.getId();
 		} else {
 			return 0;
 		}
-
 	}
 
 	public Integer SaveMbook(RequestBook book) {
-		Mbook bk = new Mbook();
+		Book bk = new Book();
 		bk.setCategory(book.getCategory());
 		bk.setContent(book.getContent());
 		bk.setImage(book.getImage());
@@ -46,14 +44,10 @@ public class BookService {
 		bk.setPublisher(book.getPublisher());
 		bk.setStatus(book.getStatus());
 		bk.setTitle(book.getTitle());
-
 		Author auth = authorRepository.findByName(book.getAuthor());
 		bk.setAuthor(auth);
-
-		Mbook mbook = mbookRepository.save(bk);
-
+		Book mbook = mbookRepository.save(bk);
 		return mbook.getId();
-
 	}
 
 }

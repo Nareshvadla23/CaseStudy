@@ -16,7 +16,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.bookservice.entity.Author;
-import com.bookservice.entity.Mbook;
+import com.bookservice.entity.Book;
 import com.bookservice.entity.RequestBook;
 import com.bookservice.entity.ResponseBook;
 import com.bookservice.service.BookService;
@@ -38,6 +38,7 @@ class BookControllerTest {
 	void testCreateBook() {
 
 		RequestBook book = new RequestBook();
+	
 		book.setAuthor("Naresh");
 		book.setCategory("sports");
 		book.setContent("Asia cup");
@@ -92,7 +93,7 @@ class BookControllerTest {
 
 	@Test
 	void testGetBooks() throws Exception {
-		Mbook book = new Mbook();
+		Book book = new Book();
 
 		Author auth = new Author();
 		auth.setId(1);
@@ -113,12 +114,12 @@ class BookControllerTest {
 		book.setStatus(true);
 		book.setTitle("cricket");
 
-		List<Mbook> books = new ArrayList<>();
+		List<Book> books = new ArrayList<>();
 		books.add(book);
 
 		List<ResponseBook> list = new ArrayList<>();
 
-		for (Mbook mb : books) {
+		for (Book mb : books) {
 			ResponseBook b1 = new ResponseBook();
 			b1.setCategory(mb.getCategory());
 			b1.setPrice(mb.getPrice());
@@ -147,7 +148,7 @@ class BookControllerTest {
 	@Test
 	void testGetBooksByPrice() throws Exception {
 
-		Mbook book = new Mbook();
+		Book book = new Book();
 
 		Author auth = new Author();
 		auth.setId(1);
@@ -168,12 +169,12 @@ class BookControllerTest {
 		book.setStatus(true);
 		book.setTitle("cricket");
 
-		List<Mbook> books = new ArrayList<>();
+		List<Book> books = new ArrayList<>();
 		books.add(book);
 
 		List<ResponseBook> list = new ArrayList<>();
 
-		for (Mbook mb : books) {
+		for (Book mb : books) {
 			ResponseBook b1 = new ResponseBook();
 			b1.setCategory(mb.getCategory());
 			b1.setPrice(mb.getPrice());
@@ -202,7 +203,7 @@ class BookControllerTest {
 	@Test
 	void testGetBooksByTitle() throws Exception {
 
-		Mbook book = new Mbook();
+		Book book = new Book();
 
 		Author auth = new Author();
 		auth.setId(1);
@@ -223,12 +224,12 @@ class BookControllerTest {
 		book.setStatus(true);
 		book.setTitle("cricket");
 
-		List<Mbook> books = new ArrayList<>();
+		List<Book> books = new ArrayList<>();
 		books.add(book);
 
 		List<ResponseBook> list = new ArrayList<>();
 
-		for (Mbook mb : books) {
+		for (Book mb : books) {
 			ResponseBook b1 = new ResponseBook();
 			b1.setCategory(mb.getCategory());
 			b1.setPrice(mb.getPrice());
@@ -257,7 +258,7 @@ class BookControllerTest {
 	@Test
 	void testGetBooksByCategory() throws Exception {
 
-		Mbook book = new Mbook();
+		Book book = new Book();
 
 		Author auth = new Author();
 		auth.setId(1);
@@ -278,12 +279,12 @@ class BookControllerTest {
 		book.setStatus(true);
 		book.setTitle("cricket");
 
-		List<Mbook> books = new ArrayList<>();
+		List<Book> books = new ArrayList<>();
 		books.add(book);
 
 		List<ResponseBook> list = new ArrayList<>();
 
-		for (Mbook mb : books) {
+		for (Book mb : books) {
 			ResponseBook b1 = new ResponseBook();
 			b1.setCategory(mb.getCategory());
 			b1.setPrice(mb.getPrice());

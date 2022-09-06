@@ -15,7 +15,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import com.bookservice.AuthorRepository;
 import com.bookservice.MbookRepository;
 import com.bookservice.entity.Author;
-import com.bookservice.entity.Mbook;
+import com.bookservice.entity.Book;
 import com.bookservice.entity.RequestBook;
 
 @ExtendWith(MockitoExtension.class)
@@ -70,7 +70,7 @@ class BookServiceTest {
 		book.setTitle("cricket"); 
 		
 
-		Mbook bk = new Mbook();
+		Book bk = new Book();
         bk.setId(1);
 		bk.setCategory(book.getCategory());
 		bk.setContent(book.getContent());
@@ -79,13 +79,11 @@ class BookServiceTest {
 		bk.setPublishedDate(book.getPublishedDate());
 		bk.setPublisher(book.getPublisher());
 		bk.setStatus(book.getStatus());
-		bk.setTitle(book.getTitle());
+		bk.setTitle(book.getTitle()); 
 		bk.setAuthor(author);
 
 		when(mbookRepository.save(bk)).thenReturn(bk);
-
 		Integer id = service.SaveMbook(book);
-
 		assertEquals(1, id);
 
 	}

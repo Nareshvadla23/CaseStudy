@@ -16,9 +16,9 @@ public class Purchase {
 	@GeneratedValue
 	private Integer id;
 
-	@ManyToOne(targetEntity = Mbook.class, cascade = CascadeType.ALL)
+	@ManyToOne(targetEntity = Book.class, cascade = CascadeType.ALL)
 	@JoinColumn(name = "book_id", referencedColumnName = "id")
-	private Mbook book;
+	private Book book;
 
 	private String usermail;
 
@@ -38,11 +38,11 @@ public class Purchase {
 		this.id = id;
 	}
 
-	public Mbook getBook() {
+	public Book getBook() {
 		return book;
 	}
 
-	public void setBook(Mbook book) {
+	public void setBook(Book book) {
 		this.book = book;
 	}
 

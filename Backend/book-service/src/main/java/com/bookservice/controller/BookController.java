@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.bookservice.entity.Author;
 import com.bookservice.entity.RequestBook;
 import com.bookservice.entity.ResponseBook;
-import com.bookservice.entity.Mbook;
+import com.bookservice.entity.Book;
 import com.bookservice.service.BookService;
 import com.bookservice.service.ReaderService;
 
@@ -29,14 +29,14 @@ public class BookController {
 	@Autowired
 	private ReaderService ReaderService;
 
-	@PostMapping("/addbook")
+	@PostMapping("/book")
 	public Integer createBook(@RequestBody RequestBook book) {
 
 		Integer id = bookService.SaveMbook(book);
 		return id;
 	}
 
-	@PostMapping("/addAuthor")
+	@PostMapping("/author")
 	public Integer saveAuthor(@Valid @RequestBody Author author) {
 		Integer id = bookService.saveAuthor(author);
 
@@ -49,7 +49,7 @@ public class BookController {
 
 	}
 
-	@GetMapping("/books/all") 
+	@GetMapping("/books/all")
 	public List<ResponseBook> getBooks() throws Exception {
 		return ReaderService.getAllBooks();
 	}
