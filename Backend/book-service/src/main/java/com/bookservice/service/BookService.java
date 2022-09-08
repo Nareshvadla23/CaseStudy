@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import com.bookservice.AuthorRepository;
 import com.bookservice.MbookRepository;
+import com.bookservice.dto.LoginDto;
 import com.bookservice.entity.Author;
 import com.bookservice.entity.Book;
 import com.bookservice.entity.RequestBook;
@@ -24,17 +25,14 @@ public class BookService {
 
 	}
 
-	public Integer loginAuthor(String mail, String password) {
+	public Author loginAuthor(LoginDto login) {
 
-		Author author = authorRepository.findByMail(mail);
-		if (author.getPassword().equals(password)) {
-			return author.getId();
-		} else {
-			return 0;
-		}
+		Author author = authorRepository.findByMail(login.getMailId());
+		return author;
+
 	}
 
-	public Integer SaveMbook(RequestBook book) {
+	public Integer savebook(RequestBook book) {
 		Book bk = new Book();
 		bk.setCategory(book.getCategory());
 		bk.setContent(book.getContent());

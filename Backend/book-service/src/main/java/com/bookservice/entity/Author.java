@@ -6,8 +6,12 @@ import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+
+@Setter
+@Getter
 @Entity
 public class Author {
 	
@@ -17,7 +21,7 @@ public class Author {
 	@NotBlank(message = "Name should not be blank")
 	private String name;
 	@NotBlank(message = "Mail should not be blank")
-	private String mail;
+	private String mailId;
 	@NotBlank(message = "Password should not be blank")
 	private String password;	
 }

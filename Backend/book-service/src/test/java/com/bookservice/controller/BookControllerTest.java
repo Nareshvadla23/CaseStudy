@@ -53,7 +53,7 @@ class BookControllerTest {
 		book.setStatus(true);
 		book.setTitle("cricket");
 
-		when(service.SaveMbook(book)).thenReturn(book.getId());
+		when(service.savebook(book)).thenReturn(book.getId());
 
 		Integer id = control.createBook(book);
 
@@ -79,7 +79,7 @@ class BookControllerTest {
 
 		Author auth = new Author();
 		auth.setId(1);
-		auth.setMail("naresh@gmail.com");
+		auth.setMailId("naresh@gmail.com");
 		auth.setName("naresh");
 		auth.setPassword("naresh@23");
 
@@ -97,7 +97,7 @@ class BookControllerTest {
 
 		Author auth = new Author();
 		auth.setId(1);
-		auth.setMail("naresh@gmail.com");
+		auth.setMailId("naresh@gmail.com");
 		auth.setName("naresh");
 		auth.setPassword("naresh@23");
 
@@ -152,7 +152,7 @@ class BookControllerTest {
 
 		Author auth = new Author();
 		auth.setId(1);
-		auth.setMail("naresh@gmail.com");
+		auth.setMailId("naresh@gmail.com");
 		auth.setName("naresh");
 		auth.setPassword("naresh@23");
 
@@ -207,7 +207,7 @@ class BookControllerTest {
 
 		Author auth = new Author();
 		auth.setId(1);
-		auth.setMail("naresh@gmail.com");
+		auth.setMailId("naresh@gmail.com");
 		auth.setName("naresh");
 		auth.setPassword("naresh@23");
 
@@ -262,7 +262,7 @@ class BookControllerTest {
 
 		Author auth = new Author();
 		auth.setId(1);
-		auth.setMail("naresh@gmail.com");
+		auth.setMailId("naresh@gmail.com");
 		auth.setName("naresh");
 		auth.setPassword("naresh@23");
 

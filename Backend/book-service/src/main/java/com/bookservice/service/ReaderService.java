@@ -2,104 +2,56 @@ package com.bookservice.service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import com.bookservice.AuthorRepository;
-import com.bookservice.BookRepository;
 import com.bookservice.MbookRepository;
-import com.bookservice.entity.RequestBook;
-import com.bookservice.entity.ResponseBook;
-import com.bookservice.entity.Author;
 import com.bookservice.entity.Book;
+import com.bookservice.entity.ResponseBook;
 
 @Service
 public class ReaderService {
 
 	@Autowired
-	private BookRepository bookRepository;
+	private MbookRepository bookRepository;
 
-	@Autowired
-	private MbookRepository mbookRepository;
-
-	@Autowired
-	private AuthorRepository authorRepository;
-
-	public List<ResponseBook> getAllBooks()  {
-		List<Book> books = bookRepository.findAll();
-
-		List<ResponseBook> list = new ArrayList<>();
-		for (Book mb : books) {
-			ResponseBook b1 = new ResponseBook();
-			b1.setCategory(mb.getCategory());
-			b1.setPrice(mb.getPrice());
-			b1.setPublisherDate(mb.getPublishedDate());
-			b1.setPublisher(mb.getPublisher());
-			b1.setTitle(mb.getTitle());
-			b1.setAuthor(mb.getAuthor().getName());
-			b1.setImage(mb.getImage());
-			list.add(b1);
+	public static List<ResponseBook> ResponseBooks(List<Book> books) {
+		List<ResponseBook> responseBooks = new ArrayList<>();
+		for (Book book : books) {
+			ResponseBook responseBook = new ResponseBook();
+			responseBook.setCategory(book.getCategory());
+			responseBook.setPrice(book.getPrice());
+			responseBook.setPublisherDate(book.getPublishedDate());
+			responseBook.setPublisher(book.getPublisher());
+			responseBook.setTitle(book.getTitle());
+			responseBook.setAuthor(book.getAuthor().getName());
+			responseBook.setImage(book.getImage());
+			responseBooks.add(responseBook);
 		}
-		return list;
+		return responseBooks;
+	}
+
+	public List<ResponseBook> getAllBooks() {
+		List<Book> books = bookRepository.findAll();
+		List<ResponseBook> responseBooks = ResponseBooks(books);
+		return responseBooks;
 	}
 
 	public List<ResponseBook> getBookByPrice(Double price) {
-		List<Book> mb = mbookRepository.findByPrice(price);
-		List<ResponseBook> list = new ArrayList<>();
-		for (Book mbo : mb) {
-			ResponseBook b1 = new ResponseBook();
-			b1.setCategory(mbo.getCategory());
-			b1.setPrice(mbo.getPrice());
-			b1.setPublisherDate(mbo.getPublishedDate());
-			b1.setPublisher(mbo.getPublisher());
-			b1.setTitle(mbo.getTitle());
-			b1.setImage(mbo.getImage());
-			b1.setAuthor(mbo.getAuthor().getName());
-			list.add(b1);
-		}
-		return list;
+		List<Book> books = bookRepository.findByPrice(price);
+		List<ResponseBook> responseBooks = ResponseBooks(books);
+		return responseBooks;
 	}
 
 	public List<ResponseBook> getBookByTitle(String name) {
-		List<Book> mb = mbookRepository.findByTitle(name);
-
-		List<ResponseBook> list = new ArrayList<>();
-
-		for (Book mbo : mb) {
-			ResponseBook b1 = new ResponseBook();
-			// b1.setAuthor(mb.getAuthor().getName());
-			b1.setCategory(mbo.getCategory());
-			b1.setPrice(mbo.getPrice());
-			b1.setPublisherDate(mbo.getPublishedDate());
-			b1.setPublisher(mbo.getPublisher());
-			b1.setTitle(mbo.getTitle());
-			b1.setAuthor(mbo.getAuthor().getName());
-			b1.setImage(mbo.getImage());
-			list.add(b1);
-		}
-		return list;
+		List<Book> books = bookRepository.findByTitle(name);
+		List<ResponseBook> responseBooks = ResponseBooks(books);
+		return responseBooks;
 	}
 
 	public List<ResponseBook> getBookByCategory(String name) {
-		List<Book> mb = mbookRepository.findByCategory(name);
-
-		List<ResponseBook> list = new ArrayList<>();
-
-		for (Book mbo : mb) {
-			ResponseBook b1 = new ResponseBook();
-			b1.setCategory(mbo.getCategory());
-			b1.setPrice(mbo.getPrice());
-			b1.setPublisherDate(mbo.getPublishedDate());
-			b1.setPublisher(mbo.getPublisher());
-			b1.setTitle(mbo.getTitle());
-			b1.setAuthor(mbo.getAuthor().getName());
-			b1.setImage(mbo.getImage());
-			list.add(b1);
-		}
-		return list;
-
+		List<Book> books = bookRepository.findByCategory(name);
+		List<ResponseBook> responseBooks = ResponseBooks(books);
+		return responseBooks;
 	}
 
 }

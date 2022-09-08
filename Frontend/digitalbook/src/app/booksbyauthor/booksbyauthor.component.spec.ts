@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { UserformComponent } from './userform.component';
+import { BooksbyauthorComponent } from './booksbyauthor.component';
 
-describe('UserformComponent', () => {
-  let component: UserformComponent;
-  let fixture: ComponentFixture<UserformComponent>;
+describe('BooksbyauthorComponent', () => {
+  let component: BooksbyauthorComponent;
+  let fixture: ComponentFixture<BooksbyauthorComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ UserformComponent ]
+      declarations: [ BooksbyauthorComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(UserformComponent);
+    fixture = TestBed.createComponent(BooksbyauthorComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

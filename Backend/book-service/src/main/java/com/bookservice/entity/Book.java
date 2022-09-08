@@ -12,8 +12,11 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Setter
+@Getter
 @Entity(name = "mbook")
 public class Book {
 
@@ -33,7 +36,7 @@ public class Book {
 	private Date publishedDate;
 	@NotBlank(message = "Content should not be blank")
 	private String content;
-	private Boolean status;
+	private Boolean status = true;
 	@ManyToOne(targetEntity = Author.class, cascade = CascadeType.ALL)
 	@JoinColumn(name = "author_id", referencedColumnName = "id")
 	private Author author;

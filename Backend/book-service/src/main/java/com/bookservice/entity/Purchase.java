@@ -9,6 +9,11 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Setter
+@Getter
 @Entity
 public class Purchase {
 
@@ -20,9 +25,9 @@ public class Purchase {
 	@JoinColumn(name = "book_id", referencedColumnName = "id")
 	private Book book;
 
-	private String usermail;
+	private String userMail;
 
-	private String username;
+	private String userName;
 
 	private Date paymentDate;
 
@@ -30,60 +35,5 @@ public class Purchase {
 
 	private String paymentMode;
 
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	public Book getBook() {
-		return book;
-	}
-
-	public void setBook(Book book) {
-		this.book = book;
-	}
-
-	public Date getPaymentDate() {
-		return paymentDate;
-	}
-
-	public void setPaymentDate(Date paymentDate) {
-		this.paymentDate = paymentDate;
-	}
-
-	public Double getPrice() {
-		return price;
-	}
-
-	public void setPrice(Double price) {
-		this.price = price;
-	}
-
-	public String getPaymentMode() {
-		return paymentMode;
-	}
-
-	public void setPaymentMode(String paymentMode) {
-		this.paymentMode = paymentMode;
-	}
-
-	public String getUsermail() {
-		return usermail;
-	}
-
-	public void setUsermail(String usermail) {
-		this.usermail = usermail;
-	}
-
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
-	}
-
+	
 }

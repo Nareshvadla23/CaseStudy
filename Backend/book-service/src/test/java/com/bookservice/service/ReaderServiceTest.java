@@ -25,8 +25,7 @@ import com.bookservice.entity.ResponseBook;
 @ExtendWith(MockitoExtension.class)
 class ReaderServiceTest {
 
-	@Mock
-	BookRepository bookRepository;
+	
 	@Mock
 	MbookRepository mbookRepository;
 	@Mock
@@ -35,12 +34,12 @@ class ReaderServiceTest {
 	ReaderService redService;
 
 	public static Author author() {
-		Author auth = new Author();
-		auth.setId(1);
-		auth.setMail("naresh@gmail.com");
-		auth.setName("naresh");
-		auth.setPassword("naresh@23");
-		return auth;
+		Author author = new Author();
+		author.setId(1);
+		author.setMailId("naresh@gmail.com");
+		author.setName("naresh");
+		author.setPassword("naresh@23");
+		return author;
 	}
 
 	public static Book book() {
@@ -66,50 +65,48 @@ class ReaderServiceTest {
 	}
 
 	public static List<ResponseBook> responseBook() {
-		List<ResponseBook> list = new ArrayList<>();
+		List<ResponseBook> books = new ArrayList<>();
 		for (Book mb : books()) {
-			ResponseBook b1 = new ResponseBook();
-			b1.setCategory(mb.getCategory());
-			b1.setPrice(mb.getPrice());
-			b1.setPublisherDate(mb.getPublishedDate());
-			b1.setPublisher(mb.getPublisher());
-			b1.setTitle(mb.getTitle());
-			b1.setAuthor(author().getName());
-			b1.setImage(mb.getImage());
-			b1.setAuthor(mb.getAuthor().getName());
-			list.add(b1);
+			ResponseBook book = new ResponseBook();
+			book.setCategory(mb.getCategory());
+			book.setPrice(mb.getPrice());
+			book.setPublisherDate(mb.getPublishedDate());
+			book.setPublisher(mb.getPublisher());
+			book.setTitle(mb.getTitle());
+			book.setAuthor(author().getName());
+			book.setImage(mb.getImage());
+			book.setAuthor(mb.getAuthor().getName());
+			books.add(book);
 		}
-		return list;
+		return books;
 	}
 
 	@Test
 	void testGetAllBooks() {
-		when(bookRepository.findAll()).thenReturn(books());
-		List<ResponseBook> Rbooks = redService.getAllBooks();
-		assertEquals(responseBook().size(), Rbooks.size());
+		when(mbookRepository.findAll()).thenReturn(books());
+		List<ResponseBook> books = redService.getAllBooks();
+		assertEquals(1, books.size());
 	}
 
 	@Test
 	void testGetBookByPrice() {
 		when(mbookRepository.findByPrice(2000d)).thenReturn(books());
-		List<ResponseBook> Rbooks = redService.getBookByPrice(2000d);
-		assertEquals(responseBook().size(), Rbooks.size());
+		List<ResponseBook> books = redService.getBookByPrice(2000d);
+		assertEquals(responseBook().size(), books.size());
 	}
 
 	@Test
 	void testGetBookByTitle() {
 		when(mbookRepository.findByTitle(book().getTitle())).thenReturn(books());
-		List<ResponseBook> Rbooks = redService.getBookByTitle(book().getTitle());
-		assertEquals(responseBook().size(), Rbooks.size());
-
+		List<ResponseBook> books = redService.getBookByTitle(book().getTitle());
+		assertEquals(responseBook().size(), books.size());
 	}
 
 	@Test
 	void testGetBookByCategory() {
 		when(mbookRepository.findByCategory(book().getCategory())).thenReturn(books());
-		List<ResponseBook> Rbooks = redService.getBookByCategory(book().getCategory());
-		assertEquals(responseBook().size(), Rbooks.size());
-
+		List<ResponseBook> books = redService.getBookByCategory(book().getCategory());
+		assertEquals(responseBook().size(), books.size());
 	}
 
 }

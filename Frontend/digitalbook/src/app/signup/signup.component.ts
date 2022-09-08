@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { BookserviceService } from '../bookservice.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signup',
@@ -7,9 +9,31 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SignupComponent implements OnInit {
 
-  constructor() { }
+  author = {
+    name: "",
+    mailId: "",
+    password: ""
+  }
+
+  constructor(private bookservice: BookserviceService, private router: Router) { }
 
   ngOnInit(): void {
+  }
+
+  registerAuthor() {
+
+    console.log(this.author);
+
+
+    this.bookservice.registerAuthor(this.author).subscribe(data => {
+
+      alert("Login Successfull")
+      this.router.navigate(['/author'])
+    }, error => alert("Wrong Credentials")
+
+    )
+
+
   }
 
 }

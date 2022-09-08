@@ -7,8 +7,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Setter
+@Getter
 @Entity(name = "book")
 public class RequestBook {
 
@@ -23,6 +26,6 @@ public class RequestBook {
 	private String title;
 	private Double price;
 	private String category;
-	private Boolean status;
+	private Boolean status = true;
 
 }

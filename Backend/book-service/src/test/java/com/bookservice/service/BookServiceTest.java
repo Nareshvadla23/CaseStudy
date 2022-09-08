@@ -36,56 +36,50 @@ class BookServiceTest {
 		Author author = new Author();
 		author.setId(1);
 		author.setName("naresh");
-		author.setMail("naresh@gmail.com");
+		author.setMailId("naresh@gmail.com");
 		author.setPassword("naresh@123");
 
 		when(authorRepository.save(author)).thenReturn(author);
-
 		Integer id = service.saveAuthor(author);
-
 		assertEquals(1, id);
-
 	}
 
 	@Test
-	void testSaveMbook() {
+	void testSavebook() {
 
 		Author author = new Author();
 		author.setId(1);
 		author.setName("naresh");
-		author.setMail("naresh@gmail.com");
+		author.setMailId("naresh@gmail.com");
 		author.setPassword("naresh@123");
 
-		RequestBook book = new RequestBook();
-		book.setAuthor("naresh");
-		book.setCategory("sports");
-		book.setContent("Asia cup");
-		book.setId(1);
-		book.setImage("image1");
-		book.setPrice(2000d);
+		RequestBook requestBook = new RequestBook();
+		requestBook.setAuthor("naresh");
+		requestBook.setCategory("sports");
+		requestBook.setContent("Asia cup");
+		requestBook.setId(1);
+		requestBook.setImage("image1");
+		requestBook.setPrice(2000d);
 		Date date = new Date(2000, 12, 12);
-		book.setPublishedDate(date);
-		book.setPublisher("BCCI");
-		book.setStatus(true);
-		book.setTitle("cricket"); 
-		
+		requestBook.setPublishedDate(date);
+		requestBook.setPublisher("BCCI");
+		requestBook.setStatus(true);
+		requestBook.setTitle("cricket");
 
-		Book bk = new Book();
-        bk.setId(1);
-		bk.setCategory(book.getCategory());
-		bk.setContent(book.getContent());
-		bk.setImage(book.getImage());
-		bk.setPrice(book.getPrice());
-		bk.setPublishedDate(book.getPublishedDate());
-		bk.setPublisher(book.getPublisher());
-		bk.setStatus(book.getStatus());
-		bk.setTitle(book.getTitle()); 
-		bk.setAuthor(author);
+		Book book = new Book();
+		book.setId(1);
+		book.setCategory(book.getCategory());
+		book.setContent(book.getContent());
+		book.setImage(book.getImage());
+		book.setPrice(book.getPrice());
+		book.setPublishedDate(book.getPublishedDate());
+		book.setPublisher(book.getPublisher());
+		book.setStatus(book.getStatus());
+		book.setTitle(book.getTitle());
+		book.setAuthor(author);
 
-		when(mbookRepository.save(bk)).thenReturn(bk);
-		Integer id = service.SaveMbook(book);
+		when(mbookRepository.save(book)).thenReturn(book);
+		Integer id = service.savebook(requestBook);
 		assertEquals(1, id);
-
 	}
-
 }
