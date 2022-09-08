@@ -14,7 +14,9 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.http.ResponseEntity;
 
+import com.bookservice.dto.LoginDto;
 import com.bookservice.entity.Author;
 import com.bookservice.entity.Book;
 import com.bookservice.entity.RequestBook;
@@ -34,280 +36,124 @@ class BookControllerTest {
 	@InjectMocks
 	BookController control;
 
-	@Test
-	void testCreateBook() {
+	public static Author author() {
+		Author author = new Author();
+		author.setId(1);
+		author.setMailId("naresh@gmail.com");
+		author.setName("naresh");
+		author.setPassword("naresh@23");
+		return author;
+	}
 
+	public static RequestBook requestBook() {
 		RequestBook book = new RequestBook();
-	
 		book.setAuthor("Naresh");
 		book.setCategory("sports");
 		book.setContent("Asia cup");
 		book.setId(1);
 		book.setImage("image1");
 		book.setPrice(2000d);
-
 		Date date = new Date(2000, 12, 12);
-
 		book.setPublishedDate(date);
 		book.setPublisher("BCCI");
 		book.setStatus(true);
 		book.setTitle("cricket");
+		return book;
+	}
 
+	public static List<Book> books() {
+		Book book = new Book();
+		Author auth = author();
+		book.setAuthor(auth);
+		book.setCategory("sports");
+		book.setContent("Asia cup");
+		book.setId(1);
+		book.setImage("image1");
+		book.setPrice(2000d);
+		Date date = new Date(2000, 12, 12);
+		book.setPublishedDate(date);
+		book.setPublisher("BCCI");
+		book.setStatus(true);
+		book.setTitle("cricket");
+		List<Book> books = new ArrayList<>();
+		books.add(book);
+		return books;
+	}
+
+	public static List<ResponseBook> responsebooks() {
+		List<ResponseBook> responseBooks = new ArrayList<>();
+		Author author = author();
+		for (Book book : books()) {
+			ResponseBook responseBook = new ResponseBook();
+			responseBook.setCategory(book.getCategory());
+			responseBook.setPrice(book.getPrice());
+			responseBook.setPublisherDate(book.getPublishedDate());
+			responseBook.setPublisher(book.getPublisher());
+			responseBook.setTitle(book.getTitle());
+			responseBook.setImage(book.getImage());
+			responseBook.setAuthor(author.getName());
+			responseBooks.add(responseBook);
+		}
+		return responseBooks;
+	}
+
+	@Test
+	void testCreateBook() {
+		RequestBook book = requestBook();
 		when(service.savebook(book)).thenReturn(book.getId());
-
 		Integer id = control.createBook(book);
-
-		assertEquals(1, id); 
- 
+		assertEquals(1, id);
 	}
 
 	@Test
 	void testLoginAuthor() {
-
-		String mail = "naresh@gmail.com";
-		String password = "12345";
-
-		when(service.loginAuthor(mail, password)).thenReturn(1);
-		Integer id = control.loginAuthor(mail, password);
-
-		assertEquals(1, id);
-
+		Author author = author();
+		LoginDto login = new LoginDto();
+		login.setMailId("naresh@gmail.com");
+		login.setPassword("naresh@23");
+		when(service.loginAuthor(login)).thenReturn(author);
+		ResponseEntity<?> response = control.loginAuthor(login);
+		assertEquals(ResponseEntity.ok(author), response);
 	}
 
 	@Test
 	void testSaveAuthor() {
-
-		Author auth = new Author();
-		auth.setId(1);
-		auth.setMailId("naresh@gmail.com");
-		auth.setName("naresh");
-		auth.setPassword("naresh@23");
-
-		when(service.saveAuthor(auth)).thenReturn(auth.getId());
-
-		Integer id = control.saveAuthor(auth);
-
+		Author author = author();
+		when(service.saveAuthor(author)).thenReturn(author.getId());
+		Integer id = control.saveAuthor(author);
 		assertEquals(1, id);
-
 	}
 
 	@Test
 	void testGetBooks() throws Exception {
-		Book book = new Book();
-
-		Author auth = new Author();
-		auth.setId(1);
-		auth.setMailId("naresh@gmail.com");
-		auth.setName("naresh");
-		auth.setPassword("naresh@23");
-
-		book.setAuthor(auth);
-
-		book.setCategory("sports");
-		book.setContent("Asia cup");
-		book.setId(1);
-		book.setImage("image1");
-		book.setPrice(2000d);
-		Date date = new Date(2000, 12, 12);
-		book.setPublishedDate(date);
-		book.setPublisher("BCCI");
-		book.setStatus(true);
-		book.setTitle("cricket");
-
-		List<Book> books = new ArrayList<>();
-		books.add(book);
-
-		List<ResponseBook> list = new ArrayList<>();
-
-		for (Book mb : books) {
-			ResponseBook b1 = new ResponseBook();
-			b1.setCategory(mb.getCategory());
-			b1.setPrice(mb.getPrice());
-			b1.setPublisherDate(mb.getPublishedDate());
-			b1.setPublisher(mb.getPublisher());
-			b1.setTitle(mb.getTitle());
-
-			Optional<Author> check = Optional.of(auth);
-
-			if (check.isPresent()) {
-				b1.setAuthor(check.get().getName());
-			}
-
-			b1.setImage(mb.getImage());
-			list.add(b1);
-		}
-
-		when(Rservice.getAllBooks()).thenReturn(list);
-
-		List<ResponseBook> list1 = control.getBooks();
-
-		assertEquals(list, list1);
-
+		List<ResponseBook> books = responsebooks();
+		when(Rservice.getAllBooks()).thenReturn(books);
+		List<ResponseBook> responsebooks = control.getBooks();
+		assertEquals(books, responsebooks);
 	}
 
 	@Test
 	void testGetBooksByPrice() throws Exception {
-
-		Book book = new Book();
-
-		Author auth = new Author();
-		auth.setId(1);
-		auth.setMailId("naresh@gmail.com");
-		auth.setName("naresh");
-		auth.setPassword("naresh@23");
-
-		book.setAuthor(auth);
-
-		book.setCategory("sports");
-		book.setContent("Asia cup");
-		book.setId(1);
-		book.setImage("image1");
-		book.setPrice(2000d);
-		Date date = new Date(2000, 12, 12);
-		book.setPublishedDate(date);
-		book.setPublisher("BCCI");
-		book.setStatus(true);
-		book.setTitle("cricket");
-
-		List<Book> books = new ArrayList<>();
-		books.add(book);
-
-		List<ResponseBook> list = new ArrayList<>();
-
-		for (Book mb : books) {
-			ResponseBook b1 = new ResponseBook();
-			b1.setCategory(mb.getCategory());
-			b1.setPrice(mb.getPrice());
-			b1.setPublisherDate(mb.getPublishedDate());
-			b1.setPublisher(mb.getPublisher());
-			b1.setTitle(mb.getTitle());
-
-			Optional<Author> check = Optional.of(auth);
-
-			if (check.isPresent()) {
-				b1.setAuthor(check.get().getName());
-			}
-
-			b1.setImage(mb.getImage());
-			list.add(b1);
-		}
-
-		when(Rservice.getBookByPrice(2000d)).thenReturn(list);
-
+		List<ResponseBook> books = responsebooks();
+		when(Rservice.getBookByPrice(2000d)).thenReturn(books);
 		List<ResponseBook> list1 = control.getBooksByPrice(2000d);
-
-		assertEquals(list, list1);
-
+		assertEquals(books, list1);
 	}
 
 	@Test
 	void testGetBooksByTitle() throws Exception {
-
-		Book book = new Book();
-
-		Author auth = new Author();
-		auth.setId(1);
-		auth.setMailId("naresh@gmail.com");
-		auth.setName("naresh");
-		auth.setPassword("naresh@23");
-
-		book.setAuthor(auth);
-
-		book.setCategory("sports");
-		book.setContent("Asia cup");
-		book.setId(1);
-		book.setImage("image1");
-		book.setPrice(2000d);
-		Date date = new Date(2000, 12, 12);
-		book.setPublishedDate(date);
-		book.setPublisher("BCCI");
-		book.setStatus(true);
-		book.setTitle("cricket");
-
-		List<Book> books = new ArrayList<>();
-		books.add(book);
-
-		List<ResponseBook> list = new ArrayList<>();
-
-		for (Book mb : books) {
-			ResponseBook b1 = new ResponseBook();
-			b1.setCategory(mb.getCategory());
-			b1.setPrice(mb.getPrice());
-			b1.setPublisherDate(mb.getPublishedDate());
-			b1.setPublisher(mb.getPublisher());
-			b1.setTitle(mb.getTitle());
-
-			Optional<Author> check = Optional.of(auth);
-
-			if (check.isPresent()) {
-				b1.setAuthor(check.get().getName());
-			}
-
-			b1.setImage(mb.getImage());
-			list.add(b1);
-		}
-
-		when(Rservice.getBookByTitle(book.getTitle())).thenReturn(list);
-
-		List<ResponseBook> list1 = control.getBooksByTitle(book.getTitle());
-
-		assertEquals(list, list1);
-
+		List<ResponseBook> books = responsebooks();
+		when(Rservice.getBookByTitle("cricket")).thenReturn(books);
+		List<ResponseBook> responsebook = control.getBooksByTitle("cricket");
+		assertEquals(books, responsebook);
 	}
 
 	@Test
 	void testGetBooksByCategory() throws Exception {
-
-		Book book = new Book();
-
-		Author auth = new Author();
-		auth.setId(1);
-		auth.setMailId("naresh@gmail.com");
-		auth.setName("naresh");
-		auth.setPassword("naresh@23");
-
-		book.setAuthor(auth);
-
-		book.setCategory("sports");
-		book.setContent("Asia cup");
-		book.setId(1);
-		book.setImage("image1");
-		book.setPrice(2000d);
-		Date date = new Date(2000, 12, 12);
-		book.setPublishedDate(date);
-		book.setPublisher("BCCI");
-		book.setStatus(true);
-		book.setTitle("cricket");
-
-		List<Book> books = new ArrayList<>();
-		books.add(book);
-
-		List<ResponseBook> list = new ArrayList<>();
-
-		for (Book mb : books) {
-			ResponseBook b1 = new ResponseBook();
-			b1.setCategory(mb.getCategory());
-			b1.setPrice(mb.getPrice());
-			b1.setPublisherDate(mb.getPublishedDate());
-			b1.setPublisher(mb.getPublisher());
-			b1.setTitle(mb.getTitle());
-
-			Optional<Author> check = Optional.of(auth);
-
-			if (check.isPresent()) {
-				b1.setAuthor(check.get().getName());
-			}
-
-			b1.setImage(mb.getImage());
-			list.add(b1);
-		}
-
-		when(Rservice.getBookByCategory(book.getCategory())).thenReturn(list);
-
-		List<ResponseBook> list1 = control.getBooksByCategory(book.getCategory());
-
-		assertEquals(list, list1);
-
+		List<ResponseBook> books = responsebooks();
+		when(Rservice.getBookByCategory("sports")).thenReturn(books);
+		List<ResponseBook> list1 = control.getBooksByCategory("sports");
+		assertEquals(books, list1);
 	}
 
 }

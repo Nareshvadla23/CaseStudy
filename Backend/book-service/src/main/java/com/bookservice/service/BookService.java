@@ -26,10 +26,8 @@ public class BookService {
 	}
 
 	public Author loginAuthor(LoginDto login) {
-
 		Author author = authorRepository.findByMail(login.getMailId());
 		return author;
-
 	}
 
 	public Integer savebook(RequestBook book) {
@@ -44,8 +42,8 @@ public class BookService {
 		bk.setTitle(book.getTitle());
 		Author auth = authorRepository.findByName(book.getAuthor());
 		bk.setAuthor(auth);
-		Book mbook = mbookRepository.save(bk);
-		return mbook.getId();
+		Book book1 = mbookRepository.save(bk);
+		return book1.getId();
 	}
 
 }
