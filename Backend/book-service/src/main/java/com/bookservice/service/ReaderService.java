@@ -2,22 +2,24 @@ package com.bookservice.service;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.bookservice.MbookRepository;
+
+import com.bookservice.BookRepository;
+import com.bookservice.dto.ResponseDto;
 import com.bookservice.entity.Book;
-import com.bookservice.entity.ResponseBook;
 
 @Service
 public class ReaderService {
 
 	@Autowired
-	private MbookRepository bookRepository;
+	private BookRepository bookRepository;
 
-	public static List<ResponseBook> ResponseBooks(List<Book> books) {
-		List<ResponseBook> responseBooks = new ArrayList<>();
+	public static List<ResponseDto> ResponseBooks(List<Book> books) {
+		List<ResponseDto> responseBooks = new ArrayList<>();
 		for (Book book : books) {
-			ResponseBook responseBook = new ResponseBook();
+			ResponseDto responseBook = new ResponseDto();
 			responseBook.setCategory(book.getCategory());
 			responseBook.setPrice(book.getPrice());
 			responseBook.setPublisherDate(book.getPublishedDate());
@@ -30,27 +32,27 @@ public class ReaderService {
 		return responseBooks;
 	}
 
-	public List<ResponseBook> getAllBooks() {
+	public List<ResponseDto> getAllBooks() {
 		List<Book> books = bookRepository.findAll();
-		List<ResponseBook> responseBooks = ResponseBooks(books);
+		List<ResponseDto> responseBooks = ResponseBooks(books);
 		return responseBooks;
 	}
 
-	public List<ResponseBook> getBookByPrice(Double price) {
+	public List<ResponseDto> getBookByPrice(Double price) {
 		List<Book> books = bookRepository.findByPrice(price);
-		List<ResponseBook> responseBooks = ResponseBooks(books);
+		List<ResponseDto> responseBooks = ResponseBooks(books);
 		return responseBooks;
 	}
 
-	public List<ResponseBook> getBookByTitle(String name) {
+	public List<ResponseDto> getBookByTitle(String name) {
 		List<Book> books = bookRepository.findByTitle(name);
-		List<ResponseBook> responseBooks = ResponseBooks(books);
+		List<ResponseDto> responseBooks = ResponseBooks(books);
 		return responseBooks;
 	}
 
-	public List<ResponseBook> getBookByCategory(String name) {
+	public List<ResponseDto> getBookByCategory(String name) {
 		List<Book> books = bookRepository.findByCategory(name);
-		List<ResponseBook> responseBooks = ResponseBooks(books);
+		List<ResponseDto> responseBooks = ResponseBooks(books);
 		return responseBooks;
 	}
 

@@ -11,14 +11,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bookservice.dto.LoginDto;
+import com.bookservice.dto.RequestDto;
+import com.bookservice.dto.ResponseDto;
 import com.bookservice.entity.Author;
-import com.bookservice.entity.RequestBook;
-import com.bookservice.entity.ResponseBook;
-import com.bookservice.entity.Book;
 import com.bookservice.service.BookService;
 import com.bookservice.service.ReaderService;
 
@@ -32,7 +30,7 @@ public class BookController {
 	private ReaderService ReaderService;
 
 	@PostMapping("/book")
-	public Integer createBook(@RequestBody RequestBook book) {
+	public Integer createBook(@RequestBody RequestDto book) {
 		Integer id = bookService.savebook(book);
 		return id;
 	}
@@ -52,25 +50,24 @@ public class BookController {
 			return (ResponseEntity<?>) ResponseEntity.internalServerError();
 		}
 	}
-		
 
 	@GetMapping("/books/all")
-	public List<ResponseBook> getBooks() throws Exception {
+	public List<ResponseDto> getBooks() throws Exception {
 		return ReaderService.getAllBooks();
 	}
 
 	@GetMapping("/books/byPrice/{price}")
-	public List<ResponseBook> getBooksByPrice(@PathVariable Double price) throws Exception {
+	public List<ResponseDto> getBooksByPrice(@PathVariable Double price) throws Exception {
 		return ReaderService.getBookByPrice(price);
 	}
 
 	@GetMapping("/books/byTitle/{title}")
-	public List<ResponseBook> getBooksByTitle(@PathVariable String title) throws Exception {
+	public List<ResponseDto> getBooksByTitle(@PathVariable String title) throws Exception {
 		return ReaderService.getBookByTitle(title);
 	}
 
 	@GetMapping("/books/byCategory/{category}")
-	public List<ResponseBook> getBooksByCategory(@PathVariable String category) throws Exception {
+	public List<ResponseDto> getBooksByCategory(@PathVariable String category) throws Exception {
 		return ReaderService.getBookByCategory(category);
 	}
 

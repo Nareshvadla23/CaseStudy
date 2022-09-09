@@ -1,4 +1,4 @@
-package com.bookservice.entity;
+package com.bookservice.dto;
 
 import java.util.Date;
 
@@ -7,7 +7,7 @@ import lombok.Setter;
 
 @Setter
 @Getter
-public class ResponseBook {
+public class ResponseDto {
 
 	private String author;
 	private String title;

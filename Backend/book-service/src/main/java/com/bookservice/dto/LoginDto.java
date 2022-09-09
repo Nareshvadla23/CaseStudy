@@ -8,7 +8,6 @@ import lombok.Setter;
 public class LoginDto {
 
 	private String mailId;
-
 	private String password;
 
 }

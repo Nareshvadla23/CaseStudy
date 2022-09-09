@@ -4,11 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bookservice.AuthorRepository;
-import com.bookservice.MbookRepository;
+import com.bookservice.BookRepository;
 import com.bookservice.dto.LoginDto;
+import com.bookservice.dto.RequestDto;
 import com.bookservice.entity.Author;
 import com.bookservice.entity.Book;
-import com.bookservice.entity.RequestBook;
 
 @Service
 public class BookService {
@@ -17,32 +17,31 @@ public class BookService {
 	private AuthorRepository authorRepository;
 
 	@Autowired
-	private MbookRepository mbookRepository;
+	private BookRepository bookRepository;
 
 	public Integer saveAuthor(Author auth) {
 		Author author = authorRepository.save(auth);
 		return author.getId();
-
 	}
 
 	public Author loginAuthor(LoginDto login) {
-		Author author = authorRepository.findByMail(login.getMailId());
+		Author author = authorRepository.findByMailId(login.getMailId());
 		return author;
 	}
 
-	public Integer savebook(RequestBook book) {
-		Book bk = new Book();
-		bk.setCategory(book.getCategory());
-		bk.setContent(book.getContent());
-		bk.setImage(book.getImage());
-		bk.setPrice(book.getPrice());
-		bk.setPublishedDate(book.getPublishedDate());
-		bk.setPublisher(book.getPublisher());
-		bk.setStatus(book.getStatus());
-		bk.setTitle(book.getTitle());
-		Author auth = authorRepository.findByName(book.getAuthor());
-		bk.setAuthor(auth);
-		Book book1 = mbookRepository.save(bk);
+	public Integer savebook(RequestDto requestDto) {
+		Book book = new Book();
+		book.setCategory(requestDto.getCategory());
+		book.setContent(requestDto.getContent());
+		book.setImage(requestDto.getImage()); 
+		book.setPrice(requestDto.getPrice());
+		book.setPublishedDate(requestDto.getPublishedDate());
+		book.setPublisher(requestDto.getPublisher());
+		book.setStatus(requestDto.getStatus());
+		book.setTitle(requestDto.getTitle());
+		Author author = authorRepository.findByName(requestDto.getAuthor());
+		book.setAuthor(author);
+		Book book1 = bookRepository.save(book);
 		return book1.getId();
 	}
 

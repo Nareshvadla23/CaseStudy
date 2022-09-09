@@ -3,7 +3,6 @@ package com.bookservice.service;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
-import java.time.LocalDate;
 import java.util.Date;
 
 import org.junit.jupiter.api.Test;
@@ -13,10 +12,10 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.bookservice.AuthorRepository;
-import com.bookservice.MbookRepository;
+import com.bookservice.BookRepository;
+import com.bookservice.dto.RequestDto;
 import com.bookservice.entity.Author;
 import com.bookservice.entity.Book;
-import com.bookservice.entity.RequestBook;
 
 @ExtendWith(MockitoExtension.class)
 class BookServiceTest {
@@ -25,7 +24,7 @@ class BookServiceTest {
 	AuthorRepository authorRepository;
 
 	@Mock
-	MbookRepository mbookRepository;
+	BookRepository mbookRepository;
 
 	@InjectMocks
 	BookService service;
@@ -39,8 +38,8 @@ class BookServiceTest {
 		return author;
 	}
 
-	public static RequestBook requestBook() {
-		RequestBook book = new RequestBook();
+	public static RequestDto requestBook() {
+		RequestDto book = new RequestDto();
 		book.setAuthor("naresh");
 		book.setCategory("sports");
 		book.setContent("Asia cup");
@@ -76,14 +75,14 @@ class BookServiceTest {
 	void testSaveAuthor() {
 		Author author = author();
 		when(authorRepository.save(author)).thenReturn(author);
-		Integer id = service.saveAuthor(author); 
+		Integer id = service.saveAuthor(author);
 		assertEquals(1, id);
 	}
 
 	@Test
 	void testSavebook() {
 		Book book = book();
-		RequestBook requestBook = requestBook();
+		RequestDto requestBook = requestBook();
 		when(mbookRepository.save(book)).thenReturn(book);
 		Integer id = service.savebook(requestBook);
 		System.out.println(id);

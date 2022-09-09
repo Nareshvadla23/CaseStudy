@@ -15,11 +15,7 @@ public class Reader {
 	@Id
 	@GeneratedValue
 	private Integer id;
-
 	private String name;
-
 	private String mail;
 
-	
-	
 }

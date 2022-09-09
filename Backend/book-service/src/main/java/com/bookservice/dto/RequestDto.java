@@ -1,19 +1,16 @@
-package com.bookservice.entity;
+package com.bookservice.dto;
 
 import java.util.Date;
 
-import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
 @Setter
 @Getter
-@Entity(name = "book")
-public class RequestBook {
+public class RequestDto {
 
 	@Id
 	@GeneratedValue

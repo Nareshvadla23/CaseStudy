@@ -3,11 +3,9 @@ package com.bookservice.controller;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -17,10 +15,10 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.ResponseEntity;
 
 import com.bookservice.dto.LoginDto;
+import com.bookservice.dto.RequestDto;
+import com.bookservice.dto.ResponseDto;
 import com.bookservice.entity.Author;
 import com.bookservice.entity.Book;
-import com.bookservice.entity.RequestBook;
-import com.bookservice.entity.ResponseBook;
 import com.bookservice.service.BookService;
 import com.bookservice.service.ReaderService;
 
@@ -45,8 +43,8 @@ class BookControllerTest {
 		return author;
 	}
 
-	public static RequestBook requestBook() {
-		RequestBook book = new RequestBook();
+	public static RequestDto requestBook() {
+		RequestDto book = new RequestDto();
 		book.setAuthor("Naresh");
 		book.setCategory("sports");
 		book.setContent("Asia cup");
@@ -80,11 +78,11 @@ class BookControllerTest {
 		return books;
 	}
 
-	public static List<ResponseBook> responsebooks() {
-		List<ResponseBook> responseBooks = new ArrayList<>();
+	public static List<ResponseDto> responsebooks() {
+		List<ResponseDto> responseBooks = new ArrayList<>();
 		Author author = author();
 		for (Book book : books()) {
-			ResponseBook responseBook = new ResponseBook();
+			ResponseDto responseBook = new ResponseDto();
 			responseBook.setCategory(book.getCategory());
 			responseBook.setPrice(book.getPrice());
 			responseBook.setPublisherDate(book.getPublishedDate());
@@ -99,7 +97,7 @@ class BookControllerTest {
 
 	@Test
 	void testCreateBook() {
-		RequestBook book = requestBook();
+		RequestDto book = requestBook();
 		when(service.savebook(book)).thenReturn(book.getId());
 		Integer id = control.createBook(book);
 		assertEquals(1, id);
@@ -126,33 +124,33 @@ class BookControllerTest {
 
 	@Test
 	void testGetBooks() throws Exception {
-		List<ResponseBook> books = responsebooks();
+		List<ResponseDto> books = responsebooks();
 		when(Rservice.getAllBooks()).thenReturn(books);
-		List<ResponseBook> responsebooks = control.getBooks();
+		List<ResponseDto> responsebooks = control.getBooks();
 		assertEquals(books, responsebooks);
 	}
 
 	@Test
 	void testGetBooksByPrice() throws Exception {
-		List<ResponseBook> books = responsebooks();
+		List<ResponseDto> books = responsebooks();
 		when(Rservice.getBookByPrice(2000d)).thenReturn(books);
-		List<ResponseBook> list1 = control.getBooksByPrice(2000d);
+		List<ResponseDto> list1 = control.getBooksByPrice(2000d);
 		assertEquals(books, list1);
 	}
 
 	@Test
 	void testGetBooksByTitle() throws Exception {
-		List<ResponseBook> books = responsebooks();
+		List<ResponseDto> books = responsebooks();
 		when(Rservice.getBookByTitle("cricket")).thenReturn(books);
-		List<ResponseBook> responsebook = control.getBooksByTitle("cricket");
+		List<ResponseDto> responsebook = control.getBooksByTitle("cricket");
 		assertEquals(books, responsebook);
 	}
 
 	@Test
 	void testGetBooksByCategory() throws Exception {
-		List<ResponseBook> books = responsebooks();
+		List<ResponseDto> books = responsebooks();
 		when(Rservice.getBookByCategory("sports")).thenReturn(books);
-		List<ResponseBook> list1 = control.getBooksByCategory("sports");
+		List<ResponseDto> list1 = control.getBooksByCategory("sports");
 		assertEquals(books, list1);
 	}
 

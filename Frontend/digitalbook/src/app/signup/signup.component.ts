@@ -3,7 +3,7 @@ import { BookserviceService } from '../bookservice.service';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-signup',
+  selector: 'signup',
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.css']
 })
@@ -27,9 +27,9 @@ export class SignupComponent implements OnInit {
 
     this.bookservice.registerAuthor(this.author).subscribe(data => {
 
-      alert("Login Successfull")
+      alert("Registration Successfull")
       this.router.navigate(['/author'])
-    }, error => alert("Wrong Credentials")
+    }, error => alert("Registration not sucessfull please provide correct details")
 
     )
 
