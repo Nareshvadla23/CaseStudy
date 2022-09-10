@@ -29,10 +29,12 @@ export class CreatebookComponent implements OnInit {
     this.book.publisherdate = new Date(this.book.publisherdate);
     const observable = this.bookservice.save(this.book);
     observable.subscribe((responseBody: any) => {
+      alert("Book Added Successfully..!!")
       console.log(responseBody);
       this.books.push(responseBody);
     },
       (error: any) => {
+        alert("Book not added please try once again..!!")
         console.log(error);
       }
     );

@@ -12,10 +12,9 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
   { path: 'home', component: HomeComponent }, {
-    path: 'author', component: AuthorComponent,
-    children: [{ path: 'createbook', component: CreatebookComponent },
-     { path: 'editbook', component: CreatebookComponent }]
-  }];
+    path: 'author', component: AuthorComponent},
+  { path: 'createbook', component: CreatebookComponent },
+  { path: 'editbook', component: CreatebookComponent }]
 
 
 @NgModule({

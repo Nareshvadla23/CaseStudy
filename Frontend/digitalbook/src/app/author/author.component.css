@@ -1,4 +1,18 @@
 .author
 {
     background-color: #eff6ff;
+    background-image: url("../../assets/author1.jpg");
 }
+
+img.one
+{
+    height: 20%;
+    width: 20;
+}
+div.card-body{
+    background-color:rgb(33, 49, 2);
+    text-align: center;
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+  }

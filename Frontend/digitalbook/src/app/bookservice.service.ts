@@ -9,7 +9,7 @@ const URL ="http://localhost:8084/"
 })
 export class BookserviceService {
   save(book: any) {
-    return this.http.post(URL + "addbook", book);
+    return this.http.post(URL + "book", book);
   }
 
   getbooks() {

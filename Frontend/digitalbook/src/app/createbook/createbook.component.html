@@ -1,26 +1,51 @@
 <h1> CREATE BOOK</h1>
-<div>
-    <label for="image">Image</label><br>
-    <input [(ngModel)]='book.image'><br>
-    <label for="author">Author</label><br>
-    <input [(ngModel)]='book.author'><br>
-    <label for="image">Title</label><br>
-    <input [(ngModel)]='book.title'><br>
-    <label for="author">Category</label><br>
-    <input [(ngModel)]='book.category'><br>
-    <label for="image">Publisher</label><br>
-    <input [(ngModel)]='book.publisher'><br>
-    <label for="author">PublishedDate</label><br>
-    <input type="date" placeholder="yyyy-mm-dd" [(ngModel)]='book.publisherdate'><br>
-    <label for="image">Status</label><br>
-    <input [(ngModel)]='book.status'><br>
-    <label for="author">Content</label><br>
-    <input [(ngModel)]='book.content'><br>
-    <label for="author">Price</label><br>
-    <input [(ngModel)]='book.price'><br>
-    
 
-</div>
-<div>
-    <button (click)='saveBook()' class='btn btn-success'>Save</button>
+<div class="container col-md-6">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <form>
+                <div class="form-group">
+                    <label for= "title">Title</label>
+                    <input  class="form-control" name="Title" [(ngModel)]='book.title'>
+
+                </div>
+                <div class="form-group">
+                    <label for="Author">Author</label>
+                    <input class="form-control" name="Author" [(ngModel)]='book.author'>
+                </div>
+                <div class="form-group">
+                    <label for="category">Category</label>
+                    <input class="form-control" name="Category" [(ngModel)]='book.category'>
+                </div>
+                <div class="form-group">
+                    <label for="Publisher">publisher</label>
+                    <input  class="form-control" name="publisher" [(ngModel)]='book.publisher'>
+                </div>
+                <div class="form-group">
+                    <label for="Date">publisherdate</label>
+                    <input type="date" placeholder="yyyy-mm-dd" class="form-control" name="publisherdate" [(ngModel)]='book.publisherdate'>
+                </div>
+                <div class="form-group">
+                    <label for="Price">Price</label>
+                    <input class="form-control" name="Price" [(ngModel)]='book.price'>
+                </div>
+                <div class="form-group">
+                    <label for="Content">Content</label>
+                    <input class="form-control" name="Content" [(ngModel)]='book.content'>
+                </div>
+                <div class="form-group">
+                    <label for="Image">Image</label>
+                    <input class="form-control" name="Image" [(ngModel)]='book.image'>
+                </div>
+                <div class="form-group">
+                    <label for="Status">Status</label>
+                    <input class="form-control" name="Status" [(ngModel)]='book.status'>
+                </div>
+                <div>
+                    <button (click)='saveBook()' class='btn btn-success'>Save</button>
+                </div>
+                
+            </form>
+        </div>
+    </div>
 </div>
