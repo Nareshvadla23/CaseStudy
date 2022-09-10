@@ -44,8 +44,8 @@ public class ReaderService {
 		return responseBooks;
 	}
 
-	public List<ResponseDto> getBookByTitle(String name) {
-		List<Book> books = bookRepository.findByTitle(name);
+	public List<ResponseDto> getBookByAuthor(String name) {
+		List<Book> books = bookRepository.findByAuthor(name);
 		List<ResponseDto> responseBooks = ResponseBooks(books);
 		return responseBooks;
 	}

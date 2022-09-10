@@ -61,9 +61,9 @@ public class BookController {
 		return ReaderService.getBookByPrice(price);
 	}
 
-	@GetMapping("/books/byTitle/{title}")
-	public List<ResponseDto> getBooksByTitle(@PathVariable String title) throws Exception {
-		return ReaderService.getBookByTitle(title);
+	@GetMapping("/books/byAuthor/{author}")
+	public List<ResponseDto> getBooksByAuthor(@PathVariable String author) throws Exception {
+		return ReaderService.getBookByAuthor(author);
 	}
 
 	@GetMapping("/books/byCategory/{category}")

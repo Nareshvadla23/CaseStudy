@@ -9,11 +9,14 @@ import com.bookservice.entity.Book;
 public interface BookRepository extends JpaRepository<Book, Integer> {
 	
 	
-	public List<Book> findByTitle(String name);
+	public Book findByTitle(String name);
 	
 	public List<Book> findByCategory(String name);
 	
 	public List<Book> findByPrice(Double price);
+	
+	public List<Book> findByAuthor(String name);
+	
 	
 
 }

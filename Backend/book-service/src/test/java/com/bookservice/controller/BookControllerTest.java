@@ -139,10 +139,10 @@ class BookControllerTest {
 	}
 
 	@Test
-	void testGetBooksByTitle() throws Exception {
+	void testGetBooksByAUthor() throws Exception {
 		List<ResponseDto> books = responsebooks();
-		when(Rservice.getBookByTitle("cricket")).thenReturn(books);
-		List<ResponseDto> responsebook = control.getBooksByTitle("cricket");
+		when(Rservice.getBookByAuthor("naresh")).thenReturn(books);
+		List<ResponseDto> responsebook = control.getBooksByAuthor("cricket");
 		assertEquals(books, responsebook);
 	}
 
