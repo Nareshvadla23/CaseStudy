@@ -15,7 +15,9 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.bookservice.AuthorRepository;
 import com.bookservice.BookRepository;
+import com.bookservice.dto.Category;
 import com.bookservice.dto.ResponseDto;
+import com.bookservice.dto.Status;
 import com.bookservice.entity.Author;
 import com.bookservice.entity.Book;
 
@@ -42,7 +44,7 @@ class ReaderServiceTest {
 	public static Book book() {
 		Book book = new Book();
 		book.setAuthor(author());
-		book.setCategory("sports");
+		book.setCategory(Category.COMIC);
 		book.setContent("Asia cup");
 		book.setId(1);
 		book.setImage("image1");
@@ -50,7 +52,7 @@ class ReaderServiceTest {
 		Date date = new Date(2000, 12, 12);
 		book.setPublishedDate(date);
 		book.setPublisher("BCCI");
-		book.setStatus(true);
+		book.setStatus(Status.ACTIVE);
 		book.setTitle("cricket");
 		return book;
 	}
@@ -82,14 +84,14 @@ class ReaderServiceTest {
 	void testGetAllBooks() {
 		when(mbookRepository.findAll()).thenReturn(books());
 		List<ResponseDto> books = redService.getAllBooks();
-		assertEquals(1, books.size());
+		assertEquals(books().isEmpty(), books.isEmpty());
 	}
 
 	@Test
 	void testGetBookByPrice() {
 		when(mbookRepository.findByPrice(2000d)).thenReturn(books());
 		List<ResponseDto> books = redService.getBookByPrice(2000d);
-		assertEquals(responseBook().size(), books.size());
+		assertEquals(books().size(), books.size());
 	}
 
 	@Test

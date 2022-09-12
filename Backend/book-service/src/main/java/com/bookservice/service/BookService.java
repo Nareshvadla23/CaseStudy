@@ -1,5 +1,7 @@
 package com.bookservice.service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +11,7 @@ import com.bookservice.AuthorRepository;
 import com.bookservice.BookRepository;
 import com.bookservice.dto.LoginDto;
 import com.bookservice.dto.RequestDto;
+import com.bookservice.dto.ResponseDto;
 import com.bookservice.entity.Author;
 import com.bookservice.entity.Book;
 
@@ -68,6 +71,26 @@ public class BookService {
 		book.setAuthor(author);
 		Book book1 = bookRepository.save(book);
 		return book1.getId();
+	}
+
+	public List<ResponseDto> BooksbyAuthorId(Integer authorId) {
+		Optional<Author> author = authorRepository.findById(authorId);
+		List<Book> books = bookRepository.findByAuthor(author.get()); 
+		List<ResponseDto> responseBooks = new ArrayList<>();
+		for (Book book : books) {
+			if (book.getStatus().equals(true)) {
+				ResponseDto responseBook = new ResponseDto();
+				responseBook.setCategory(book.getCategory());
+				responseBook.setPrice(book.getPrice());
+				responseBook.setPublisherDate(book.getPublishedDate());
+				responseBook.setPublisher(book.getPublisher());
+				responseBook.setTitle(book.getTitle());
+				responseBook.setAuthor(book.getAuthor().getName());
+				responseBook.setImage(book.getImage());
+				responseBooks.add(responseBook);
+			}
+		}
+		return responseBooks;
 	}
 
 }

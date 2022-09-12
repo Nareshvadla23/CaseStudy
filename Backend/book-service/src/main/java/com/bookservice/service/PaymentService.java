@@ -1,6 +1,8 @@
 package com.bookservice.service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.bookservice.BookRepository;
 import com.bookservice.PaymentRepository;
 import com.bookservice.dto.PaymentDto;
+import com.bookservice.dto.BookDto;
 import com.bookservice.entity.Book;
 import com.bookservice.entity.Payment;
 
@@ -17,7 +20,7 @@ public class PaymentService {
 	@Autowired
 	private PaymentRepository paymentRepository;
 
-	@Autowired 
+	@Autowired
 	private BookRepository bookRepository;
 
 	public Payment buyBook(PaymentDto paymentDto) {
@@ -34,8 +37,22 @@ public class PaymentService {
 		return payment;
 	}
 
-	public List<Payment> getBooksByMail(String mail) {
-		return paymentRepository.findByUserMail(mail);
+	public List<BookDto> getBooksByMail(String mail) {
+		List<Payment> payment = paymentRepository.findByUserMail(mail);
+		List<BookDto> books = new ArrayList<>();
+		for (Payment pay : payment) {
+		   Book book = pay.getBook();
+		   BookDto bookDto = new BookDto();
+		   bookDto.setAuthor(book.getAuthor().getName());
+		   bookDto.setCategory(book.getCategory());
+		   bookDto.setContent(book.getContent());
+		   bookDto.setImage(book.getImage());
+		   bookDto.setTitle(book.getTitle());
+		   bookDto.setPrice(book.getPrice());
+		   bookDto.setPublisher(book.getPublisher());
+		   bookDto.setPublisherDate(book.getPublishedDate());	
+		}
+		return books;
 	}
 
 }

@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.bookservice.dto.BookDto;
+import com.bookservice.dto.Category;
 import com.bookservice.dto.PaymentDto;
 import com.bookservice.dto.ResponseDto;
 import com.bookservice.entity.Payment;
@@ -35,7 +37,7 @@ public class ReaderController {
 	}
 
 	@GetMapping("/books/byMailId/{mailId}") 
-	public List<Payment> getBooksByMailId(String mailId) {
+	public List<BookDto> getBooksByMailId( @PathVariable String mailId) {
 		return PaymentService.getBooksByMail(mailId);
 	}
 
@@ -55,7 +57,7 @@ public class ReaderController {
 	}
 
 	@GetMapping("/books/byCategory/{category}")
-	public List<ResponseDto> getBooksByCategory(@PathVariable String category) throws Exception {
+	public List<ResponseDto> getBooksByCategory(@PathVariable Category category) throws Exception {
 		return ReaderService.getBookByCategory(category);
 	}
 

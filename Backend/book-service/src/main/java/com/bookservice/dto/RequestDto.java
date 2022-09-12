@@ -2,6 +2,7 @@ package com.bookservice.dto;
 
 import java.util.Date;
 
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
@@ -22,7 +23,9 @@ public class RequestDto {
 	private String publisher;
 	private String title;
 	private Double price;
-	private String category;
-	private Boolean status = true;
+	@Enumerated
+	private Category category;
+	@Enumerated
+	private Status status ;
 
 }

@@ -14,9 +14,11 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import com.bookservice.dto.Category;
 import com.bookservice.dto.PaymentDto;
 import com.bookservice.dto.RequestDto;
 import com.bookservice.dto.ResponseDto;
+import com.bookservice.dto.Status;
 import com.bookservice.entity.Author;
 import com.bookservice.entity.Book;
 import com.bookservice.entity.Payment;
@@ -55,7 +57,7 @@ class ReaderControllerTest {
 		Book book = new Book();
 		Author auth = author();
 		book.setAuthor(auth);
-		book.setCategory("sports");
+		book.setCategory(Category.COMIC);
 		book.setContent("Asia cup");
 		book.setId(1);
 		book.setImage("image1");
@@ -63,7 +65,7 @@ class ReaderControllerTest {
 		Date date = new Date(2000, 12, 12);
 		book.setPublishedDate(date);
 		book.setPublisher("BCCI");
-		book.setStatus(true);
+		book.setStatus(Status.ACTIVE);
 		book.setTitle("cricket");
 
 		return book;
@@ -72,7 +74,7 @@ class ReaderControllerTest {
 	public static RequestDto requestBook() {
 		RequestDto book = new RequestDto();
 		book.setAuthor("Naresh");
-		book.setCategory("sports");
+		book.setCategory(Category.COMIC);
 		book.setContent("Asia cup");
 		book.setId(1);
 		book.setImage("image1");
@@ -80,7 +82,7 @@ class ReaderControllerTest {
 		Date date = new Date(2000, 12, 12);
 		book.setPublishedDate(date);
 		book.setPublisher("BCCI");
-		book.setStatus(true);
+		book.setStatus(Status.ACTIVE);
 		book.setTitle("cricket");
 		return book;
 	}
@@ -179,8 +181,8 @@ class ReaderControllerTest {
 	@Test
 	void testGetBooksByCategory() throws Exception {
 		List<ResponseDto> books = responsebooks();
-		when(Rservice.getBookByCategory("sports")).thenReturn(books);
-		List<ResponseDto> list1 = readerController.getBooksByCategory("sports");
+		when(Rservice.getBookByCategory(Category.COMIC)).thenReturn(books);
+		List<ResponseDto> list1 = readerController.getBooksByCategory(Category.COMIC);
 		assertEquals(books, list1);
 	}
 

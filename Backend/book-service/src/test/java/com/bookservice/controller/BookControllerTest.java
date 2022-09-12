@@ -14,9 +14,11 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.ResponseEntity;
 
+import com.bookservice.dto.Category;
 import com.bookservice.dto.LoginDto;
 import com.bookservice.dto.RequestDto;
 import com.bookservice.dto.ResponseDto;
+import com.bookservice.dto.Status;
 import com.bookservice.entity.Author;
 import com.bookservice.entity.Book;
 import com.bookservice.service.BookService;
@@ -48,7 +50,7 @@ class BookControllerTest {
 	public static RequestDto requestBook() {
 		RequestDto book = new RequestDto();
 		book.setAuthor("Naresh");
-		book.setCategory("sports");
+		book.setCategory(Category.COMIC);
 		book.setContent("Asia cup");
 		book.setId(1);
 		book.setImage("image1");
@@ -56,7 +58,7 @@ class BookControllerTest {
 		Date date = new Date(2000, 12, 12);
 		book.setPublishedDate(date);
 		book.setPublisher("BCCI");
-		book.setStatus(true);
+		book.setStatus(Status.ACTIVE);
 		book.setTitle("cricket");
 		return book;
 	}
@@ -65,7 +67,7 @@ class BookControllerTest {
 		Book book = new Book();
 		Author auth = author();
 		book.setAuthor(auth);
-		book.setCategory("sports");
+		book.setCategory(Category.COMIC);
 		book.setContent("Asia cup");
 		book.setId(1);
 		book.setImage("image1");
@@ -73,7 +75,7 @@ class BookControllerTest {
 		Date date = new Date(2000, 12, 12);
 		book.setPublishedDate(date);
 		book.setPublisher("BCCI");
-		book.setStatus(true);
+		book.setStatus(Status.ACTIVE);
 		book.setTitle("cricket");
 		return book;
 	}
