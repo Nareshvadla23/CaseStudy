@@ -1,5 +1,7 @@
 package com.bookservice.service;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +26,26 @@ public class BookService {
 		return author.getId();
 	}
 
+	public Book updateBook(RequestDto requestDto, Integer bookId) {
+
+		Optional<Book> optionalBook = bookRepository.findById(bookId);
+		Book book = optionalBook.get();
+		if (optionalBook.isPresent()) {
+			book.setCategory(requestDto.getCategory());
+			book.setContent(requestDto.getContent());
+			book.setImage(requestDto.getImage());
+			book.setPrice(requestDto.getPrice());
+			book.setPublishedDate(requestDto.getPublishedDate());
+			book.setPublisher(requestDto.getPublisher());
+			book.setTitle(requestDto.getTitle());
+			book.setStatus(requestDto.getStatus());
+		} else {
+			throw new NullPointerException("No Book Found with BookID:" + bookId);
+		}
+		Book savedBook = bookRepository.save(book);
+		return savedBook;
+	}
+
 	public Author loginAuthor(LoginDto login) {
 		Author author = authorRepository.findByMailId(login.getMailId());
 		return author;
@@ -31,9 +53,12 @@ public class BookService {
 
 	public Integer savebook(RequestDto requestDto) {
 		Book book = new Book();
+
+		String image = requestDto.getImage();
+
 		book.setCategory(requestDto.getCategory());
 		book.setContent(requestDto.getContent());
-		book.setImage(requestDto.getImage()); 
+		book.setImage(image);
 		book.setPrice(requestDto.getPrice());
 		book.setPublishedDate(requestDto.getPublishedDate());
 		book.setPublisher(requestDto.getPublisher());

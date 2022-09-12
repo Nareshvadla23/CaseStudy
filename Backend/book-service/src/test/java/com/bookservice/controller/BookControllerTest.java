@@ -33,6 +33,8 @@ class BookControllerTest {
 
 	@InjectMocks
 	BookController control;
+	@InjectMocks
+	ReaderController readerController;
 
 	public static Author author() {
 		Author author = new Author();
@@ -59,7 +61,7 @@ class BookControllerTest {
 		return book;
 	}
 
-	public static List<Book> books() {
+	public static Book book() {
 		Book book = new Book();
 		Author auth = author();
 		book.setAuthor(auth);
@@ -73,8 +75,13 @@ class BookControllerTest {
 		book.setPublisher("BCCI");
 		book.setStatus(true);
 		book.setTitle("cricket");
+		return book;
+	}
+
+	public static List<Book> books() {
+
 		List<Book> books = new ArrayList<>();
-		books.add(book);
+		books.add(book());
 		return books;
 	}
 
@@ -123,35 +130,11 @@ class BookControllerTest {
 	}
 
 	@Test
-	void testGetBooks() throws Exception {
-		List<ResponseDto> books = responsebooks();
-		when(Rservice.getAllBooks()).thenReturn(books);
-		List<ResponseDto> responsebooks = control.getBooks();
-		assertEquals(books, responsebooks);
+	void testUpdateBook() {
+		RequestDto requestDto = requestBook();
+		Book book = book();
+		when(service.updateBook(requestDto, 1)).thenReturn(book());
+		Book book1 = control.updateBook(requestDto,1);
+		assertEquals(1, book1.getId());
 	}
-
-	@Test
-	void testGetBooksByPrice() throws Exception {
-		List<ResponseDto> books = responsebooks();
-		when(Rservice.getBookByPrice(2000d)).thenReturn(books);
-		List<ResponseDto> list1 = control.getBooksByPrice(2000d);
-		assertEquals(books, list1);
-	}
-
-	@Test
-	void testGetBooksByAUthor() throws Exception {
-		List<ResponseDto> books = responsebooks();
-		when(Rservice.getBookByAuthor("naresh")).thenReturn(books);
-		List<ResponseDto> responsebook = control.getBooksByAuthor("cricket");
-		assertEquals(books, responsebook);
-	}
-
-	@Test
-	void testGetBooksByCategory() throws Exception {
-		List<ResponseDto> books = responsebooks();
-		when(Rservice.getBookByCategory("sports")).thenReturn(books);
-		List<ResponseDto> list1 = control.getBooksByCategory("sports");
-		assertEquals(books, list1);
-	}
-
 }

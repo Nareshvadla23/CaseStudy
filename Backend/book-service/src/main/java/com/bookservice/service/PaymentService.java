@@ -1,5 +1,7 @@
 package com.bookservice.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,23 +16,26 @@ public class PaymentService {
 
 	@Autowired
 	private PaymentRepository paymentRepository;
-	
-	@Autowired
+
+	@Autowired 
 	private BookRepository bookRepository;
-	
+
 	public Payment buyBook(PaymentDto paymentDto) {
-		
-		Book book =bookRepository.findByTitle(paymentDto.getTitle());
+
+		Book book = bookRepository.findByTitle(paymentDto.getTitle());
 		Payment pay = new Payment();
 		pay.setBook(book);
 		pay.setPaymentDate(paymentDto.getPaymentDate());
 		pay.setPaymentMode(paymentDto.getPaymentMode());
 		pay.setUserMail(paymentDto.getMailId());
 		pay.setUserName(paymentDto.getName());
-		
-		Payment payment =paymentRepository.save(pay);
-		return payment;
 
+		Payment payment = paymentRepository.save(pay);
+		return payment;
+	}
+
+	public List<Payment> getBooksByMail(String mail) {
+		return paymentRepository.findByUserMail(mail);
 	}
 
 }

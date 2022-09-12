@@ -1,4 +1,4 @@
-<h1> CREATE BOOK</h1>
+<h1> Add Book</h1>
 
 <div class="container col-md-6">
     <div class="row">
@@ -7,7 +7,6 @@
                 <div class="form-group">
                     <label for= "title">Title</label>
                     <input  class="form-control" name="Title" [(ngModel)]='book.title'>
-
                 </div>
                 <div class="form-group">
                     <label for="Author">Author</label>
@@ -35,8 +34,8 @@
                 </div>
                 <div class="form-group">
                     <label for="Image">Image</label>
-                    <input class="form-control" name="Image" [(ngModel)]='book.image'>
-                </div>
+                    <input type="file" class="form-control" id="inputGroupFile02" name="Image" [(ngModel)]='book.image'>
+                  </div>  
                 <div class="form-group">
                     <label for="Status">Status</label>
                     <input class="form-control" name="Status" [(ngModel)]='book.status'>

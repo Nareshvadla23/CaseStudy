@@ -19,15 +19,18 @@ public class ReaderService {
 	public static List<ResponseDto> ResponseBooks(List<Book> books) {
 		List<ResponseDto> responseBooks = new ArrayList<>();
 		for (Book book : books) {
-			ResponseDto responseBook = new ResponseDto();
-			responseBook.setCategory(book.getCategory());
-			responseBook.setPrice(book.getPrice());
-			responseBook.setPublisherDate(book.getPublishedDate());
-			responseBook.setPublisher(book.getPublisher());
-			responseBook.setTitle(book.getTitle());
-			responseBook.setAuthor(book.getAuthor().getName());
-			responseBook.setImage(book.getImage());
-			responseBooks.add(responseBook);
+
+			if (book.getStatus().equals(true)) {
+				ResponseDto responseBook = new ResponseDto();
+				responseBook.setCategory(book.getCategory());
+				responseBook.setPrice(book.getPrice());
+				responseBook.setPublisherDate(book.getPublishedDate());
+				responseBook.setPublisher(book.getPublisher());
+				responseBook.setTitle(book.getTitle());
+				responseBook.setAuthor(book.getAuthor().getName());
+				responseBook.setImage(book.getImage());
+				responseBooks.add(responseBook);
+			}
 		}
 		return responseBooks;
 	}
@@ -40,6 +43,7 @@ public class ReaderService {
 
 	public List<ResponseDto> getBookByPrice(Double price) {
 		List<Book> books = bookRepository.findByPrice(price);
+
 		List<ResponseDto> responseBooks = ResponseBooks(books);
 		return responseBooks;
 	}

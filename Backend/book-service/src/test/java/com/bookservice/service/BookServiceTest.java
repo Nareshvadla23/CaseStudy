@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
 import java.util.Date;
+import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -83,9 +84,23 @@ class BookServiceTest {
 	void testSavebook() {
 		Book book = book();
 		RequestDto requestBook = requestBook();
+	
 		when(mbookRepository.save(book)).thenReturn(book);
 		Integer id = service.savebook(requestBook);
-		System.out.println(id);
 		assertEquals(1, id);
+	}
+
+	@Test
+	void testUpdateBook() {
+
+		Book book = book();
+		Optional<Book> optionalBook = Optional.of(book);
+		when(mbookRepository.findById(1)).thenReturn(optionalBook);
+		RequestDto requestDto = requestBook();
+	
+
+		Book book1 = service.updateBook(requestDto,1);
+		assertEquals(1, book1.getId());
+
 	}
 }
