@@ -1,5 +1,6 @@
 package com.bookservice.entity;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 import javax.persistence.CascadeType;
@@ -36,9 +37,9 @@ public class Book {
 	private Category category;
 	@Min(message = "Price should be greaterthan or equal to 1", value = 1)
 	private Double price;
-	@NotBlank(message = "Publisher should not be blank")
+	@NotBlank(message = "Publisher should not be blank") 
 	private String publisher;
-	private Date publishedDate;
+	private LocalDate publishedDate;
 	@NotBlank(message = "Content should not be blank")
 	private String content;
 	@Enumerated(EnumType.STRING)

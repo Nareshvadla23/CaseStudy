@@ -14,6 +14,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import com.bookservice.dto.BookDto;
 import com.bookservice.dto.Category;
 import com.bookservice.dto.PaymentDto;
 import com.bookservice.dto.RequestDto;
@@ -40,7 +41,7 @@ class ReaderControllerTest {
 
 	@InjectMocks
 	BookController control;
-	
+
 	@InjectMocks
 	ReaderController readerController;
 
@@ -62,8 +63,7 @@ class ReaderControllerTest {
 		book.setId(1);
 		book.setImage("image1");
 		book.setPrice(2000d);
-		Date date = new Date(2000, 12, 12);
-		book.setPublishedDate(date);
+		book.setPublishedDate(LocalDate.now());
 		book.setPublisher("BCCI");
 		book.setStatus(Status.ACTIVE);
 		book.setTitle("cricket");
@@ -79,8 +79,7 @@ class ReaderControllerTest {
 		book.setId(1);
 		book.setImage("image1");
 		book.setPrice(2000d);
-		Date date = new Date(2000, 12, 12);
-		book.setPublishedDate(date);
+		book.setPublishedDate(LocalDate.now());
 		book.setPublisher("BCCI");
 		book.setStatus(Status.ACTIVE);
 		book.setTitle("cricket");
@@ -130,27 +129,38 @@ class ReaderControllerTest {
 		payment.setUserMail("mail1");
 		payment.setUserName("naresh");
 		return payment;
-	} 
+	}
 
 	@Test
 	void testBuyBook() {
-		
+
 		Payment payment = payment();
+		
+		PaymentDto paymentDto = paymentDto();
 
-		when(paymentService.buyBook(paymentDto())).thenReturn(payment);
-		Payment payment1 = readerController.buyBook(paymentDto());
-		assertEquals(1, payment1.getId());
+		when(paymentService.buyBook(paymentDto)).thenReturn(payment);
+		Payment payment1 = readerController.buyBook(paymentDto);
+		assertEquals(1, payment1.getId()); 
 
-	} 
+	}
 
 	@Test
-	void testGetBooksByMailId() {
+	void testGetBooksByMailId() { 
 
-		List<Payment> payments = new ArrayList<>();
-		payments.add(payment());
-		when(paymentService.getBooksByMail("naresh@gmail.com")).thenReturn(payments);
-		List<Payment> payment = readerController.getBooksByMailId("naresh@gmail.com");
-		assertEquals(payments, payment);
+		BookDto book = new BookDto();
+		book.setAuthor("naresh");
+		book.setCategory(Category.COMIC);
+		book.setContent("content");
+		book.setImage("//image1");
+		book.setPrice(200d);
+		book.setPublisher("public");
+		book.setPublisherDate(LocalDate.now());
+
+		List<BookDto> books = new ArrayList<>();
+		books.add(book);
+		when(paymentService.getBooksByMail("naresh@gmail.com")).thenReturn(books);
+		List<BookDto> books1 = readerController.getBooksByMailId("naresh@gmail.com");
+		assertEquals(books.size(), books1.size());
 
 	}
 

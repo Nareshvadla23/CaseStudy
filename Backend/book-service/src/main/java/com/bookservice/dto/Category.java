@@ -1,5 +1,5 @@
 package com.bookservice.dto;
 
 public enum Category {
-	HORROR,COMIC,SCIENCE,BUSINESS
+	HORROR,COMIC,SCIENCE,BUSINESS,MOTIVATIONAL
 }

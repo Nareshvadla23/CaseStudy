@@ -3,6 +3,7 @@ package com.bookservice.service;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.Optional;
 
@@ -30,7 +31,7 @@ class BookServiceTest {
 	BookRepository mbookRepository;
 
 	@InjectMocks
-	BookService service;
+	BookService service; 
 
 	public static Author author() {
 		Author author = new Author();
@@ -49,8 +50,7 @@ class BookServiceTest {
 		book.setId(1);
 		book.setImage("image1");
 		book.setPrice(2000d);
-		Date date = new Date(2000, 12, 12);
-		book.setPublishedDate(date);
+		book.setPublishedDate(LocalDate.now());
 		book.setPublisher("BCCI");
 		book.setStatus(Status.ACTIVE);
 		book.setTitle("cricket");
@@ -66,8 +66,7 @@ class BookServiceTest {
 		book.setId(1);
 		book.setImage("image1");
 		book.setPrice(2000d);
-		Date date = new Date(2000, 12, 12);
-		book.setPublishedDate(date);
+		book.setPublishedDate(LocalDate.now());
 		book.setPublisher("BCCI");
 		book.setStatus(Status.ACTIVE);
 		book.setTitle("cricket");

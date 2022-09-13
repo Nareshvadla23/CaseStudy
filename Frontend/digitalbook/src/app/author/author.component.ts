@@ -17,5 +17,10 @@ export class AuthorComponent implements OnInit {
     this.router.navigate(['/createbook']);
   }
 
+  books()
+  {
+    this.router.navigate(["/authorbooks"]);
+  }
+
 
 }

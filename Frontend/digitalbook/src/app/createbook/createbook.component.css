@@ -8,3 +8,28 @@ h1
 {
     text-align: center;
 }
+
+.flex
+{
+  display: flex;
+  flex-shrink: 0;
+  flex-basis: 100px;
+  flex-grow: 0;
+
+}
+.w
+{
+  width: 100px;
+}
+.i
+{
+  width: 220px;
+}
+.ww
+{
+  width: 385px;
+}
+.ii
+{
+  width: 280px;
+}

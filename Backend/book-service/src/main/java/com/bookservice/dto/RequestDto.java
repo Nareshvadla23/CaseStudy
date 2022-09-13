@@ -1,6 +1,6 @@
 package com.bookservice.dto;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
@@ -19,9 +19,9 @@ public class RequestDto {
 	private String author;
 	private String content;
 	private String image;
-	private Date publishedDate;
+	private LocalDate publishedDate;
 	private String publisher;
-	private String title;
+	private String title; 
 	private Double price;
 	@Enumerated
 	private Category category;

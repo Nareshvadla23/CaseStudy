@@ -12,6 +12,7 @@ import com.bookservice.BookRepository;
 import com.bookservice.dto.LoginDto;
 import com.bookservice.dto.RequestDto;
 import com.bookservice.dto.ResponseDto;
+import com.bookservice.dto.Status;
 import com.bookservice.entity.Author;
 import com.bookservice.entity.Book;
 
@@ -76,10 +77,10 @@ public class BookService {
 	public List<ResponseDto> BooksbyAuthorId(Integer authorId) {
 		Optional<Author> author = authorRepository.findById(authorId);
 		List<Book> books = bookRepository.findByAuthor(author.get()); 
-		List<ResponseDto> responseBooks = new ArrayList<>();
+		List<ResponseDto> responseBooks = new ArrayList<>(); 
 		for (Book book : books) {
-			if (book.getStatus().equals(true)) {
-				ResponseDto responseBook = new ResponseDto();
+			if (book.getStatus().equals(Status.ACTIVE)) {
+				ResponseDto responseBook = new ResponseDto(); 
 				responseBook.setCategory(book.getCategory());
 				responseBook.setPrice(book.getPrice());
 				responseBook.setPublisherDate(book.getPublishedDate());

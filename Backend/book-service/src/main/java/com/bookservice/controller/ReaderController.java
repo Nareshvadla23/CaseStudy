@@ -36,8 +36,8 @@ public class ReaderController {
 		return payment;
 	}
 
-	@GetMapping("/books/byMailId/{mailId}") 
-	public List<BookDto> getBooksByMailId( @PathVariable String mailId) {
+	@GetMapping("/books/byMailId/{mailId}")
+	public List<BookDto> getBooksByMailId(@PathVariable String mailId) {
 		return PaymentService.getBooksByMail(mailId);
 	}
 
@@ -59,6 +59,16 @@ public class ReaderController {
 	@GetMapping("/books/byCategory/{category}")
 	public List<ResponseDto> getBooksByCategory(@PathVariable Category category) throws Exception {
 		return ReaderService.getBookByCategory(category);
+	}
+
+	@GetMapping("/books/byPaymentId/{paymentId}")
+	public BookDto getbookByPaymentId(@PathVariable Integer paymentId) {
+		return PaymentService.getBooksByPaymentId(paymentId);
+	}
+
+	@PostMapping("/refund/{paymentId}")
+	public String paymentRefund(@PathVariable Integer paymentId) {
+		return PaymentService.refundPayment(paymentId);
 	}
 
 }

@@ -1,0 +1,31 @@
+<h1>Payment</h1>
+
+<div class="container col-md-6">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <form>
+                <div class="form-group">
+                    <label for="Title">Title</label>
+                    <input class="form-control" name="Title" [(ngModel)]='buyBook.title'>
+                </div>
+                <div class="form-group">
+                    <label for="Name">Name</label>
+                    <input class="form-control" name="name" [(ngModel)]='buyBook.name'>
+                </div>
+                <div class="form-group">
+                    <label for="MailId">MailId</label>
+                    <input class="form-control" name="MailId" [(ngModel)]='buyBook.mailId'>
+                </div>
+                <div class="form-group">
+                    <label for="paymentMode">paymentMode</label>
+                    <input class="form-control" name="paymentMode" [(ngModel)]='buyBook.paymentMode'>
+                </div>
+                <div class="form-group">
+                    <label for="paymentDate">paymentDate</label>
+                    <input type="date"   class="form-control" name="paymentDate" [(ngModel)]='buyBook.paymentDate'>
+                </div>
+                <button type="submit" class="btn btn-primary" (click)='buyBooks()'>Submit</button>
+            </form>
+        </div>
+    </div>
+</div>

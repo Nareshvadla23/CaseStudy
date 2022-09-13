@@ -12,10 +12,10 @@ import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { AuthorComponent } from './author/author.component';
-import { BooksbypriceComponent } from './booksbyprice/booksbyprice.component';
-import { BooksbyauthorComponent } from './booksbyauthor/booksbyauthor.component';
-import { BooksbycategoryComponent } from './booksbycategory/booksbycategory.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { PaymentComponent } from './payment/payment.component';
+import { AuthorbooksComponent } from './authorbooks/authorbooks.component';
+import { UserbooksComponent } from './userbooks/userbooks.component';
 
 const routes: Routes = [{ path: 'createbook', component: CreatebookComponent },
 { path: 'booklist', component: BookListComponent }]
@@ -30,9 +30,9 @@ const routes: Routes = [{ path: 'createbook', component: CreatebookComponent },
     LoginComponent,
     SignupComponent,
     AuthorComponent,
-    BooksbypriceComponent,
-    BooksbyauthorComponent,
-    BooksbycategoryComponent,
+    PaymentComponent,
+    AuthorbooksComponent,
+    UserbooksComponent,
 
   ],
   imports: [

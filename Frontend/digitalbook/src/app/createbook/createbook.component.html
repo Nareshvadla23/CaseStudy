@@ -2,48 +2,60 @@
 
 <div class="container col-md-6">
     <div class="row">
-        <div class="col-md-6 offset-md-3">
+        <div class="col-md-12 ">
             <form>
-                <div class="form-group">
-                    <label for= "title">Title</label>
-                    <input  class="form-control" name="Title" [(ngModel)]='book.title'>
+                <div class="flex">
+                    <div class="input-group-text">
+                        <label for="Title" class="w">Title</label>
+                        <input class="form-control" name="Title" [(ngModel)]='book.title' class ="i">
+                    </div>
+                    <div class="input-group-text">
+                        <label for="Author" class="w">Author</label>
+                        <input class="form-control" name="Author" [(ngModel)]='book.author' class="i">
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="Author">Author</label>
-                    <input class="form-control" name="Author" [(ngModel)]='book.author'>
+                <div class="flex">
+                    <div class="input-group-text">
+                        <label for="category" class="w">Category</label>
+                        <input class="form-control" name="Category" [(ngModel)]='book.category' class="i">
+                    </div>
+                    <div class="input-group-text">
+                        <label for="Publisher" class="w">publisher</label>
+                        <input class="form-control" name="publisher" [(ngModel)]='book.publisher' class="i">
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="category">Category</label>
-                    <input class="form-control" name="Category" [(ngModel)]='book.category'>
+                <div class="flex">
+                    <div class="input-group-text">
+                        <label for="Date" class="w">publisherdate</label>
+                        <input type="date" placeholder="publisherdate" class="form-control" name="publisherdate"
+                            [(ngModel)]='book.publisherdate' class="i">
+                    </div>
+                    <div class="input-group-text">
+                        <label for="Price" class="w">Price</label>
+                        <input class="form-control" name="Price" [(ngModel)]='book.price' class="i">
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="Publisher">publisher</label>
-                    <input  class="form-control" name="publisher" [(ngModel)]='book.publisher'>
+                <div class="flex">
+                    <div class="input-group-text">
+                        <label for="Content" class="w">Content</label> <input class="form-control" name="Content"
+                            [(ngModel)]='book.content' class="i">
+                    </div>
+                    <div class="input-group-text">
+                        <label for="Image" class="w">Image</label>
+                        <input type="file" class="form-control" id="inputGroupFile02" name="Image"
+                            [(ngModel)]='book.image' class="i">
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="Date">publisherdate</label>
-                    <input type="date" placeholder="yyyy-mm-dd" class="form-control" name="publisherdate" [(ngModel)]='book.publisherdate'>
+                <div class = "flex">
+                <div class="input-group-text">
+                    <label for="Status" class="ww">Status</label>
+                    <input class="form-control" name="Status" [(ngModel)]='book.status' class="ii">
                 </div>
-                <div class="form-group">
-                    <label for="Price">Price</label>
-                    <input class="form-control" name="Price" [(ngModel)]='book.price'>
-                </div>
-                <div class="form-group">
-                    <label for="Content">Content</label>
-                    <input class="form-control" name="Content" [(ngModel)]='book.content'>
-                </div>
-                <div class="form-group">
-                    <label for="Image">Image</label>
-                    <input type="file" class="form-control" id="inputGroupFile02" name="Image" [(ngModel)]='book.image'>
-                  </div>  
-                <div class="form-group">
-                    <label for="Status">Status</label>
-                    <input class="form-control" name="Status" [(ngModel)]='book.status'>
                 </div>
                 <div>
                     <button (click)='saveBook()' class='btn btn-success'>Save</button>
                 </div>
-                
+
             </form>
         </div>
     </div>

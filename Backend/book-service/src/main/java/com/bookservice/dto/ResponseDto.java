@@ -1,5 +1,6 @@
 package com.bookservice.dto;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 import javax.persistence.Enumerated;
@@ -17,7 +18,7 @@ public class ResponseDto {
 	private Category category;
 	private Double price;
 	private String publisher;
-	private Date publisherDate;
+	private LocalDate publisherDate;
 	private String image;
 
 }

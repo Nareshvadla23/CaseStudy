@@ -1,5 +1,6 @@
 package com.bookservice.service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -17,11 +18,25 @@ import com.bookservice.entity.Payment;
 @Service
 public class PaymentService {
 
-	@Autowired
+	@Autowired 
 	private PaymentRepository paymentRepository;
 
 	@Autowired
 	private BookRepository bookRepository;
+
+	public static BookDto bookDto(Book book) {
+		BookDto bookDto = new BookDto();
+		bookDto.setAuthor(book.getAuthor().getName());
+		bookDto.setCategory(book.getCategory());
+		bookDto.setContent(book.getContent());
+		bookDto.setImage(book.getImage());
+		bookDto.setTitle(book.getTitle());
+		bookDto.setPrice(book.getPrice());
+		bookDto.setPublisher(book.getPublisher());
+		bookDto.setPublisherDate(book.getPublishedDate());
+		return bookDto;
+
+	}
 
 	public Payment buyBook(PaymentDto paymentDto) {
 
@@ -32,7 +47,6 @@ public class PaymentService {
 		pay.setPaymentMode(paymentDto.getPaymentMode());
 		pay.setUserMail(paymentDto.getMailId());
 		pay.setUserName(paymentDto.getName());
-
 		Payment payment = paymentRepository.save(pay);
 		return payment;
 	}
@@ -41,18 +55,30 @@ public class PaymentService {
 		List<Payment> payment = paymentRepository.findByUserMail(mail);
 		List<BookDto> books = new ArrayList<>();
 		for (Payment pay : payment) {
-		   Book book = pay.getBook();
-		   BookDto bookDto = new BookDto();
-		   bookDto.setAuthor(book.getAuthor().getName());
-		   bookDto.setCategory(book.getCategory());
-		   bookDto.setContent(book.getContent());
-		   bookDto.setImage(book.getImage());
-		   bookDto.setTitle(book.getTitle());
-		   bookDto.setPrice(book.getPrice());
-		   bookDto.setPublisher(book.getPublisher());
-		   bookDto.setPublisherDate(book.getPublishedDate());	
+			Book book = pay.getBook();
+			BookDto bookDto = bookDto(book);
+			books.add(bookDto);
 		}
 		return books;
+	}
+
+	public BookDto getBooksByPaymentId(Integer paymentId) {
+		Optional<Payment> payment = paymentRepository.findById(paymentId);
+		Book book = payment.get().getBook();
+		BookDto bookDto = bookDto(book);
+		return bookDto;
+	}
+
+	public String refundPayment(Integer paymenId) {
+		Optional<Payment> payment = paymentRepository.findById(paymenId);
+		LocalDate paymentDate = payment.get().getPaymentDate();
+		if (paymentDate.equals(LocalDate.now())) {
+			paymentRepository.delete(payment.get());
+			return "Refund has been initiated";
+		} else {
+			return "refund period exceeded";
+		}
+
 	}
 
 }
