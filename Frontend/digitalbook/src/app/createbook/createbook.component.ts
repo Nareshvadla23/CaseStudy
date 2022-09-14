@@ -14,7 +14,7 @@ export class CreatebookComponent implements OnInit {
     title: "",
     category: "",
     publisher: "",
-    publisherdate: new Date(),
+    publishedDate: new Date(),
     price: "",
     content: "",
     status: ""
@@ -26,7 +26,7 @@ export class CreatebookComponent implements OnInit {
 
   saveBook() {
     
-    this.book.publisherdate = new Date(this.book.publisherdate);
+    this.book.publishedDate = new Date(this.book.publishedDate);
     const observable = this.bookservice.save(this.book);
     observable.subscribe((responseBody: any) => {
       alert("Book Added Successfully..!!")

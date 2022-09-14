@@ -99,7 +99,7 @@ class ReaderControllerTest {
 			ResponseDto responseBook = new ResponseDto();
 			responseBook.setCategory(book.getCategory());
 			responseBook.setPrice(book.getPrice());
-			responseBook.setPublisherDate(book.getPublishedDate());
+			responseBook.setPublishedDate(book.getPublishedDate());
 			responseBook.setPublisher(book.getPublisher());
 			responseBook.setTitle(book.getTitle());
 			responseBook.setImage(book.getImage());
@@ -154,7 +154,7 @@ class ReaderControllerTest {
 		book.setImage("//image1");
 		book.setPrice(200d);
 		book.setPublisher("public");
-		book.setPublisherDate(LocalDate.now());
+		book.setPublishedDate(LocalDate.now());
 
 		List<BookDto> books = new ArrayList<>();
 		books.add(book);

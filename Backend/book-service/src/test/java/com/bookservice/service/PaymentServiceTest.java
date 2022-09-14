@@ -1,6 +1,6 @@
 package com.bookservice.service;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
 import java.time.LocalDate;
@@ -13,13 +13,13 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import com.bookservice.BookRepository;
 import com.bookservice.PaymentRepository;
 import com.bookservice.dto.BookDto;
 import com.bookservice.dto.Category;
 import com.bookservice.dto.PaymentDto;
+import com.bookservice.dto.ResponseDto;
 import com.bookservice.dto.Status;
 import com.bookservice.entity.Author;
 import com.bookservice.entity.Book;
@@ -71,7 +71,7 @@ class PaymentServiceTest {
 		bookDto.setTitle(book.getTitle());
 		bookDto.setPrice(book.getPrice());
 		bookDto.setPublisher(book.getPublisher());
-		bookDto.setPublisherDate(book.getPublishedDate());
+		bookDto.setPublishedDate(book.getPublishedDate());
 		return bookDto;
 	}
 
@@ -137,8 +137,8 @@ class PaymentServiceTest {
 		Optional<Payment> payment = Optional.of(payment());
 
 		when(paymentRepository.findById(1)).thenReturn(payment);
-		BookDto book = paymentService.getBooksByPaymentId(1);
-		assertEquals("cricket", book.getTitle());
+		List<BookDto> book = paymentService.getBooksByPaymentId(1);
+		assertEquals("cricket", ((ResponseDto) book).getTitle());
 	}
 
 	@Test

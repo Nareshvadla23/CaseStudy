@@ -23,17 +23,24 @@ export class SignupComponent implements OnInit {
   registerAuthor() {
 
     console.log(this.author);
-
-
+    if(this.author.mailId=="")
+    {
+      alert("Please enter userName");
+    }
+    else if (this.author.name=="")
+    {
+      alert("Please enter userMail");
+    }
+    else if (this.author.password=="")
+    {
+      alert("Please enter password");
+    }
+    else{
     this.bookservice.registerAuthor(this.author).subscribe(data => {
-
       alert("Registration Successfull")
       this.router.navigate(['/author'])
     }, error => alert("Registration not sucessfull please provide correct details")
-
     )
-
-
   }
-
+  }
 }

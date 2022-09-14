@@ -1,0 +1,57 @@
+<h1> UserBooks</h1>
+
+<div class="container col-md-6">
+    <div class="row">
+        <div class="col-md-12 ">
+            <form>
+                <div class="flex">
+                    <div class="input-group-text">
+                        <label for="Status" class="ww">UserMail</label>
+                        <input class="form-control" name="mailId" [(ngModel)]='input.mailId' class="ii">
+                        <button (click)='
+                        bookByMailId()' class='btn btn-success'>Get Books</button>
+                    </div>
+                </div>
+                <div class="flex">
+                    <div class="input-group-text">
+                        <label for="Status" class="ww">PaymentId</label>
+                        <input class="form-control" name="mailId" [(ngModel)]='input.paymentId' class="ii">
+                        <button (click)='
+                        bookByPaymentId()' class='btn btn-success'>Get Books</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<h2> LIST OF BOOKS </h2>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Author</th>
+            <th>Title</th>
+            <th>Category</th>
+            <th>Publisher</th>
+            <th>Publisherdate</th>
+            <th>Price</th>
+            <th>content</th>
+            <th>Image</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let book of books">
+            <td>{{book.author}}</td>
+            <td>{{book.title}}</td>
+            <td>{{book.category}}</td>
+            <td>{{book.publisher}}</td>
+            <td>{{book.publisherdate | date }}</td>
+            <td>{{book.price}}</td>
+            <td>{{book.content}}</td>
+            <img src="{{book.image}}" width="140" height="100">
+
+        </tr>
+
+    </tbody>
+
+</table> 

@@ -1,0 +1,18 @@
+.ww
+{
+    width: 100px;
+}
+.ii
+{
+    width: 300px;
+}
+.flex
+{
+  display: flex;
+  flex-shrink: 0;
+  flex-basis: 100px;
+  flex-grow: 0;
+}
+h1{
+    text-align: center;
+}

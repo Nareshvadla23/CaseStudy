@@ -24,7 +24,7 @@ import com.bookservice.service.BookService;
 @CrossOrigin
 @RestController
 public class BookController {
-	@Autowired 
+	@Autowired
 	private BookService bookService;
 
 	@PostMapping("/book")

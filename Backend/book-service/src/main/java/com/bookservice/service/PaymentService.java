@@ -33,7 +33,7 @@ public class PaymentService {
 		bookDto.setTitle(book.getTitle());
 		bookDto.setPrice(book.getPrice());
 		bookDto.setPublisher(book.getPublisher());
-		bookDto.setPublisherDate(book.getPublishedDate());
+		bookDto.setPublishedDate(book.getPublishedDate());
 		return bookDto;
 
 	}
@@ -62,11 +62,13 @@ public class PaymentService {
 		return books;
 	}
 
-	public BookDto getBooksByPaymentId(Integer paymentId) {
+	public List<BookDto> getBooksByPaymentId(Integer paymentId) {
 		Optional<Payment> payment = paymentRepository.findById(paymentId);
+		List<BookDto> books = new ArrayList<>();
 		Book book = payment.get().getBook();
 		BookDto bookDto = bookDto(book);
-		return bookDto;
+		books.add(bookDto);
+		return books;
 	}
 
 	public String refundPayment(Integer paymenId) {

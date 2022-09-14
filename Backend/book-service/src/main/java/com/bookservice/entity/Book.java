@@ -1,7 +1,6 @@
 package com.bookservice.entity;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -17,7 +16,6 @@ import javax.validation.constraints.NotBlank;
 import com.bookservice.dto.Category;
 import com.bookservice.dto.Status;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 

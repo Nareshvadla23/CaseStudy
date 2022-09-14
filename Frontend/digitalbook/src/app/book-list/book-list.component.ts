@@ -13,7 +13,17 @@ import { Router } from '@angular/router';
 })
 export class BookListComponent implements OnInit {
 
+  searchType = {
+    "author": "",
+    "category": "",
+    "title": "",
+    "price": ""
+
+  }
+
   rbooks: any[] = [];
+
+
 
   constructor(public bookservice: BookserviceService, private router: Router) { }
 
@@ -23,9 +33,28 @@ export class BookListComponent implements OnInit {
     observable.subscribe((rbooksFromServer: any) => {
       this.rbooks = rbooksFromServer;
     });
- }
+  }
   Buy() {
     this.router.navigate(['/buybook']);
+  }
+
+  booksByAuthor() {
+    const observable = this.bookservice.getBooksByAuthor(this.searchType.author);
+    observable.subscribe((booksFromServer: any) => {
+      this.rbooks = booksFromServer;
+    });
+  }
+  booksByCategory() {
+    const observable = this.bookservice.getBooksByCategory(this.searchType.category)
+    observable.subscribe((booksFromServer: any) => {
+      this.rbooks = booksFromServer;
+    });
+  }
+  booksByPrice() {
+    const observable = this.bookservice.getBooksByPrice(this.searchType.price)
+    observable.subscribe((booksFromServer: any) => {
+      this.rbooks = booksFromServer;
+    });
   }
 
 

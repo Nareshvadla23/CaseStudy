@@ -1,8 +1,23 @@
-iv
+div
 {
   text-align: center;
 }
-h1
+h2
 {
     text-align: center;
+}
+.ww
+{
+    width: 70px;
+}
+.ii
+{
+    width: 150px;
+}
+.flex
+{
+  display: flex;
+  flex-shrink: 0;
+  flex-basis: 50px;
+  flex-grow: 0;
 }

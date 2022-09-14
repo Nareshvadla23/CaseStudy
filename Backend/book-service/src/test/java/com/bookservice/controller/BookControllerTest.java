@@ -94,7 +94,7 @@ class BookControllerTest {
 			ResponseDto responseBook = new ResponseDto();
 			responseBook.setCategory(book.getCategory());
 			responseBook.setPrice(book.getPrice());
-			responseBook.setPublisherDate(book.getPublishedDate());
+			responseBook.setPublishedDate(book.getPublishedDate());
 			responseBook.setPublisher(book.getPublisher());
 			responseBook.setTitle(book.getTitle());
 			responseBook.setImage(book.getImage());

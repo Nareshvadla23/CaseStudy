@@ -8,6 +8,7 @@ import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { PaymentComponent } from './payment/payment.component';
 import { SignupComponent } from './signup/signup.component';
+import { UserComponent } from './user/user.component';
 import { UserbooksComponent } from './userbooks/userbooks.component';
 
 const routes: Routes = [
@@ -15,12 +16,14 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
   { path: 'home', component: HomeComponent }, {
-    path: 'author', component: AuthorComponent},
+    path: 'author', component: AuthorComponent
+  },
   { path: 'createbook', component: CreatebookComponent },
   { path: 'editbook', component: CreatebookComponent },
   { path: 'buybook', component: PaymentComponent },
-  {path: 'authorbooks', component: AuthorbooksComponent },
-  {path: 'userbooks', component: UserbooksComponent}]
+  { path: 'authorbooks', component: AuthorbooksComponent },
+  { path: 'userbooks', component: UserbooksComponent },
+  { path: 'user', component: UserComponent }]
 
 
 @NgModule({

@@ -62,7 +62,7 @@ public class ReaderController {
 	}
 
 	@GetMapping("/books/byPaymentId/{paymentId}")
-	public BookDto getbookByPaymentId(@PathVariable Integer paymentId) {
+	public List<BookDto> getbookByPaymentId(@PathVariable Integer paymentId) {
 		return PaymentService.getBooksByPaymentId(paymentId);
 	}
 

@@ -16,6 +16,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PaymentComponent } from './payment/payment.component';
 import { AuthorbooksComponent } from './authorbooks/authorbooks.component';
 import { UserbooksComponent } from './userbooks/userbooks.component';
+import { UserComponent } from './user/user.component';
 
 const routes: Routes = [{ path: 'createbook', component: CreatebookComponent },
 { path: 'booklist', component: BookListComponent }]
@@ -33,6 +34,7 @@ const routes: Routes = [{ path: 'createbook', component: CreatebookComponent },
     PaymentComponent,
     AuthorbooksComponent,
     UserbooksComponent,
+    UserComponent,
 
   ],
   imports: [

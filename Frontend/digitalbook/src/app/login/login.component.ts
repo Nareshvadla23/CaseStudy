@@ -12,7 +12,6 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit {
 
 
-
   authorlogin: AuthorLogin = new AuthorLogin
 
   constructor(private bookserice: BookserviceService, private router: Router) { }
@@ -20,18 +19,35 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
   }
 
+
+
   loginAuthor() {
+    let data = localStorage.getItem('value');
 
-    console.log(this.authorlogin)
-    this.bookserice.loginAuthor(this.authorlogin).subscribe(data => {
-
-      alert("Login Successfull")
+    if (data) {
       this.router.navigate(['/author'])
-    }, error => alert("Wrong Credentials")
+    }
+    else {
+      console.log(this.authorlogin)
+      if (this.authorlogin.mailId == null) {
+        alert("Please Enter Mail Address")
+      }
+      else if (this.authorlogin.password == null) {
+        alert("Please Enter password")
+      }
+      else {
+        this.bookserice.loginAuthor(this.authorlogin).subscribe(data => {
 
-    )
+          alert("Login Successfull")
+          localStorage.setItem('value', 'one');
+          this.router.navigate(['/author'])
+        }, error => alert("Wrong Credentials")
 
+        )
+      }
+    }
   }
-
-
 }
+
+
+

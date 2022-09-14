@@ -5,7 +5,6 @@ import static org.mockito.Mockito.when;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
@@ -69,7 +68,7 @@ class ReaderServiceTest {
 			ResponseDto book = new ResponseDto();
 			book.setCategory(mb.getCategory());
 			book.setPrice(mb.getPrice());
-			book.setPublisherDate(mb.getPublishedDate());
+			book.setPublishedDate(mb.getPublishedDate());
 			book.setPublisher(mb.getPublisher());
 			book.setTitle(mb.getTitle());
 			book.setAuthor(author().getName());
