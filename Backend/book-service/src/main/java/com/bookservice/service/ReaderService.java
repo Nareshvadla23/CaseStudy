@@ -38,7 +38,7 @@ public class ReaderService {
 			responseBooks.add(responseBook);
 		}
 
-		return responseBooks;
+		return responseBooks; 
 	}
 
 	public List<ResponseDto> getAllBooks() {

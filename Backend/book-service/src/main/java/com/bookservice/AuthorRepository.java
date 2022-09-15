@@ -8,6 +8,6 @@ public interface AuthorRepository extends JpaRepository<Author, Integer> {
 
 	public Author findByName(String name);
 
-	public Author findByMailId(String mail);
+	public Author findByMailId(String mailId);
 
 }

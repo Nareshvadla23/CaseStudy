@@ -1,6 +1,7 @@
 package com.bookservice.service;
 
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
 
@@ -52,17 +53,24 @@ public class BookService {
 
 	public Author loginAuthor(LoginDto login) {
 		Author author = authorRepository.findByMailId(login.getMailId());
-		return author;
+		byte[] password = Base64.getDecoder().decode(author.getPassword());
+		String decoded = new String(password);
+		Author auth = new Author();
+		auth.setMailId(author.getMailId());
+		auth.setName(author.getName());
+		auth.setPassword(decoded);
+		return auth;
 	}
 
 	public Integer savebook(RequestDto requestDto) {
 		Book book = new Book();
 
 		String image = requestDto.getImage();
-
+		String[] images = image.split("I");
+		System.out.println(images[images.length - 1]);
 		book.setCategory(requestDto.getCategory());
 		book.setContent(requestDto.getContent());
-		book.setImage(image);
+		book.setImage(images[1]);
 		book.setPrice(requestDto.getPrice());
 		book.setPublishedDate(requestDto.getPublishedDate());
 		book.setPublisher(requestDto.getPublisher());
@@ -76,11 +84,11 @@ public class BookService {
 
 	public List<ResponseDto> BooksbyAuthorId(Integer authorId) {
 		Optional<Author> author = authorRepository.findById(authorId);
-		List<Book> books = bookRepository.findByAuthor(author.get()); 
-		List<ResponseDto> responseBooks = new ArrayList<>(); 
+		List<Book> books = bookRepository.findByAuthor(author.get());
+		List<ResponseDto> responseBooks = new ArrayList<>();
 		for (Book book : books) {
 			if (book.getStatus().equals(Status.ACTIVE)) {
-				ResponseDto responseBook = new ResponseDto(); 
+				ResponseDto responseBook = new ResponseDto();
 				responseBook.setCategory(book.getCategory());
 				responseBook.setPrice(book.getPrice());
 				responseBook.setPublishedDate(book.getPublishedDate());
@@ -92,6 +100,40 @@ public class BookService {
 			}
 		}
 		return responseBooks;
+	}
+	public List<ResponseDto> BooksbyAuthorMail(String mail) {
+		Author author = authorRepository.findByMailId(mail);
+		List<Book> books = bookRepository.findByAuthor(author);
+		List<ResponseDto> responseBooks = new ArrayList<>();
+		for (Book book : books) {
+			if (book.getStatus().equals(Status.ACTIVE)) {
+				ResponseDto responseBook = new ResponseDto();
+				responseBook.setCategory(book.getCategory());
+				responseBook.setPrice(book.getPrice());
+				responseBook.setPublishedDate(book.getPublishedDate());
+				responseBook.setPublisher(book.getPublisher());
+				responseBook.setTitle(book.getTitle());
+				responseBook.setAuthor(book.getAuthor().getName());
+				responseBook.setImage(book.getImage());
+				responseBooks.add(responseBook);
+			}
+		}
+		return responseBooks;
+	}
+
+	public RequestDto getbyBookId(Integer id) {
+		Optional<Book> book = bookRepository.findById(id);
+		RequestDto requestDto = new RequestDto();
+		requestDto.setAuthor(book.get().getAuthor().getName());
+		requestDto.setCategory(book.get().getCategory());
+		requestDto.setContent(book.get().getContent());
+		requestDto.setImage(book.get().getImage());
+		requestDto.setPrice(book.get().getPrice());
+		requestDto.setPublisher(book.get().getPublisher());
+		requestDto.setPublishedDate(book.get().getPublishedDate());
+		requestDto.setTitle(book.get().getTitle());
+		;
+		return requestDto;
 	}
 
 }

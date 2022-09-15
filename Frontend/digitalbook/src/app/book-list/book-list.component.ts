@@ -39,22 +39,38 @@ export class BookListComponent implements OnInit {
   }
 
   booksByAuthor() {
-    const observable = this.bookservice.getBooksByAuthor(this.searchType.author);
-    observable.subscribe((booksFromServer: any) => {
-      this.rbooks = booksFromServer;
-    });
+
+    if (this.searchType.author == "") {
+      alert("Please enter author name")
+    }
+    else {
+      const observable = this.bookservice.getBooksByAuthor(this.searchType.author);
+      observable.subscribe((booksFromServer: any) => {
+        this.rbooks = booksFromServer;
+      });
+    }
   }
   booksByCategory() {
-    const observable = this.bookservice.getBooksByCategory(this.searchType.category)
-    observable.subscribe((booksFromServer: any) => {
-      this.rbooks = booksFromServer;
-    });
+    if (this.searchType.category == "") {
+      alert("Please enter category type")
+    }
+    else {
+      const observable = this.bookservice.getBooksByCategory(this.searchType.category)
+      observable.subscribe((booksFromServer: any) => {
+        this.rbooks = booksFromServer;
+      });
+    }
   }
   booksByPrice() {
-    const observable = this.bookservice.getBooksByPrice(this.searchType.price)
-    observable.subscribe((booksFromServer: any) => {
-      this.rbooks = booksFromServer;
-    });
+    if (this.searchType.price == "") {
+      alert("Please enter amount details")
+    }
+    else {
+      const observable = this.bookservice.getBooksByPrice(this.searchType.price)
+      observable.subscribe((booksFromServer: any) => {
+        this.rbooks = booksFromServer;
+      });
+    }
   }
 
 

@@ -12,6 +12,11 @@ export class UserComponent implements OnInit {
 
   books:Bookcontent[]=[];
 
+  refund={
+     id: "",
+     refundStatus:""
+  }
+
   input = {
     mailId: "",
     paymentId: ""
@@ -28,7 +33,6 @@ export class UserComponent implements OnInit {
     observable.subscribe((booksFromServer: any) => {
       console.log(observable)
       this.books = booksFromServer;
-
     });
   }
   bookByPaymentId() {
@@ -36,6 +40,13 @@ export class UserComponent implements OnInit {
     const observable = this.bookservice.getBooksByPaymentId(this.input.paymentId)
     observable.subscribe((booksFromServer: any) => {
       this.books = booksFromServer;
+    });
+  }
+  refundByPaymentId()
+  {
+    const observable = this.bookservice.refund(this.input.paymentId)
+    observable.subscribe((refundFromServer: any) => {
+      this.refund = refundFromServer;
     });
   }
 }

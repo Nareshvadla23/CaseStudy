@@ -29,6 +29,7 @@ public class BookController {
 
 	@PostMapping("/book")
 	public Integer createBook(@RequestBody RequestDto book) {
+		System.out.println(book.getImage());
 		Integer id = bookService.savebook(book);
 		return id;
 	}
@@ -41,7 +42,12 @@ public class BookController {
 
 	@PostMapping("/author")
 	public Integer saveAuthor(@Valid @RequestBody Author author) {
-		Integer id = bookService.saveAuthor(author);
+		String password = java.util.Base64.getEncoder().encodeToString(author.getPassword().getBytes());
+		Author auth = new Author();
+		auth.setMailId(author.getMailId());
+		auth.setName(author.getName());
+		auth.setPassword(password);
+		Integer id = bookService.saveAuthor(auth);
 		return id;
 	}
 
@@ -58,6 +64,16 @@ public class BookController {
 	@GetMapping("/ByAuthorId/{authorId}")
 	public List<ResponseDto> getByAuthorId(@PathVariable Integer authorId) {
 		return bookService.BooksbyAuthorId(authorId);
+	}
+
+	@GetMapping("/ByBookId/{id}")
+	public RequestDto getByBookId(@PathVariable Integer id) {
+		return bookService.getbyBookId(id);
+	}
+
+	@GetMapping("/ByMailId/{mail}")
+	public List<ResponseDto> getByAuthorId(@PathVariable String mail) {
+		return bookService.BooksbyAuthorMail(mail);
 	}
 
 }

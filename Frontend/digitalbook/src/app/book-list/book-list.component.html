@@ -39,13 +39,13 @@
     </thead>
     <tbody>
         <tr *ngFor="let rbook of rbooks">
-            <td>{{rbook.author}}</td>
+            <td>{{rbook.author}}</td> 
             <td>{{rbook.title}}</td>
             <td>{{rbook.category}}</td>
             <td>{{rbook.publisher}}</td>
             <td>{{rbook.publishedDate | date }}</td>
             <td>{{rbook.price}}</td>
-            <img src="{{rbook.image}}" width="140" height="100">
+            <img src="../../assets/I{{rbook.image}}"  width="140" height="100">
             <button type="button" class="btn btn-outline-secondary" (click)='Buy()'>buy</button>
 
         </tr>

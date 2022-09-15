@@ -17,6 +17,9 @@ import { PaymentComponent } from './payment/payment.component';
 import { AuthorbooksComponent } from './authorbooks/authorbooks.component';
 import { UserbooksComponent } from './userbooks/userbooks.component';
 import { UserComponent } from './user/user.component';
+import { LogoutComponent } from './logout/logout.component';
+import { LoginrouteComponent } from './loginroute/loginroute.component';
+import { UpdatebookComponent } from './updatebook/updatebook.component';
 
 const routes: Routes = [{ path: 'createbook', component: CreatebookComponent },
 { path: 'booklist', component: BookListComponent }]
@@ -35,6 +38,9 @@ const routes: Routes = [{ path: 'createbook', component: CreatebookComponent },
     AuthorbooksComponent,
     UserbooksComponent,
     UserComponent,
+    LogoutComponent,
+    LoginrouteComponent,
+    UpdatebookComponent,
 
   ],
   imports: [

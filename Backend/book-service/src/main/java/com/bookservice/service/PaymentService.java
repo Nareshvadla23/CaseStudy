@@ -78,7 +78,7 @@ public class PaymentService {
 			paymentRepository.delete(payment.get());
 			return "Refund has been initiated";
 		} else {
-			return "refund period exceeded";
+			return "refund due date exceeded";
 		}
 
 	}

@@ -66,7 +66,7 @@ public class ReaderController {
 		return PaymentService.getBooksByPaymentId(paymentId);
 	}
 
-	@PostMapping("/refund/{paymentId}")
+	@GetMapping("/refund/{paymentId}") 
 	public String paymentRefund(@PathVariable Integer paymentId) {
 		return PaymentService.refundPayment(paymentId);
 	}

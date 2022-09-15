@@ -5,7 +5,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 

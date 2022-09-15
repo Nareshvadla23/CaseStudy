@@ -9,18 +9,34 @@ import { Buybook } from '../buybook';
 })
 export class PaymentComponent implements OnInit {
 
-  buyBook : Buybook = new Buybook();
+  buyBook: Buybook = new Buybook();
 
-  constructor(private bookservice :BookserviceService) { }
+  constructor(private bookservice: BookserviceService) { }
 
   ngOnInit(): void {
   }
-  buyBooks()
-  {
-    this.buyBook.paymentDate= new Date(this.buyBook.paymentDate);
-    this.bookservice.buyBook(this.buyBook).subscribe(data => {
-      alert("payment has done sucessfull")
-    }, error => alert("payment has not done, please try once again")
-    )
+  buyBooks() {
+    if (this.buyBook.title == null) {
+      alert("Please provide the title")
+    }
+    else if (this.buyBook.name==null) {
+      alert("Please provide the user name")
+    }
+    else if (this.buyBook.mailId==null) {
+      alert("Please provide the user mail")
+    }
+    else if (this.buyBook.paymentMode==null) {
+      alert("Please provide the paymentmode")
+    }
+    else if (this.buyBook.paymentDate==null) {
+      alert("please provide the paymentdate")
+    }
+    else {
+      this.buyBook.paymentDate = new Date(this.buyBook.paymentDate);
+      this.bookservice.buyBook(this.buyBook).subscribe(data => {
+        alert("payment has done sucessfull")
+      }, error => alert("payment has not done, please try once again")
+      )
+    }
   }
 }

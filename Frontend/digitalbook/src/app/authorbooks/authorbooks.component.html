@@ -17,10 +17,9 @@
             <td>{{rbook.title}}</td>
             <td>{{rbook.category}}</td>
             <td>{{rbook.publisher}}</td>
-            <td>{{rbook.publisherdate | date }}</td>
+            <td>{{rbook.publishedDate | date }}</td>
             <td>{{rbook.price}}</td>
-            <img src="{{rbook.image}}" width="140" height="100">
-            <button type="button" class="btn btn-secondary  btn-lg" (click)='Edit()'>Edit</button>
+            <img src="../../assets/I{{rbook.image}}" width="140" height="100">
 
         </tr>
 

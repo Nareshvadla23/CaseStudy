@@ -14,8 +14,9 @@ export class AuthorbooksComponent implements OnInit {
   constructor(public bookservice: BookserviceService, private router: Router) { }
 
   ngOnInit(): void {
+    let data = localStorage.getItem('value');
 
-    const observable = this.bookservice.getBooksByAuthorId();
+    const observable = this.bookservice.getBooksByAuthorMailId(data)
     observable.subscribe((rbooksFromServer: any) => {
       this.rbooks = rbooksFromServer;
     });

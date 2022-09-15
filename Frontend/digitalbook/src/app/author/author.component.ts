@@ -22,5 +22,11 @@ export class AuthorComponent implements OnInit {
     this.router.navigate(["/authorbooks"]);
   }
 
+  update()
+  {
+    this.router.navigate(["/editbook"])
+  }
+
+
 
 }

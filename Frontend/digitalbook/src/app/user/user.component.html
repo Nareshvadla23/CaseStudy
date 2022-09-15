@@ -1,6 +1,6 @@
 <h1> UserBooks</h1>
 
-<div class="container col-md-6">
+<div class="container col-md-12">
     <div class="row">
         <div class="col-md-12 ">
             <form>
@@ -9,15 +9,19 @@
                         <label for="Status" class="ww">UserMail</label>
                         <input class="form-control" name="mailId" [(ngModel)]='input.mailId' class="ii">
                         <button (click)='
-                        bookByMailId()' class='btn btn-success'>Get Books</button>
+                        bookByMailId()' class='btn btn-secondary'>Get Books</button>
                     </div>
-                </div>
-                <div class="flex">
                     <div class="input-group-text">
                         <label for="Status" class="ww">PaymentId</label>
                         <input class="form-control" name="mailId" [(ngModel)]='input.paymentId' class="ii">
                         <button (click)='
-                        bookByPaymentId()' class='btn btn-success'>Get Books</button>
+                        bookByPaymentId()' class='btn btn-secondary'>Get Books</button>
+                    </div>
+                    <div class="input-group-text">
+                        <label for="Status" class="ww">PaymentId</label>
+                        <input class="form-control" name="mailId" [(ngModel)]='input.paymentId' class="ii">
+                        <button (click)='
+                        bookByPaymentId()' class='btn btn-secondary'>Refund</button>
                     </div>
                 </div>
             </form>
@@ -54,4 +58,4 @@
 
     </tbody>
 
-</table> 
+</table>

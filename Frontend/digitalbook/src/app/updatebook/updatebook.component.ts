@@ -1,29 +1,20 @@
 import { Component, OnInit } from '@angular/core';
+import { Book } from '../book';
 import { BookserviceService } from '../bookservice.service';
 
 @Component({
-  selector: 'createbook',
-  templateUrl: './createbook.component.html',
-  styleUrls: ['./createbook.component.css']
+  selector: 'app-updatebook',
+  templateUrl: './updatebook.component.html',
+  styleUrls: ['./updatebook.component.css']
 })
-export class CreatebookComponent implements OnInit {
+export class UpdatebookComponent implements OnInit {
 
-  book = {
-    image: "",
-    author: "",
-    title: "",
-    category: "",
-    publisher: "",
-    publishedDate: new Date(),
-    price: "",
-    content: "",
-    status: ""
+  book: Book = new Book();
 
+  constructor(private bookservice: BookserviceService) { }
+
+  ngOnInit(): void {
   }
-
-  books: any[] = [];
-  constructor(public bookservice: BookserviceService) { }
-
   saveBook() {
 
     if (this.book.title == "") {
@@ -41,7 +32,7 @@ export class CreatebookComponent implements OnInit {
     else if (this.book.publishedDate == null) {
       alert("please provide the published date")
     }
-    else if (this.book.price == "") {
+    else if (this.book.price == null) {
       alert("please provide the price of the book")
     }
     else if (this.book.content == "") {
@@ -51,14 +42,13 @@ export class CreatebookComponent implements OnInit {
       alert("please provide the status of the book")
     }
     else {
-      let image1 = this.book.image.split('/');
-      this.book.image= image1[image1.length-1]
+
       this.book.publishedDate = new Date(this.book.publishedDate);
       const observable = this.bookservice.save(this.book);
       observable.subscribe((responseBody: any) => {
         alert("Book Added Successfully..!!")
         console.log(responseBody);
-        this.books.push(responseBody);
+
       },
         (error: any) => {
           alert("Book not added please try once again..!!")
@@ -67,8 +57,25 @@ export class CreatebookComponent implements OnInit {
       );
     }
   }
-  ngOnInit(): void {
+  getBook() {
+    const observable = this.bookservice.getBookById(this.book.id).
+      subscribe((booksFromServer: any) => {
+        this.book = booksFromServer;
+      });
   }
+  updateBook()
+  {
+    this.book.publishedDate = new Date(this.book.publishedDate);
+      const observable = this.bookservice.updateBook(this.book)
+      observable.subscribe((responseBody: any) => {
+        alert("Book Added Successfully..!!")
+        console.log(responseBody);
 
+      },
+        (error: any) => {
+          alert("Book not added please try once again..!!")
+          console.log(error);
+        }
+      );
+  }
 }
-
