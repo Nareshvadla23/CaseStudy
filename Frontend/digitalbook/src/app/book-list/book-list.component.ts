@@ -16,7 +16,6 @@ export class BookListComponent implements OnInit {
   searchType = {
     "author": "",
     "category": "",
-    "title": "",
     "price": ""
 
   }
@@ -35,6 +34,7 @@ export class BookListComponent implements OnInit {
     });
   }
   Buy() {
+    
     this.router.navigate(['/buybook']);
   }
 
@@ -73,14 +73,24 @@ export class BookListComponent implements OnInit {
     }
   }
 
+  searchBooks() {
 
-
-
+    if (this.searchType.author == "" && this.searchType.category == "" && this.searchType.price == "") {
+      alert("Please choose one of the search type")
+    }
+    else {
+      if (this.searchType.author != "") {
+        this.booksByAuthor();
+      }
+      else if (this.searchType.category != "") {
+        this.booksByCategory();
+      }
+      else if (this.searchType.price != "") {
+        this.booksByPrice();
+      }
+    }
+  }
 }
-
-
-
-
 function rbooksFromServer(rbooksFromServer: any, any: any) {
   throw new Error('Function not implemented.');
 }

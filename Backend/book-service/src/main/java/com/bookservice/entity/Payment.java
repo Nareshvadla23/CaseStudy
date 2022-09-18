@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.bookservice.dto.PaymentMode;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -26,5 +28,5 @@ public class Payment {
 	private String userMail;
 	private String userName;
 	private LocalDate paymentDate;
-	private String paymentMode;
+	private PaymentMode paymentMode;
 }

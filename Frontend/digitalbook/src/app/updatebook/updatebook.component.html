@@ -8,10 +8,14 @@
             <form>
                 <div class="flex" >
                     <div class="input-group-text">
-                        <label for="Title" class="w2">BookId</label>
-                        <input class="form-control" name="id" [(ngModel)]='book.id' class="i2">
+                        <label for="Title" class="w">BookId</label>
+                        <input class="form-control" name="id" [(ngModel)]='updatedinfo.id' class="i">
                     </div>
-                    <button (click)='getBook()' class='btn btn-success'>Get</button>
+                    <div class="input-group-text">
+                        <label for="Title" class="w">mail</label>
+                        <input class="form-control" name="mail" [(ngModel)]='updatedinfo.mail' class="i">
+                    </div>
+                    <button (click)='getBook()' class='btn btn-outline-success'>Get</button>
                 </div>
                 
                 <div class="flex">
@@ -68,7 +72,7 @@
                     </div>
                 </div>
                 <div>
-                    <button (click)='updateBook()' class='btn btn-success'>Update</button>
+                    <button (click)='updateBook()' class='btn btn-outline-success'>Update</button>
                 </div>
 
             </form>

@@ -12,6 +12,6 @@ public class PaymentDto {
 	private String title;
 	private String name;
 	private String mailId;
-	private String paymentMode;
+	private PaymentMode paymentMode;
 	private LocalDate paymentDate;
 }

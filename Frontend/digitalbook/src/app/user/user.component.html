@@ -1,61 +1,37 @@
-<h1> UserBooks</h1>
+<section class="author">
+    <div class="container">
+        <h1> UserBooks</h1>
+    </div>
+    <div class="container pt-5 pb-5">
+        <div class="col-2">
+            <div class>
 
-<div class="container col-md-12">
-    <div class="row">
-        <div class="col-md-12 ">
-            <form>
-                <div class="flex">
-                    <div class="input-group-text">
-                        <label for="Status" class="ww">UserMail</label>
+                <div class="card shadow mt-2">
+                    <div class="card-body">
+                        <h2 class="card-title" class="text-light">User Books</h2>
+
+                        <label for="Status" class="ww" class="text-light">UserMail</label>
                         <input class="form-control" name="mailId" [(ngModel)]='input.mailId' class="ii">
+                        <label for="Status" class="ww" class="text-light">PaymentId</label>
+                        <input class="form-control" name="paymentId" [(ngModel)]='input.paymentId' class="ii">
                         <button (click)='
-                        bookByMailId()' class='btn btn-secondary'>Get Books</button>
-                    </div>
-                    <div class="input-group-text">
-                        <label for="Status" class="ww">PaymentId</label>
-                        <input class="form-control" name="mailId" [(ngModel)]='input.paymentId' class="ii">
-                        <button (click)='
-                        bookByPaymentId()' class='btn btn-secondary'>Get Books</button>
-                    </div>
-                    <div class="input-group-text">
-                        <label for="Status" class="ww">PaymentId</label>
-                        <input class="form-control" name="mailId" [(ngModel)]='input.paymentId' class="ii">
-                        <button (click)='
-                        bookByPaymentId()' class='btn btn-secondary'>Refund</button>
+                            bookByMailId()' class='btn-outline-success'>Get Books</button>
+                        
                     </div>
                 </div>
-            </form>
+                <div class="card shadow mt-2">
+                    <div class="card-body">
+                        <h2 class="card-title" class="text-light">Refund Status</h2>
+                        <label for="Status" class="ww" class="text-light">UserMail</label>
+                        <input class="form-control" name="mailId" [(ngModel)]='refund.mailId' class="ii">
+                        <label for="Status" class="ww" class="text-light">PaymentId</label>
+                        <input class="form-control" name="bookId" [(ngModel)]='refund.bookId' class="ii">
+                        <button (click)='
+                                refundByPaymentId()' class='btn-outline-success'>refund</button>
+                    </div>
+                </div>
+                
+            </div>
         </div>
     </div>
-</div>
-
-<h2> LIST OF BOOKS </h2>
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th>Author</th>
-            <th>Title</th>
-            <th>Category</th>
-            <th>Publisher</th>
-            <th>Publisherdate</th>
-            <th>Price</th>
-            <th>content</th>
-            <th>Image</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let book of books">
-            <td>{{book.author}}</td>
-            <td>{{book.title}}</td>
-            <td>{{book.category}}</td>
-            <td>{{book.publisher}}</td>
-            <td>{{book.publisherdate | date }}</td>
-            <td>{{book.price}}</td>
-            <td>{{book.content}}</td>
-            <img src="{{book.image}}" width="140" height="100">
-
-        </tr>
-
-    </tbody>
-
-</table>
+</section>

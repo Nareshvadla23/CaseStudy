@@ -1,24 +1,23 @@
+
 <h2> LIST OF BOOKS </h2>
 <div class="container col-md-12">
     <div class="row">
-        <div class="col-md-12 ">
+        <div class="col-md-6 ">
             <form>
                 <div class="flex">
                     <div class="input-group-text">
                         <label for="Status" class="ww">Author</label>
                         <input class="form-control" name="mailId" [(ngModel)]='searchType.author' class="ii">
-                        <button class='btn btn-secondary' (click)='booksByAuthor()'>Get Books</button>
                     </div>
                     <div class="input-group-text">
                         <label for="Status" class="ww">Category</label>
                         <input class="form-control" name="mailId" [(ngModel)]='searchType.category' class="ii">
-                        <button class='btn btn-secondary' (click)='booksByCategory()'>Get Books</button>
                     </div>
                     <div class="input-group-text">
                         <label for="Status" class="ww">Price</label>
                         <input class="form-control" name="mailId" [(ngModel)]='searchType.price' class="ii">
-                        <button class='btn btn-secondary' (click)='booksByPrice()'>Get Books</button>
                     </div>
+                    <button class='btn btn-secondary' (click)='searchBooks()'>Search</button>
                 </div>
             </form>
         </div>
@@ -39,13 +38,13 @@
     </thead>
     <tbody>
         <tr *ngFor="let rbook of rbooks">
-            <td>{{rbook.author}}</td> 
+            <td>{{rbook.author}}</td>
             <td>{{rbook.title}}</td>
             <td>{{rbook.category}}</td>
             <td>{{rbook.publisher}}</td>
             <td>{{rbook.publishedDate | date }}</td>
             <td>{{rbook.price}}</td>
-            <img src="../../assets/I{{rbook.image}}"  width="140" height="100">
+            <img src="../../assets/I{{rbook.image}}" width="140" height="100">
             <button type="button" class="btn btn-outline-secondary" (click)='Buy()'>buy</button>
 
         </tr>

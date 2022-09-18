@@ -1,6 +1,7 @@
 .ww
 {
     width: 90px;
+    text-decoration-color: azure;
 }
 .ii
 {
@@ -16,3 +17,16 @@
 h1{
     text-align: center;
 }
+.author
+{
+    
+    background-image: url("../../assets/Iadd.jpg");
+    background-position: 0px;
+}
+div.card-body{
+    background-color:rgb(75, 77, 73);
+    text-align: center;
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+  }

@@ -19,8 +19,10 @@ import com.bookservice.PaymentRepository;
 import com.bookservice.dto.BookDto;
 import com.bookservice.dto.Category;
 import com.bookservice.dto.PaymentDto;
+import com.bookservice.dto.PaymentMode;
 import com.bookservice.dto.ResponseDto;
 import com.bookservice.dto.Status;
+import com.bookservice.dto.refundDto;
 import com.bookservice.entity.Author;
 import com.bookservice.entity.Book;
 import com.bookservice.entity.Payment;
@@ -62,25 +64,12 @@ class PaymentServiceTest {
 		return book;
 	}
 
-	public static BookDto bookDto(Book book) {
-		BookDto bookDto = new BookDto();
-		bookDto.setAuthor(book.getAuthor().getName());
-		bookDto.setCategory(book.getCategory());
-		bookDto.setContent(book.getContent());
-		bookDto.setImage(book.getImage());
-		bookDto.setTitle(book.getTitle());
-		bookDto.setPrice(book.getPrice());
-		bookDto.setPublisher(book.getPublisher());
-		bookDto.setPublishedDate(book.getPublishedDate());
-		return bookDto;
-	}
-
 	public static PaymentDto PaymentDto() {
 		PaymentDto paymentDto = new PaymentDto();
 		paymentDto.setMailId("naresh@gmail.com");
 		paymentDto.setName("naresh");
 		paymentDto.setPaymentDate(LocalDate.now());
-		paymentDto.setPaymentMode("net banking");
+		paymentDto.setPaymentMode(PaymentMode.NETBANKING);
 		paymentDto.setTitle("cricket");
 		return paymentDto;
 	}
@@ -112,38 +101,35 @@ class PaymentServiceTest {
 		BookDto bookDto = paymentService.bookDto(book);
 		assertEquals(book.getAuthor().getName(), bookDto.getAuthor());
 	}
-
+ 
 	@Test
 	void testBuyBook() {
 		Book book = book();
 		when(BookRepository.findByTitle("cricket")).thenReturn(book);
 		Payment pay = payment();
 		when(paymentRepository.save(pay)).thenReturn(pay);
-		Payment payment = paymentService.buyBook(PaymentDto());
-		assertEquals(1, payment.getId());
+		PaymentDto paymentDto = PaymentDto();
+		Payment payment = paymentService.buyBook(paymentDto);
+		assertEquals("net banking", payment.getPaymentMode());
 	}
 
 	@Test
-	void testGetBooksByMail() {
+	void testGetBooksByMail() throws Exception {
 		List<Payment> payments = payments();
-		when(paymentRepository.findByUserMail("naresh@gmail.com")).thenReturn(payments);
-		List<BookDto> books = paymentService.getBooksByMail("naresh@gmail.com");
-		assertEquals(1, books.size());
-	}
-
-	@Test
-	void testGetBooksByPaymentId() {
-
 		Optional<Payment> payment = Optional.of(payment());
-
 		when(paymentRepository.findById(1)).thenReturn(payment);
-		List<BookDto> book = paymentService.getBooksByPaymentId(1);
-		assertEquals("cricket", ((ResponseDto) book).getTitle());
+		BookDto books = paymentService.getBooksByMail("naresh@gmail.com",1);
+		assertEquals("naresh", books.getAuthor());
 	}
-
 	@Test
-	void testRefundPayment() {
-
+	void testRefundPayment()  {
+	Payment payment = payment();
+	when(paymentRepository.findByUserMail("naresh@gmail.com")).thenReturn(payment);
+	refundDto refund = new refundDto();
+	refund.setPurchaseDate(payment.getPaymentDate());
+	refund.setRefundStatus("refunded");
+    refundDto refunds = paymentService.refundPayment("naresh@gmail.com");
+    assertEquals(payment.getPaymentDate(), refunds.getPurchaseDate());
 	}
 
 }

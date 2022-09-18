@@ -23,11 +23,11 @@ export class SignupComponent implements OnInit {
   registerAuthor() {
 
     console.log(this.author);
-    if(this.author.mailId=="")
+    if(this.author.name=="")
     {
       alert("Please enter userName");
     }
-    else if (this.author.name=="")
+    else if (this.author.mailId=="")
     {
       alert("Please enter userMail");
     }
@@ -39,7 +39,7 @@ export class SignupComponent implements OnInit {
     this.bookservice.registerAuthor(this.author).subscribe(data => {
       alert("Registration Successfull")
       this.router.navigate(['/author'])
-    }, error => alert("Registration not sucessfull please provide correct details")
+    }, error => alert("User Mail already exist please try with another ")
     )
   }
   }

@@ -4,7 +4,7 @@ export class Bookcontent {
     'title': string;
     'category': string;
     'publisher': string;
-    'publisherdate': Date;
+    'publishedDate': Date;
     'price': number;
     'image': string;
     'content':string;

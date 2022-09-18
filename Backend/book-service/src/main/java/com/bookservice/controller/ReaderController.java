@@ -10,18 +10,22 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.bookservice.PaymentRepository;
 import com.bookservice.dto.BookDto;
 import com.bookservice.dto.Category;
 import com.bookservice.dto.PaymentDto;
 import com.bookservice.dto.ResponseDto;
+import com.bookservice.dto.refundDto;
 import com.bookservice.entity.Payment;
 import com.bookservice.service.PaymentService;
 import com.bookservice.service.ReaderService;
 
 @CrossOrigin
 @RestController
+@RequestMapping("/digitalbooks")
 public class ReaderController {
 
 	@Autowired
@@ -30,15 +34,18 @@ public class ReaderController {
 	@Autowired
 	private ReaderService ReaderService;
 
+	@Autowired
+	private PaymentRepository paymentRepository;
+
 	@PostMapping("/buy")
 	public Payment buyBook(@Valid @RequestBody PaymentDto paymentDto) {
 		Payment payment = PaymentService.buyBook(paymentDto);
 		return payment;
 	}
 
-	@GetMapping("/books/byMailId/{mailId}")
-	public List<BookDto> getBooksByMailId(@PathVariable String mailId) {
-		return PaymentService.getBooksByMail(mailId);
+	@GetMapping("/books/byMailId/{mailId}/paymentId/{paymentId}")
+	public BookDto getBooksByMailId(@PathVariable String mailId, @PathVariable Integer paymentId) throws Exception {
+		return PaymentService.getBooksByMail(mailId, paymentId);
 	}
 
 	@GetMapping("/books/all")
@@ -61,14 +68,14 @@ public class ReaderController {
 		return ReaderService.getBookByCategory(category);
 	}
 
-	@GetMapping("/books/byPaymentId/{paymentId}")
-	public List<BookDto> getbookByPaymentId(@PathVariable Integer paymentId) {
-		return PaymentService.getBooksByPaymentId(paymentId);
-	}
+	@GetMapping("/refund/{PaymentId}/mail/{mail}")
+	public refundDto paymentRefund(@PathVariable Integer PaymentId, @PathVariable String mail) throws Exception {
+		Payment payment = paymentRepository.findByUserMail(mail);
+		if (payment.getId().equals(PaymentId)) {
+			return PaymentService.refundPayment(mail);
+		}
+		throw new Exception("Payment Id Not matching with mailId");
 
-	@GetMapping("/refund/{paymentId}") 
-	public String paymentRefund(@PathVariable Integer paymentId) {
-		return PaymentService.refundPayment(paymentId);
 	}
 
 }

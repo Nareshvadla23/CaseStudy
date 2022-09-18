@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BookserviceService } from '../bookservice.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'createbook',
@@ -22,7 +23,7 @@ export class CreatebookComponent implements OnInit {
   }
 
   books: any[] = [];
-  constructor(public bookservice: BookserviceService) { }
+  constructor(public bookservice: BookserviceService, private router: Router) { }
 
   saveBook() {
 
@@ -52,12 +53,12 @@ export class CreatebookComponent implements OnInit {
     }
     else {
       let image1 = this.book.image.split('/');
-      this.book.image= image1[image1.length-1]
+      this.book.image = image1[image1.length - 1]
       this.book.publishedDate = new Date(this.book.publishedDate);
       const observable = this.bookservice.save(this.book);
       observable.subscribe((responseBody: any) => {
         alert("Book Added Successfully..!!")
-        console.log(responseBody);
+        this.router.navigate(['/author'])
         this.books.push(responseBody);
       },
         (error: any) => {
@@ -68,6 +69,7 @@ export class CreatebookComponent implements OnInit {
     }
   }
   ngOnInit(): void {
+  
   }
 
 }

@@ -10,11 +10,15 @@ import { Router } from '@angular/router';
 })
 export class UserComponent implements OnInit {
 
-  books:Bookcontent[]=[];
+  books: Bookcontent = new Bookcontent();
 
-  refund={
-     id: "",
-     refundStatus:""
+  refund = {
+    bookId: "",
+    mailId: ""
+  }
+  refundstatus = {
+    refundStatus: "",
+    purchaseDate: ""
   }
 
   input = {
@@ -22,31 +26,26 @@ export class UserComponent implements OnInit {
     paymentId: ""
   }
 
-  constructor(public bookservice: BookserviceService, private router:Router) { }
+  constructor(public bookservice: BookserviceService, private router: Router) { }
 
   ngOnInit(): void {
   }
 
   bookByMailId() {
-    console.log(this.input.mailId);
-    const observable = this.bookservice.getBooksByUserMailId(this.input.mailId);
-    observable.subscribe((booksFromServer: any) => {
-      console.log(observable)
-      this.books = booksFromServer;
-    });
+
+    localStorage.setItem('usermail', this.input.mailId)
+    localStorage.setItem('paymentId', this.input.paymentId)
+
+    this.router.navigate(['/userbooks'])
+
   }
-  bookByPaymentId() {
-    console.log(this.input.paymentId)
-    const observable = this.bookservice.getBooksByPaymentId(this.input.paymentId)
-    observable.subscribe((booksFromServer: any) => {
-      this.books = booksFromServer;
-    });
-  }
-  refundByPaymentId()
-  {
-    const observable = this.bookservice.refund(this.input.paymentId)
+  refundByPaymentId() {
+    const observable = this.bookservice.refund(this.refund)
     observable.subscribe((refundFromServer: any) => {
-      this.refund = refundFromServer;
-    });
+      this.refundstatus = refundFromServer;
+      alert(this.refundstatus.refundStatus)
+    }, error => alert("Please provide correct mailId or BookId ")
+       
+    );
   }
 }

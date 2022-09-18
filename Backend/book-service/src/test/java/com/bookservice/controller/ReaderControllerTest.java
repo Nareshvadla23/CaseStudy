@@ -17,6 +17,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import com.bookservice.dto.BookDto;
 import com.bookservice.dto.Category;
 import com.bookservice.dto.PaymentDto;
+import com.bookservice.dto.PaymentMode;
 import com.bookservice.dto.RequestDto;
 import com.bookservice.dto.ResponseDto;
 import com.bookservice.dto.Status;
@@ -115,7 +116,7 @@ class ReaderControllerTest {
 		paymentDto.setMailId("naresh@gmail.com");
 		LocalDate date = LocalDate.now();
 		paymentDto.setPaymentDate(date);
-		paymentDto.setPaymentMode("Internet Banking");
+		paymentDto.setPaymentMode(PaymentMode.NETBANKING);
 		return paymentDto;
 	}
 
@@ -125,7 +126,7 @@ class ReaderControllerTest {
 		payment.setId(1);
 		LocalDate date = LocalDate.now();
 		payment.setPaymentDate(date);
-		payment.setPaymentMode("net banking");
+		payment.setPaymentMode(PaymentMode.NETBANKING);
 		payment.setUserMail("mail1");
 		payment.setUserName("naresh");
 		return payment;
@@ -135,17 +136,17 @@ class ReaderControllerTest {
 	void testBuyBook() {
 
 		Payment payment = payment();
-		
+
 		PaymentDto paymentDto = paymentDto();
 
 		when(paymentService.buyBook(paymentDto)).thenReturn(payment);
 		Payment payment1 = readerController.buyBook(paymentDto);
-		assertEquals(1, payment1.getId()); 
+		assertEquals(1, payment1.getId());
 
 	}
 
 	@Test
-	void testGetBooksByMailId() { 
+	void testGetBooksByMailId() throws Exception {
 
 		BookDto book = new BookDto();
 		book.setAuthor("naresh");
@@ -155,12 +156,9 @@ class ReaderControllerTest {
 		book.setPrice(200d);
 		book.setPublisher("public");
 		book.setPublishedDate(LocalDate.now());
-
-		List<BookDto> books = new ArrayList<>();
-		books.add(book);
-		when(paymentService.getBooksByMail("naresh@gmail.com")).thenReturn(books);
-		List<BookDto> books1 = readerController.getBooksByMailId("naresh@gmail.com");
-		assertEquals(books.size(), books1.size());
+		when(paymentService.getBooksByMail("naresh@gmail.com", 1)).thenReturn(book);
+		BookDto books1 = readerController.getBooksByMailId("naresh@gmail.com", 1);
+		assertEquals("naresh", books1.getAuthor());
 
 	}
 

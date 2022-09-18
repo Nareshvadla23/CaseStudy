@@ -14,6 +14,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.bookservice.dto.Category;
 import com.bookservice.dto.LoginDto;
@@ -34,7 +35,10 @@ class BookControllerTest {
 	@Mock
 	ReaderService Rservice;
 
-	@InjectMocks 
+	@Mock
+	PasswordEncoder encoder;
+
+	@InjectMocks
 	BookController control;
 	@InjectMocks
 	ReaderController readerController;
@@ -56,7 +60,7 @@ class BookControllerTest {
 		book.setId(1);
 		book.setImage("image1");
 		book.setPrice(2000d);
-		
+
 		book.setPublishedDate(LocalDate.now());
 		book.setPublisher("BCCI");
 		book.setStatus(Status.ACTIVE);
@@ -113,30 +117,36 @@ class BookControllerTest {
 	}
 
 	@Test
-	void testLoginAuthor() {
-		Author author = author();
-		LoginDto login = new LoginDto();
-		login.setMailId("naresh@gmail.com");
-		login.setPassword("naresh@23");
-		when(service.loginAuthor(login)).thenReturn(author);
-		ResponseEntity<?> response = control.loginAuthor(login);
-		assertEquals(ResponseEntity.ok(author), response);
-	}
-
-	@Test
-	void testSaveAuthor() {
-		Author author = author();
-		when(service.saveAuthor(author)).thenReturn(author.getId());
-		Integer id = control.saveAuthor(author);
-		assertEquals(1, id);
-	}
-
-	@Test
 	void testUpdateBook() {
 		RequestDto requestDto = requestBook();
 		Book book = book();
 		when(service.updateBook(requestDto, 1)).thenReturn(book());
-		Book book1 = control.updateBook(requestDto,1);
+		Book book1 = control.updateBook(requestDto, 1);
 		assertEquals(1, book1.getId());
 	}
+
+	@Test
+	void testGetByAuthorId() {
+		List<ResponseDto> responseDtos = responsebooks();
+		when(service.BooksbyAuthorId(1)).thenReturn(responseDtos);
+		List<ResponseDto> books = control.getByAuthorId(1);
+		assertEquals(1, books.size());
+	}
+
+	@Test
+	void testGetByBookId() throws Exception {
+		RequestDto requestDto = requestBook();
+		when(service.getbyBookId(1, "naresh@gmail.com")).thenReturn(requestDto);
+		RequestDto book = control.getByBookId(1,"naresh@gmail.com");
+		assertEquals(1, book.getId()); 
+	}
+
+	@Test
+	void testGetByAuthorMail() {
+		List<ResponseDto> responseDtos = responsebooks();
+		when(service.BooksbyAuthorMail("naresh@gmail.com")).thenReturn(responseDtos);
+		List<ResponseDto> books = control.getByAuthorMail("naresh@gmail.com");
+		assertEquals(1, books.size());
+	}
+
 }

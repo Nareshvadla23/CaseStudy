@@ -95,9 +95,13 @@ class ReaderServiceTest {
 
 	@Test
 	void testGetBookByAuthor() {
-		when(mbookRepository.findByAuthor(book().getAuthor().getName())).thenReturn(books());
-		List<ResponseDto> books = redService.getBookByAuthor(book().getAuthor().getName());
-		assertEquals(responseBook().size(), books.size());
+		
+		Author author = author();
+		List<Book> books = books();
+		when(authorRepository.findByName("naresh")).thenReturn(author);
+		when(mbookRepository.findByAuthor(author)).thenReturn(books);
+		List<ResponseDto> book = redService.getBookByAuthor("naresh");
+		assertEquals(1, book.size());
 	}
 
 	@Test

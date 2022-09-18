@@ -15,10 +15,11 @@ export class AuthorbooksComponent implements OnInit {
 
   ngOnInit(): void {
     let data = localStorage.getItem('value');
-
+  
     const observable = this.bookservice.getBooksByAuthorMailId(data)
     observable.subscribe((rbooksFromServer: any) => {
       this.rbooks = rbooksFromServer;
+      
     });
  }
   Edit() {

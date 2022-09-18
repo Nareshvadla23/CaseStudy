@@ -7,7 +7,7 @@
                 <div class="flex">
                     <div class="input-group-text">
                         <label for="Title" class="w">Title</label>
-                        <input class="form-control" name="Title" [(ngModel)]='book.title' class ="i">
+                        <input class="form-control" name="Title" [(ngModel)]='book.title' class="i">
                     </div>
                     <div class="input-group-text">
                         <label for="Author" class="w">Author</label>
@@ -46,14 +46,14 @@
                             [(ngModel)]='book.image' class="i">
                     </div>
                 </div>
-                <div class = "flex">
-                <div class="input-group-text">
-                    <label for="Status" class="ww">Status</label>
-                    <input class="form-control" name="Status" [(ngModel)]='book.status' class="ii">
-                </div>
+                <div class="flex">
+                    <div class="input-group-text">
+                        <label for="Status" class="ww">Status</label>
+                        <input class="form-control" name="Status" [(ngModel)]='book.status' class="ii">
+                    </div>
                 </div>
                 <div>
-                    <button (click)='saveBook()' class='btn btn-success'>Save</button>
+                    <button (click)='saveBook()' class='btn btn-outline-success'>Save</button>
                 </div>
 
             </form>

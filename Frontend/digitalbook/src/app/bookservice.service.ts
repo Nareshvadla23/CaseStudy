@@ -5,7 +5,8 @@ import { Observable } from 'rxjs';
 import { SignupComponent } from './signup/signup.component';
 import { Buybook } from './buybook';
 import { Book } from './book';
-const URL = "http://localhost:8084/"
+const URL = "http://localhost:8084/digitalbooks/"
+const getURL = "https://4fgesl7lk3.execute-api.us-west-2.amazonaws.com/prod"
 @Injectable({
   providedIn: 'root'
 })
@@ -14,7 +15,7 @@ export class BookserviceService {
     return this.http.post(URL + "book", book);
   }
   getbooks() {
-    return this.http.get(URL + "books/all")
+    return this.http.get(URL+"books/all")
   }
   constructor(public http: HttpClient) { }
 
@@ -32,15 +33,15 @@ export class BookserviceService {
     return this.http.put(URL + "book/" + book.id, book)
   }
 
-  refund(paymentId: any): Observable<object> {
-    return this.http.get(URL + "refund/" + paymentId)
+  refund(user: any): Observable<object> {
+    return this.http.get(URL + "refund/" + user.bookId + "/mail/" + user.mailId)
   }
 
   getBooksByAuthorId() {
     return this.http.get(URL + "ByAuthorId/8");
   }
-  getBooksByUserMailId(mailId: any) {
-    return this.http.get(URL + "books/byMailId/" + mailId);
+  getBooksByUserMailId(mailId: any,paymentId:any) {
+    return this.http.get(URL + "books/byMailId/" + mailId + "/paymentId/" + paymentId);
   }
   getBooksByPaymentId(paymentId: any) {
     return this.http.get(URL + "books/byPaymentId/" + paymentId);
@@ -54,12 +55,12 @@ export class BookserviceService {
   getBooksByPrice(price: any) {
     return this.http.get(URL + "books/byPrice/" + price)
   }
-  getBookById(Id: any) {
-    return this.http.get(URL + "ByBookId/" + Id)
+  getBookById(update: any) {
+    return this.http.get(URL + "ByBookId/" + update.id + "/mail/" + update.mail)
   }
 
   getBooksByAuthorMailId(mailId: any) {
-    return this.http.get(URL + "byMailId/" + mailId);
+    return this.http.get(URL + "ByAuthorMailId/" + mailId);
   }
 
 

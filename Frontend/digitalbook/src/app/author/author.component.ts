@@ -11,6 +11,11 @@ export class AuthorComponent implements OnInit {
   constructor(private router: Router) { }
 
   ngOnInit(): void {
+    let data =localStorage.getItem('value')
+    if(!data)
+    {
+      this.router.navigate(["/login"])
+    }
   }
 
   addBook() {

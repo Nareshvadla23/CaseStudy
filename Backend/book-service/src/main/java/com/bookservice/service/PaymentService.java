@@ -1,24 +1,21 @@
 package com.bookservice.service;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.bookservice.BookRepository;
 import com.bookservice.PaymentRepository;
-import com.bookservice.dto.PaymentDto;
 import com.bookservice.dto.BookDto;
+import com.bookservice.dto.PaymentDto;
+import com.bookservice.dto.refundDto;
 import com.bookservice.entity.Book;
 import com.bookservice.entity.Payment;
 
 @Service
 public class PaymentService {
 
-	@Autowired 
+	@Autowired
 	private PaymentRepository paymentRepository;
 
 	@Autowired
@@ -51,34 +48,32 @@ public class PaymentService {
 		return payment;
 	}
 
-	public List<BookDto> getBooksByMail(String mail) {
-		List<Payment> payment = paymentRepository.findByUserMail(mail);
-		List<BookDto> books = new ArrayList<>();
-		for (Payment pay : payment) {
-			Book book = pay.getBook();
-			BookDto bookDto = bookDto(book);
-			books.add(bookDto);
-		}
-		return books;
-	}
-
-	public List<BookDto> getBooksByPaymentId(Integer paymentId) {
+	public BookDto getBooksByMail(String mail, Integer paymentId) throws Exception {
 		Optional<Payment> payment = paymentRepository.findById(paymentId);
-		List<BookDto> books = new ArrayList<>();
-		Book book = payment.get().getBook();
-		BookDto bookDto = bookDto(book);
-		books.add(bookDto);
-		return books;
-	}
 
-	public String refundPayment(Integer paymenId) {
-		Optional<Payment> payment = paymentRepository.findById(paymenId);
-		LocalDate paymentDate = payment.get().getPaymentDate();
-		if (paymentDate.equals(LocalDate.now())) {
-			paymentRepository.delete(payment.get());
-			return "Refund has been initiated";
+		if (payment.get().getUserMail().equals(mail)) {
+			Book book = payment.get().getBook();
+			BookDto bookDto = bookDto(book);
+			return bookDto;
 		} else {
-			return "refund due date exceeded";
+			throw new Exception("Time limit for refund exceeded");
+		}
+
+	}
+	public refundDto refundPayment(String mail)  {
+		Payment payment = paymentRepository.findByUserMail(mail);
+		refundDto refund = new refundDto();
+		refund.setPurchaseDate(payment.getPaymentDate());
+
+		LocalDate paymentDate = payment.getPaymentDate();
+		if (paymentDate.equals(LocalDate.now())) {
+			paymentRepository.delete(payment);
+			refund.setRefundStatus("Refund Initiated and you get fund within 24hrs");
+
+			return refund;
+		} else {
+			refund.setRefundStatus("Sorry Time limit for refund expires");
+			return refund;
 		}
 
 	}

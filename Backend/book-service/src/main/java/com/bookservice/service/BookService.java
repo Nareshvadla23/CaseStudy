@@ -1,7 +1,6 @@
 package com.bookservice.service;
 
 import java.util.ArrayList;
-import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,48 +25,40 @@ public class BookService {
 	@Autowired
 	private BookRepository bookRepository;
 
-	public Integer saveAuthor(Author auth) {
+	public Author saveAuthor(Author auth) {
 		Author author = authorRepository.save(auth);
-		return author.getId();
+		return author;
 	}
 
 	public Book updateBook(RequestDto requestDto, Integer bookId) {
 
 		Optional<Book> optionalBook = bookRepository.findById(bookId);
 		Book book = optionalBook.get();
-		if (optionalBook.isPresent()) {
-			book.setCategory(requestDto.getCategory());
-			book.setContent(requestDto.getContent());
-			book.setImage(requestDto.getImage());
-			book.setPrice(requestDto.getPrice());
-			book.setPublishedDate(requestDto.getPublishedDate());
-			book.setPublisher(requestDto.getPublisher());
-			book.setTitle(requestDto.getTitle());
-			book.setStatus(requestDto.getStatus());
-		} else {
-			throw new NullPointerException("No Book Found with BookID:" + bookId);
-		}
+		String image = requestDto.getImage();
+		String[] images = image.split("I");
+		book.setCategory(requestDto.getCategory());
+		book.setContent(requestDto.getContent());
+		book.setImage(images[1]);
+		book.setPrice(requestDto.getPrice());
+		book.setPublishedDate(requestDto.getPublishedDate());
+		book.setPublisher(requestDto.getPublisher());
+		book.setTitle(requestDto.getTitle());
+		book.setStatus(requestDto.getStatus());
+
 		Book savedBook = bookRepository.save(book);
 		return savedBook;
 	}
 
 	public Author loginAuthor(LoginDto login) {
 		Author author = authorRepository.findByMailId(login.getMailId());
-		byte[] password = Base64.getDecoder().decode(author.getPassword());
-		String decoded = new String(password);
-		Author auth = new Author();
-		auth.setMailId(author.getMailId());
-		auth.setName(author.getName());
-		auth.setPassword(decoded);
-		return auth;
+
+		return author;
 	}
 
-	public Integer savebook(RequestDto requestDto) {
+	public Integer savebook(RequestDto requestDto) { 
 		Book book = new Book();
-
 		String image = requestDto.getImage();
 		String[] images = image.split("I");
-		System.out.println(images[images.length - 1]);
 		book.setCategory(requestDto.getCategory());
 		book.setContent(requestDto.getContent());
 		book.setImage(images[1]);
@@ -78,8 +69,8 @@ public class BookService {
 		book.setTitle(requestDto.getTitle());
 		Author author = authorRepository.findByName(requestDto.getAuthor());
 		book.setAuthor(author);
-		Book book1 = bookRepository.save(book);
-		return book1.getId();
+		Book savedBook = bookRepository.save(book);
+		return savedBook.getId();
 	}
 
 	public List<ResponseDto> BooksbyAuthorId(Integer authorId) {
@@ -101,6 +92,7 @@ public class BookService {
 		}
 		return responseBooks;
 	}
+
 	public List<ResponseDto> BooksbyAuthorMail(String mail) {
 		Author author = authorRepository.findByMailId(mail);
 		List<Book> books = bookRepository.findByAuthor(author);
@@ -121,19 +113,24 @@ public class BookService {
 		return responseBooks;
 	}
 
-	public RequestDto getbyBookId(Integer id) {
-		Optional<Book> book = bookRepository.findById(id);
-		RequestDto requestDto = new RequestDto();
-		requestDto.setAuthor(book.get().getAuthor().getName());
-		requestDto.setCategory(book.get().getCategory());
-		requestDto.setContent(book.get().getContent());
-		requestDto.setImage(book.get().getImage());
-		requestDto.setPrice(book.get().getPrice());
-		requestDto.setPublisher(book.get().getPublisher());
-		requestDto.setPublishedDate(book.get().getPublishedDate());
-		requestDto.setTitle(book.get().getTitle());
-		;
-		return requestDto;
+	public RequestDto getbyBookId(Integer bookId, String authorMail) throws Exception {
+		Optional<Book> book = bookRepository.findById(bookId);
+		if (book.get().getAuthor().getMailId().equalsIgnoreCase(authorMail)) {
+			RequestDto requestDto = new RequestDto();
+			requestDto.setAuthor(book.get().getAuthor().getName());
+			requestDto.setCategory(book.get().getCategory());
+			requestDto.setContent(book.get().getContent());
+			requestDto.setImage(book.get().getImage());
+			requestDto.setPrice(book.get().getPrice());
+			requestDto.setPublisher(book.get().getPublisher());
+			requestDto.setPublishedDate(book.get().getPublishedDate());
+			requestDto.setTitle(book.get().getTitle());
+			requestDto.setStatus(book.get().getStatus());
+			requestDto.setId(book.get().getId());
+			return requestDto;
+		} else {
+			throw new Exception("BookId Not matching with Author");
+		}
 	}
 
 }
