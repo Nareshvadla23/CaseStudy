@@ -68,11 +68,11 @@ public class ReaderController {
 		return ReaderService.getBookByCategory(category);
 	}
 
-	@GetMapping("/refund/{PaymentId}/mail/{mail}")
-	public refundDto paymentRefund(@PathVariable Integer PaymentId, @PathVariable String mail) throws Exception {
-		Payment payment = paymentRepository.findByUserMail(mail);
+	@GetMapping("/refund/{PaymentId}/mail/{mailId}")
+	public refundDto paymentRefund(@PathVariable Integer PaymentId, @PathVariable String mailId) throws Exception {
+		Payment payment = paymentRepository.findByUserMail(mailId);
 		if (payment.getId().equals(PaymentId)) {
-			return PaymentService.refundPayment(mail);
+			return PaymentService.refundPayment(mailId);
 		}
 		throw new Exception("Payment Id Not matching with mailId");
 

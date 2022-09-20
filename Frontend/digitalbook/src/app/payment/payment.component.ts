@@ -12,10 +12,12 @@ export class PaymentComponent implements OnInit {
 
   buyBook: Buybook = new Buybook();
 
+  rbook =JSON.parse(JSON.stringify(localStorage.getItem('title')));
+
   constructor(private bookservice: BookserviceService,private router:Router) { }
 
   ngOnInit(): void {
-    this.buyBook.title="RDPD"
+   
   }
   buyBooks() {
     if (this.buyBook.title == null) {

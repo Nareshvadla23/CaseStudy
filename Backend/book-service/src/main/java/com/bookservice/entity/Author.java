@@ -8,12 +8,11 @@ import javax.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.Setter;
 
-
 @Setter
 @Getter
 @Entity
 public class Author {
-	
+
 	@Id
 	@GeneratedValue
 	private Integer id;
@@ -22,5 +21,5 @@ public class Author {
 	@NotBlank(message = "Mail should not be blank")
 	private String mailId;
 	@NotBlank(message = "Password should not be blank")
-	private String password;	
+	private String password;
 }

@@ -1,7 +1,7 @@
 .ww
 {
     width: 90px;
-    text-decoration-color: azure;
+    text-decoration-color: rgb(255, 240, 242);
 }
 .ii
 {
@@ -14,8 +14,9 @@
   flex-basis: 50px;
   flex-grow: 0;
 }
-h1{
+h2{
     text-align: center;
+    color:#f5f5a9
 }
 .author
 {

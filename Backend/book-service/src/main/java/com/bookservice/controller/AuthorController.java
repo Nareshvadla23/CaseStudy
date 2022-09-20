@@ -43,12 +43,9 @@ public class AuthorController {
 	public ResponseEntity<?> saveAuthor(@Valid @RequestBody Author author) {
 		if (authorRepository.findByMailId(author.getMailId()) == null) {
 			String password = passwordEncoder.encode(author.getPassword());
-			Author auth = new Author();
-			auth.setMailId(author.getMailId());
-			auth.setName(author.getName());
-			auth.setPassword(password);
-			Author author1 = bookService.saveAuthor(auth);
-			return ResponseEntity.ok(author1);
+			author.setPassword(password);
+			Author author1 = bookService.saveAuthor(author);
+			return ResponseEntity.ok(author);
 		}else
 		{
 		return (ResponseEntity<?>) ResponseEntity.internalServerError();

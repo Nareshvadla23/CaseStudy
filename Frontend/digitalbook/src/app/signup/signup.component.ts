@@ -23,15 +23,15 @@ export class SignupComponent implements OnInit {
   registerAuthor() {
 
     console.log(this.author);
-    if(this.author.name=="")
+    if(this.author.name=="" || this.author.name.trim()=="")
     {
       alert("Please enter userName");
     }
-    else if (this.author.mailId=="")
+    else if (this.author.mailId=="" || this.author.mailId.trim()=="")
     {
       alert("Please enter userMail");
     }
-    else if (this.author.password=="")
+    else if (this.author.password==""|| this.author.password.trim()=="")
     {
       alert("Please enter password");
     }

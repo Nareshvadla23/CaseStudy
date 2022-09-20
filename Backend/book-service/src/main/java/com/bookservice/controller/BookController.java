@@ -42,13 +42,13 @@ public class BookController {
 	}
 
 	@GetMapping("/ByBookId/{id}/mail/{authormail}")
-	public RequestDto getByBookId(@PathVariable Integer id,@PathVariable String authormail) throws Exception {
-		return bookService.getbyBookId(id,authormail);
+	public RequestDto getByBookId(@PathVariable Integer id,@PathVariable String authorMail) throws Exception {
+		return bookService.getbyBookId(id,authorMail);
 	}
 
 	@GetMapping("/ByAuthorMailId/{mail}")
 	public List<ResponseDto> getByAuthorMail(@PathVariable String mail) {
-		return bookService.BooksbyAuthorMail(mail);
+		return bookService.BooksbyAuthorMail(mail); 
 	}
 
 }

@@ -16,6 +16,7 @@ import com.bookservice.dto.LoginDto;
 import com.bookservice.entity.Author;
 import com.bookservice.service.BookService;
 import com.bookservice.service.ReaderService;
+
 @ExtendWith(MockitoExtension.class)
 class AuthorControllerTest {
 	@Mock
@@ -26,7 +27,7 @@ class AuthorControllerTest {
 
 	@Mock
 	PasswordEncoder encoder;
-	
+
 	@Mock
 	AuthorRepository authorRepository;
 
@@ -34,8 +35,6 @@ class AuthorControllerTest {
 	AuthorController control;
 	@InjectMocks
 	ReaderController readerController;
-	
-	
 
 	public static Author author() {
 		Author author = new Author();
@@ -57,14 +56,31 @@ class AuthorControllerTest {
 		ResponseEntity<?> response = control.loginAuthor(login);
 		assertEquals(ResponseEntity.ok(author), response);
 	}
+	@Test
+	void testLoginAuthorFail() {
+		Author author = author();
+		LoginDto login = new LoginDto();
+		login.setMailId("naresh@gmail.com");
+		login.setPassword("naresh@23");
+		when(encoder.matches(login.getPassword(), author.getPassword())).thenReturn(false);
+		when(service.loginAuthor(login)).thenReturn(author);
+		assertEquals((ResponseEntity<?>) ResponseEntity.badRequest(), control.loginAuthor(login));
+	}
 
 	@Test
-	void testSaveAuthor() { 
+	void testSaveAuthor() {
 		Author author = author();
-		Author auth1 = new Author();
+		Author auth1 = author;
+		auth1.setPassword(encoder.encode(author.getPassword()));
+		when(authorRepository.findByMailId(author.getMailId())).thenReturn(null);
 		when(encoder.encode(author.getPassword())).thenReturn("password");
-		when(service.saveAuthor(author)).thenReturn(author);
-		ResponseEntity<?> response = control.saveAuthor(author);
-		assertEquals(ResponseEntity.ok(author), response);
+		assertEquals(ResponseEntity.ok(auth1), control.saveAuthor(author));
+	}
+
+	@Test
+	void testSaveAuthorFail() {
+		Author author = author();
+		when(authorRepository.findByMailId(author.getMailId())).thenReturn(author);
+		assertEquals(ResponseEntity.internalServerError(), control.saveAuthor(author));
 	}
 }

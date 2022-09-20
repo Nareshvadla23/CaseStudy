@@ -31,7 +31,6 @@ public class BookService {
 	}
 
 	public Book updateBook(RequestDto requestDto, Integer bookId) {
-
 		Optional<Book> optionalBook = bookRepository.findById(bookId);
 		Book book = optionalBook.get();
 		String image = requestDto.getImage();
@@ -44,18 +43,16 @@ public class BookService {
 		book.setPublisher(requestDto.getPublisher());
 		book.setTitle(requestDto.getTitle());
 		book.setStatus(requestDto.getStatus());
-
 		Book savedBook = bookRepository.save(book);
 		return savedBook;
 	}
 
 	public Author loginAuthor(LoginDto login) {
 		Author author = authorRepository.findByMailId(login.getMailId());
-
 		return author;
 	}
 
-	public Integer savebook(RequestDto requestDto) { 
+	public Integer savebook(RequestDto requestDto) {
 		Book book = new Book();
 		String image = requestDto.getImage();
 		String[] images = image.split("I");

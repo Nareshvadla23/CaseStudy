@@ -33,8 +33,9 @@ export class BookListComponent implements OnInit {
       this.rbooks = rbooksFromServer;
     });
   }
-  Buy() {
-    
+  Buy(rbook:any) {
+
+    localStorage.setItem('title',rbook.title);
     this.router.navigate(['/buybook']);
   }
 

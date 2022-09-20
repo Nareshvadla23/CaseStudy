@@ -7,15 +7,16 @@ import { Buybook } from './buybook';
 import { Book } from './book';
 const URL = "http://localhost:8084/digitalbooks/"
 const getURL = "https://4fgesl7lk3.execute-api.us-west-2.amazonaws.com/prod"
+
 @Injectable({
   providedIn: 'root'
 })
 export class BookserviceService {
   save(book: any) {
-    return this.http.post(URL + "book", book);
+    return this.http.post(getURL, book);
   }
   getbooks() {
-    return this.http.get(URL+"books/all")
+    return this.http.get(getURL)
   }
   constructor(public http: HttpClient) { }
 

@@ -10,7 +10,6 @@ import com.bookservice.AuthorRepository;
 import com.bookservice.BookRepository;
 import com.bookservice.dto.Category;
 import com.bookservice.dto.ResponseDto;
-import com.bookservice.dto.Status;
 import com.bookservice.entity.Author;
 import com.bookservice.entity.Book;
 
@@ -19,7 +18,7 @@ public class ReaderService {
 
 	@Autowired
 	private BookRepository bookRepository;
-	
+
 	@Autowired
 	private AuthorRepository authorRepository;
 
@@ -38,7 +37,7 @@ public class ReaderService {
 			responseBooks.add(responseBook);
 		}
 
-		return responseBooks; 
+		return responseBooks;
 	}
 
 	public List<ResponseDto> getAllBooks() {
@@ -51,13 +50,10 @@ public class ReaderService {
 		List<Book> books = bookRepository.findByPrice(price);
 		List<ResponseDto> responseBooks = ResponseBooks(books);
 		return responseBooks;
-
 	}
 
 	public List<ResponseDto> getBookByAuthor(String name) {
-		
 		Author author = authorRepository.findByName(name);
-		
 		List<Book> books = bookRepository.findByAuthor(author);
 		List<ResponseDto> responseBooks = ResponseBooks(books);
 		return responseBooks;

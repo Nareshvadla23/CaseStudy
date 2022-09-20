@@ -28,6 +28,7 @@ public class Book {
 	@GeneratedValue
 	private Integer id;
 
+	@NotBlank(message = "Image should not be blank")
 	private String image;
 	@NotBlank(message = "title should not be blank")
 	private String title;

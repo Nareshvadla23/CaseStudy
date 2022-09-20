@@ -8,7 +8,7 @@ import lombok.Setter;
 @Setter
 @Getter
 public class PaymentDto {
-	
+
 	private String title;
 	private String name;
 	private String mailId;
