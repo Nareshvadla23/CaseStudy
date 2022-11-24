@@ -48,8 +48,7 @@ public class BookService {
 	}
 
 	public Author loginAuthor(LoginDto login) {
-		Author author = authorRepository.findByMailId(login.getMailId());
-		return author;
+		return authorRepository.findByMailId(login.getMailId());
 	}
 
 	public Integer savebook(RequestDto requestDto) {
@@ -74,19 +73,17 @@ public class BookService {
 		Optional<Author> author = authorRepository.findById(authorId);
 		List<Book> books = bookRepository.findByAuthor(author.get());
 		List<ResponseDto> responseBooks = new ArrayList<>();
-		for (Book book : books) {
-			if (book.getStatus().equals(Status.ACTIVE)) {
-				ResponseDto responseBook = new ResponseDto();
-				responseBook.setCategory(book.getCategory());
-				responseBook.setPrice(book.getPrice());
-				responseBook.setPublishedDate(book.getPublishedDate());
-				responseBook.setPublisher(book.getPublisher());
-				responseBook.setTitle(book.getTitle());
-				responseBook.setAuthor(book.getAuthor().getName());
-				responseBook.setImage(book.getImage());
-				responseBooks.add(responseBook);
-			}
-		}
+		books.stream().filter((book) -> (book.getStatus().equals(Status.ACTIVE))).forEach((book) -> {
+			ResponseDto responseBook = new ResponseDto();
+			responseBook.setCategory(book.getCategory());
+			responseBook.setPrice(book.getPrice());
+			responseBook.setPublishedDate(book.getPublishedDate());
+			responseBook.setPublisher(book.getPublisher());
+			responseBook.setTitle(book.getTitle());
+			responseBook.setAuthor(book.getAuthor().getName());
+			responseBook.setImage(book.getImage());
+			responseBooks.add(responseBook);
+		});
 		return responseBooks;
 	}
 

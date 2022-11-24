@@ -26,14 +26,12 @@ public class BookController {
 
 	@PostMapping("/book")
 	public Integer createBook(@RequestBody RequestDto book) {
-		Integer id = bookService.savebook(book);
-		return id;
+		return bookService.savebook(book);
 	}
 
 	@PutMapping("/book/{bookId}")
 	public Book updateBook(@RequestBody RequestDto requestDto, @PathVariable Integer bookId) {
-		Book book = bookService.updateBook(requestDto, bookId);
-		return book;
+		return bookService.updateBook(requestDto, bookId);
 	}
 
 	@GetMapping("/ByAuthorId/{authorId}")
