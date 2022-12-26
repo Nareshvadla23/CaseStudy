@@ -12,10 +12,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.question.Dto.QuestionUserDto;
+import com.question.Dto.UserDto;
 import com.question.entity.Question;
 import com.question.entity.User;
 import com.question.repo.QuestionRepo;
 import com.question.repo.UserRepo;
+
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 
 @RestController
 @RequestMapping("/QU")
@@ -31,8 +36,6 @@ public class QuestionController {
 	public User registerUser(@RequestBody User user) {
 		return urepo.save(user);
 	}
-	
-	
 
 	@PostMapping("/question")
 	public Question addQuestion(@RequestBody QuestionUserDto question) {
@@ -46,6 +49,16 @@ public class QuestionController {
 		return qrepo.save(q1);
 	}
 
+	@GetMapping("/byuserId/{id}")
+	public UserDto getAllQuestionsByUserID(@PathVariable Integer id) {
+		User user = urepo.findById(id).get();
+		List<Question> list = qrepo.findByUser(user);
+		UserDto dto = new UserDto();
+		dto.setQuestions(list);
+		dto.setUserName(user.getFirstName());
+		return dto;
+	}
+
 	@GetMapping("/questions")
 	public List<Question> getQuestions() {
 		return qrepo.findAll();
@@ -57,6 +70,8 @@ public class QuestionController {
 	}
 
 	@GetMapping("/question/id/{id}")
+	@Operation( summary = "Retriving questions based on Question Id")
+	@ApiResponses(value= {@ApiResponse(responseCode = "200",description ="data retrived successfully")})
 	public Question getQuestionById(@PathVariable Integer id) {
 		return qrepo.findById(id).get();
 	}

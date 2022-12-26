@@ -16,9 +16,6 @@ public class TestingInterface implements TestInterface {
 		System.out.println(test.getMessage());
 		test.getMessage1();
 		TestInterface.getMessage2();
-		
-		
-		
 	}
 
 }

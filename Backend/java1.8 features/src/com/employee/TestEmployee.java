@@ -3,9 +3,11 @@ package com.employee;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -44,7 +46,7 @@ public class TestEmployee {
 		Optional<Employee> sorted3 = list.stream().max(Comparator.comparingInt(Employee::getAge));
 
 		if (sorted3.isPresent()) {
-			System.out.println(sorted3.get()+"---Max");
+			System.out.println(sorted3.get() + "---Max");
 		}
 
 		List<Employee> sorted = list.stream().sorted(Comparator.comparingInt(Employee::getAge).reversed())
@@ -114,6 +116,11 @@ public class TestEmployee {
 		flat.add(Arrays.asList(7, 8));
 
 		flat.stream().flatMap(e -> e.stream()).forEach(s -> System.out.print(s));
+
+		System.out.println("---------------------------------  ---");
+		Set<Integer> item = new HashSet<>();
+
+		Arrays.stream(arr1).filter(a -> !item.add(a)).forEach(System.out::println);
 
 		System.out.println();
 	}
